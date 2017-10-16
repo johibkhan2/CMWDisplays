@@ -1,4 +1,4 @@
-# got to client folder and install the dependencies
+# go to CMWDisplays folder and install the dependencies
 npm install
 
 #Please run below commond to install webpack dev server if npm install does not install it
