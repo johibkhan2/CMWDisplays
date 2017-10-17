@@ -3,7 +3,7 @@ import Header from '../../shared/Header';
 import './home.css'
 
 
-class HomeComponent extends Component{
+class DisplayControllerComponent extends Component{
 
   constructor() {
     super();
@@ -24,4 +24,4 @@ class HomeComponent extends Component{
 
 
 
-export default HomeComponent;
+export default DisplayControllerComponent;
