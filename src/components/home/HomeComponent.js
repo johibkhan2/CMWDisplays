@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import Header from '../shared/Header';
+import Header from '../../shared/Header';
+import './home.css'
 
 
-class AppComponent extends Component{
+class HomeComponent extends Component{
 
   constructor() {
     super();
@@ -24,4 +25,4 @@ class AppComponent extends Component{
 
 
 
-export default AppComponent;
+export default HomeComponent;
