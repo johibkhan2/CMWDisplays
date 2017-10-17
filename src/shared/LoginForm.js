@@ -30,6 +30,20 @@ class LoginForm extends React.Component {
         return (
             <div className="ibox-content">
                 <form className="form-horizontal">
+
+                    <div className="form-group">
+                        <label className="col-lg-2 control-label"></label>
+                        <div className="col-lg-10">
+
+                            <input type="radio" name="dealer"/>
+                            <span>Corporate User&nbsp;&nbsp;&nbsp;
+                            </span>
+                            <input type="radio" name="dealer"/>
+                            <span>Dealer User
+                            </span>
+                        </div>
+                    </div>
+
                     <div className="form-group">
                         <label className="col-lg-2 control-label">UserName:</label>
                         <div className="col-lg-10">
@@ -41,29 +55,20 @@ class LoginForm extends React.Component {
                         </div>
                     </div>
 
-                                        <div className="form-group">
+                    <div className="form-group">
                         <label className="col-lg-2 control-label">Dealer Id:</label>
                         <div className="col-lg-10">
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={this.state.value}
-                                />
+                            <input type="text" className="form-control" value={this.state.value}/>
                         </div>
                     </div>
 
-
-                                                            <div className="form-group">
+                    <div className="form-group">
                         <label className="col-lg-2 control-label">Password:</label>
                         <div className="col-lg-10">
-                            <input
-                                type="password"
-                                className="form-control"
-                                value=''
-                                />
+                            <input type="password" className="form-control" value=''/>
                         </div>
                     </div>
-                    
+
                 </form>
             </div>
         );
