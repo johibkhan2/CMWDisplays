@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Header from '../../shared/Header';
 import './home.css'
 
 
-class HomeComponent extends Component{
+class HomeComponent extends Component {
 
   constructor() {
     super();
@@ -12,11 +12,28 @@ class HomeComponent extends Component{
   }
 
 
-  render () {
+  render() {
 
     return (
       <div className='main'>
         <Header />
+        <div className="display">
+
+          <div className="hm">
+            <hr className="line" />
+
+            <div className="img-margin">
+              <img className="cmw-img" src="/dist/images/earth.jpg" />
+            </div>
+
+            <div className="txt-margin">
+              <span className="cmw-txt">CMW Display</span>
+            </div>
+
+            <hr className="line" />
+          </div>
+
+        </div>
       </div>
     );
   }
