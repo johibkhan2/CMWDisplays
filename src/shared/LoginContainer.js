@@ -26,7 +26,7 @@ class LoginContainer extends Component {
 
     const isLoggedIn = this.state.isLoggedIn;
     let loginForm = null;
-    if(isLoggedIn){
+    if(!isLoggedIn){
       Popup.plugins().prompt('', 'Type your name', function (value) {
     //  Popup.alert('You typed: ' + value);
       });
