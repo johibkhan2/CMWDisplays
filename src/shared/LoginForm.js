@@ -30,7 +30,7 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div className="ibox-content">
+            <div className="lgn ibox-content">
                 <form className="form-horizontal">
 
                     <div className="form-group">
@@ -38,16 +38,16 @@ class LoginForm extends React.Component {
                         <div className="col-lg-10">
 
                             <input type="radio" name="dealer"/>
-                            <span>Corporate User&nbsp;&nbsp;&nbsp;
+                            <span className="txt-clr"> Corporate User&nbsp;&nbsp;&nbsp;
                             </span>
                             <input type="radio" name="dealer"/>
-                            <span>Dealer User
+                            <span className="txt-clr"> Dealer User
                             </span>
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label className="col-lg-2 control-label">UserName:</label>
+                        <label className="txt-clr col-lg-2 control-label">UserName:</label>
                         <div className="col-lg-10">
                             <input
                                 type="text"
@@ -58,14 +58,14 @@ class LoginForm extends React.Component {
                     </div>
 
                     <div className="form-group">
-                        <label className="col-lg-2 control-label">Dealer Id:</label>
+                        <label className="txt-clr col-lg-2 control-label">Dealer&nbsp;Id:</label>
                         <div className="col-lg-10">
                             <input type="text" className="form-control" value={this.state.value}/>
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label className="col-lg-2 control-label">Password:</label>
+                        <label className="txt-clr col-lg-2 control-label">Password:</label>
                         <div className="col-lg-10">
                             <input type="password" className="form-control" value=''/>
                         </div>

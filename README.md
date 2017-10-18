@@ -4,6 +4,9 @@ npm install
 #Please run below commond to install webpack dev server if npm install does not install it
 npm install --save webpack-dev-server
 
+#if u are getting an error regarding prop-types,then execute below command
+npm install --save prop-types
+
 #start the webpack dev server it is running on 8080 port
 
 npm start

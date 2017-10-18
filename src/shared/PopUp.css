@@ -71,9 +71,10 @@
     }
 
     .mm-popup__btn--success {
-        background-color: #27ae60;
-        border-color: #27ae60;
-        color: #fff;
+        /* background-color: #27ae60; */
+        background-color: #e0e0e0;;
+        border-color: #e0e0e0;;
+        color: black;
     }
 
     .mm-popup__btn--danger {
@@ -90,15 +91,15 @@
         margin-left: -175px;
         background: #fff;
         box-shadow: 0px 5px 20px 0px rgba(126,137,140,0.20);
-        border-radius: 5px;
-        border: 1px solid #B8C8CC;
+        border-radius: 1px;
+        border: 14px solid #e0e0e0;
         overflow: hidden;
         z-index: 100;
     }
 
         .mm-popup__box__header {
             padding: 15px 20px;
-            background: #EDF5F7;
+            background: #e0e0e0;
             color: #454B4D;
         }
 
@@ -107,6 +108,8 @@
                 font-size: 16px;
                 text-align: left;
                 font-weight: 600;
+                color: black;
+                font-weight: 700;
             }
 
         .mm-popup__box__body {
