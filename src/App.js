@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Popup from 'react-popup';
-import LoginForm from './shared/LoginForm'
+import PopupLogin from 'react-popup';
+import LoginForm from './shared/LoginForm';
+import Header from './shared/Header';
 
 class App extends Component {
 
@@ -23,38 +24,10 @@ class App extends Component {
         response => {
           
           this.setState({isLoggedIn: response.data.isLoggedIn});
-          const isLoggedIn = this.state.isLoggedIn;
           if(!this.state.isLoggedIn){
-            Popup.plugins().prompt('', '', function (value) {
-          //  Popup.alert('You typed: ' + value);
-            });
-          }  
-        });
-  }
+            /** Call the plugin */
 
-  render() {
-    return (
-      <div>
-      <div>
-        <main>
-          {this.props.children}
-        </main>
-      </div>
-      <div>
-        <Popup/>
-      </div>
-      </div>
-    );
-  }
-}
-
-
-
-
-
-/** Call the plugin */
-
-Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+PopupLogin.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
     let promptValue = null;
     let promptChange = function (value) {
         promptValue = value;
@@ -70,12 +43,44 @@ Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
                 className: 'success',
                 action: function () {
                     callback(promptValue);
-                    Popup.close();
+                    PopupLogin.close();
                 }
             }]
         }
     });
 });
+
+
+
+            PopupLogin.plugins().prompt('', '', function (value) {
+          //  Popup.alert('You typed: ' + value);
+            });
+          }  
+        });
+  }
+
+  render() {
+    return (
+      <div>
+      <Header/>
+      <div>
+        <main>
+          {this.props.children}
+        </main>
+      </div>
+      <div>
+        <PopupLogin/>
+      </div>
+      </div>
+    );
+  }
+}
+
+
+
+
+
+
 
 
 export default App;

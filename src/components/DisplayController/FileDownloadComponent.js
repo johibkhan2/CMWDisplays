@@ -202,8 +202,8 @@ Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
         promptValue = value;
     };
 
-    this.create({
-        title: 'LogIn',
+    Popup.create({
+        title: 'Download Configuration',
         content: <DownloadConfiguration onChange={promptChange} placeholder={placeholder} value={defaultValue} />,
         buttons: {
             left: ['cancel'],

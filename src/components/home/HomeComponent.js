@@ -16,9 +16,7 @@ class HomeComponent extends Component {
 
     return (
       <div className='main'>
-        <Header />
         <div className="display">
-
           <div className="hm">
             <hr className="line" />
 

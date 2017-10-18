@@ -19,7 +19,6 @@ class DisplayControllerComponent extends Component {
 
     return (
       <div className='main'>
-        <Header />
           <div className="file-dwnld display">
             <span className="file-dwnld-txt">Display Controller File Download</span>
           </div>

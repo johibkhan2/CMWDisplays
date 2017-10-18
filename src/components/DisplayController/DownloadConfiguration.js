@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Popup from 'react-popup';
 import '../../shared/PopUp.css';
 import './DownloadConfiguration.css';
 
