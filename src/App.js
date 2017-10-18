@@ -20,67 +20,64 @@ class App extends Component {
   openLoginPop() {
     axios
       .get('http://localhost:3001/0')
-      .then(
-        response => {
-          
-          this.setState({isLoggedIn: response.data.isLoggedIn});
-          if(!this.state.isLoggedIn){
-            /** Call the plugin */
+      .then(response => {
 
-PopupLogin.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
-    let promptValue = null;
-    let promptChange = function (value) {
-        promptValue = value;
-    };
+        this.setState({isLoggedIn: response.data.isLoggedIn});
+        if (!this.state.isLoggedIn) {
+          /** Call the plugin */
 
-    this.create({
-        title: 'LogIn',
-        content: <LoginForm onChange={promptChange} placeholder={placeholder} value={defaultValue} />,
-        buttons: {
-            left: ['cancel'],
-            right: [{
-                text: 'Save',
-                className: 'success',
-                action: function () {
-                    callback(promptValue);
-                    PopupLogin.close();
+          PopupLogin
+            .registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+              let promptValue = null;
+              let promptChange = function (value) {
+                promptValue = value;
+              };
+
+              this.create({
+                title: 'LogIn', content: <LoginForm
+                  onChange={promptChange}
+                  placeholder={placeholder}
+                  value={defaultValue}/>,
+                buttons: {
+                  left: ['cancel'],
+                  right: [
+                    {
+                      text: 'Save',
+                      className: 'success',
+                      action: function () {
+                        callback(promptValue);
+                        PopupLogin.close();
+                      }
+                    }
+                  ]
                 }
-            }]
-        }
-    });
-});
-
-
-
-            PopupLogin.plugins().prompt('', '', function (value) {
-          //  Popup.alert('You typed: ' + value);
+              });
             });
-          }  
-        });
+
+          PopupLogin
+            .plugins()
+            .prompt('', '', function (value) {
+              //  Popup.alert('You typed: ' + value);
+            });
+        }
+      });
   }
 
   render() {
     return (
       <div>
-      <Header/>
-      <div>
-        <main>
-          {this.props.children}
-        </main>
-      </div>
-      <div>
-        <PopupLogin/>
-      </div>
+        <Header/>
+        <div>
+          <main>
+            {this.props.children}
+          </main>
+        </div>
+        <div>
+          <PopupLogin/>
+        </div>
       </div>
     );
   }
 }
-
-
-
-
-
-
-
 
 export default App;
