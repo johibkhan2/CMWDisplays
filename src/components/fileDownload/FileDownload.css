@@ -1,3 +1,26 @@
 body {
-    background-color:#e6e6df;
+    background-color: #e6e6df;
+}
+
+.common {
+    border: 1px solid #333333;
+    padding: 7px;
+    background-color: #D3D3D3;
+}
+
+.supportFileSelect {
+    margin-top: 17vh;
+    width: 50%;
+}
+
+.specificControllerSelect {
+    margin-top: 4vh;
+    margin-right: 2vw;
+    width: 29%;
+    display: inline;
+}
+
+.globalType {
+    margin-top: 4vh;
+    width: 29%;
 }
