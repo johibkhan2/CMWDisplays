@@ -37,11 +37,6 @@ class FileDownloadComponent extends Component {
 
           PopupProgress
             .registerPlugin('prompt', function (defaultValue, placeholder, callback) {
-              let promptValue = null;
-              let promptChange = function (value) {
-                promptValue = value;
-              };
-
               this.create({
                 title: 'Download', content: <ProgressBar/>,
                 buttons: {
@@ -51,7 +46,7 @@ class FileDownloadComponent extends Component {
                       text: 'cancel',
                       className: 'success',
                       action: function () {
-                        callback(promptValue);
+                        callback();
                         PopupProgress.close();
                       }
                     }
