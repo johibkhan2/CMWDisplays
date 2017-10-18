@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Header from '../../shared/Header';
-import './home.css';
+import './DisplayControllerComponent.css';
+import FileDownloadComponent from '../DisplayController/FileDownloadComponent';
+
 
 
 
@@ -18,15 +20,14 @@ class DisplayControllerComponent extends Component {
     return (
       <div className='main'>
         <Header />
-        <div className="display">
-          <div className="file-dwnld">
+          <div className="file-dwnld display">
             <span className="file-dwnld-txt">Display Controller File Download</span>
           </div>
           <div className="orange-brdr">
           </div>
-          <div className="blank-div">
+          <div>
+          <FileDownloadComponent/>
           </div>
-        </div>
       </div>
     );
   }

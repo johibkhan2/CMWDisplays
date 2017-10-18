@@ -2,17 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import HomeComponent from './components/home/HomeComponent';
-import DisplayControllerComponent from './components/home/DisplayControllerComponent';
-import LoginContainer from './shared/LoginContainer';
-import FileDownloadComponent from './components/fileDownload/FileDownloadComponent';
+import DisplayControllerComponent from './components/DisplayController/DisplayControllerComponent';
+import App from './App';
 
 
 ReactDOM.render(
     <Router history={browserHistory}>
-    <Route component={LoginContainer}>
+    <Route component={App}>
       <Route path="/" component={HomeComponent}/>
-      <Route path="/display" component={DisplayControllerComponent}/>
-      <Route path="/fileDownload" component={FileDownloadComponent}/>
+      <Route path="/displayController" component={DisplayControllerComponent}/>
      </Route> 
     </Router>
   , document.querySelector('.container'));

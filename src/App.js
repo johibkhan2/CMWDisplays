@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Popup from 'react-popup';
-import LoginForm from './LoginForm'
+import LoginForm from './shared/LoginForm'
 
-class LoginContainer extends Component {
+class App extends Component {
 
   constructor() {
     super();
@@ -78,4 +78,4 @@ Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
 });
 
 
-export default LoginContainer;
+export default App;
