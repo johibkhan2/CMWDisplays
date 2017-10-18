@@ -52,7 +52,7 @@ class FileDownloadComponent extends Component {
                       className: 'success',
                       action: function () {
                         callback(promptValue);
-                        PopupLogin.close();
+                        PopupProgress.close();
                       }
                     }
                   ]
@@ -62,7 +62,7 @@ class FileDownloadComponent extends Component {
 
           PopupProgress
             .plugins()
-            .prompt('', '', function (value) {
+            .prompt('', '', function () {
               //  Popup.alert('You typed: ' + value);
             });
 
@@ -228,6 +228,7 @@ class FileDownloadComponent extends Component {
                         </BootstrapTable>
                     </div>
                     <Popup/>
+                    <PopupProgress/>
                 </div>
             </div>
         );
