@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Popup from 'react-popup';
 import './PopUp.css';
+import './LoginForm.css';
+
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
