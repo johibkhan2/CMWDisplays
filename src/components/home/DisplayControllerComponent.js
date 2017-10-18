@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../../shared/Header';
-import './home.css'
+import './home.css';
+
 
 
 class DisplayControllerComponent extends Component {

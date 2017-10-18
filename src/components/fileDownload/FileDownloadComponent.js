@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './FileDownload.css';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import axios from 'axios';
+import DownloadConfiguration from './DownloadConfiguration';
+import Popup from 'react-popup';
 
 class FileDownloadComponent extends Component {
 
@@ -25,6 +27,9 @@ class FileDownloadComponent extends Component {
 
     downLoadConfirm(id){
         console.log('ddd'+id);
+        Popup.plugins().prompt('', '', function (value) {
+          //  Popup.alert('You typed: ' + value);
+        });
     }
 
 
@@ -182,10 +187,36 @@ class FileDownloadComponent extends Component {
                             <TableHeaderColumn width='100' dataField='lastUpdatedBy'>Last Updated By</TableHeaderColumn>
                         </BootstrapTable>
                     </div>
+                    <Popup/>
                 </div>
             </div>
         );
     }
 }
+
+/** Call the plugin */
+
+Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+    let promptValue = null;
+    let promptChange = function (value) {
+        promptValue = value;
+    };
+
+    this.create({
+        title: 'LogIn',
+        content: <DownloadConfiguration onChange={promptChange} placeholder={placeholder} value={defaultValue} />,
+        buttons: {
+            left: ['cancel'],
+            right: [{
+                text: 'Save',
+                className: 'success',
+                action: function () {
+                    callback(promptValue);
+                    Popup.close();
+                }
+            }]
+        }
+    });
+});
 
 export default FileDownloadComponent;

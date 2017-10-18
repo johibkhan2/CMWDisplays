@@ -1,4 +1,8 @@
-body {
+.row {
+    margin-right: 0;
+     margin-left: 0;
+}
+.wrapper-content {
     background-color: #e6e6df;
 }
 

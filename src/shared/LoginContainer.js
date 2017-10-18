@@ -19,19 +19,20 @@ class LoginContainer extends Component {
   openLoginPop() {
     axios
       .get('http://localhost:3001/0')
-      .then(response => this.setState({isLoggedIn: response.data.isLoggedIn}));
+      .then(
+        response => {
+          
+          this.setState({isLoggedIn: response.data.isLoggedIn});
+          const isLoggedIn = this.state.isLoggedIn;
+          if(!this.state.isLoggedIn){
+            Popup.plugins().prompt('', '', function (value) {
+          //  Popup.alert('You typed: ' + value);
+            });
+          }  
+        });
   }
 
   render() {
-
-    const isLoggedIn = this.state.isLoggedIn;
-    let loginForm = null;
-    if(!isLoggedIn){
-      Popup.plugins().prompt('', 'Type your name', function (value) {
-    //  Popup.alert('You typed: ' + value);
-      });
-    }
-
     return (
       <div>
       <div>

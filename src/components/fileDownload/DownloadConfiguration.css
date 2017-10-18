@@ -1,0 +1,38 @@
+.mm-popup__box__footer {
+    background-color: #e0e0e0;
+}
+
+.mm-popup__btn--cancel {
+    background-color: #e0e0e0;;
+    border-color: #9E9E9E;
+    color: black;
+}
+
+.mm-popup__btn--success {
+    background-color: #e0e0e0;
+    border-color: black;
+    color: black;
+}
+
+.row1 {
+    border: 1px solid #9e9e9e;
+    border-radius: 1px;
+    background-color: #9e9e9e;
+}
+
+.row1-txt {
+    color: white;
+}
+
+.row2 {
+    background-image: linear-gradient(0deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 0%, rgba(255, 255, 255, 0.55) 51%);
+    border-radius: 1px;
+    background-color: #f47c56;
+    margin-top: 1vw;
+}
+
+.kit {
+    background-image: linear-gradient(0deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 0%, rgba(255, 255, 255, 0.55) 51%);
+    background-color: #f47c56;
+    padding: 7px;
+}
