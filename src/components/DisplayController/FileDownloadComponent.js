@@ -4,6 +4,9 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import axios from 'axios';
 import DownloadConfiguration from './DownloadConfiguration';
 import Popup from 'react-popup';
+import { Circle } from 'rc-progress';
+import ProgressBar from '../../shared/ProgressBar';
+import PopupProgress from 'react-popup';
 
 class FileDownloadComponent extends Component {
 
@@ -28,7 +31,44 @@ class FileDownloadComponent extends Component {
     downLoadConfirm(id){
         console.log('ddd'+id);
         Popup.plugins().prompt('', '', function (value) {
-          //  Popup.alert('You typed: ' + value);
+
+
+          /** Call the plugin */
+
+          PopupProgress
+            .registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+              let promptValue = null;
+              let promptChange = function (value) {
+                promptValue = value;
+              };
+
+              this.create({
+                title: 'Download', content: <ProgressBar/>,
+                buttons: {
+                  left: [''],
+                  right: [
+                    {
+                      text: 'cancel',
+                      className: 'success',
+                      action: function () {
+                        callback(promptValue);
+                        PopupLogin.close();
+                      }
+                    }
+                  ]
+                }
+              });
+            });
+
+          PopupProgress
+            .plugins()
+            .prompt('', '', function (value) {
+              //  Popup.alert('You typed: ' + value);
+            });
+
+
+
+
         });
     }
 
