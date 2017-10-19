@@ -15,15 +15,56 @@ class FileDownloadComponent extends Component {
         this.state = {
             files: [],
             fileTypes:[],
-            controllerTypes:[]
+            controllerTypes:[],
+            groups:[],
+            controllerGroups:[],
+            controllers:[]
         };
-     this.downLoadConfirm = this.downLoadConfirm.bind(this);   
+     this.downLoadConfirm = this.downLoadConfirm.bind(this);
+     this.changeGroupTypes=this.changeGroupTypes.bind(this); 
+     this.changeControllers=this.changeControllers.bind(this);   
+    }
+
+
+    changeGroupTypes(event){
+         console.log("val1"+event.target.value);
+        let selectedVal=event.target.value; 
+        let groups=this.state.groups;
+         for(let i in groups){
+            if(groups[i].ID==selectedVal){
+                this.setState({controllerGroups:groups[i].theControllerGroups });
+                break;
+            }
+
+         }
+    }
+
+    changeGroups(event){
+        console.log("val2"+event.target.value);
+        let selectedVal=event.target.value; 
+        let controllerGroups=this.state.controllerGroups;
+        for(let i in controllerGroups){
+                if(controllerGroups[i].ID==selectedVal){
+                    this.setState({controllers:controllerGroups[i].theControllers });
+                    break;
+                }
+
+        }
+    }
+
+    changeControllers(event){
+          console.log("val3"+event.target.value);
     }
 
     componentDidMount() {
         this.getFiles();
         this.getFileTypes();
         this.getControllerTypes();
+        this.getGroups();
+    }
+
+    getGroups(){
+        axios.get('http://localhost:8080/data/groups.json').then(response => this.setState({groups: response.data}));
     }
 
     getFiles() {
@@ -152,40 +193,35 @@ class FileDownloadComponent extends Component {
 
                         </div>
                         <div>
-                            <select className="form-control specificControllerSelect">
-                                <option>
-                                    support1
+                            <select onChange={this.changeGroupTypes} className="form-control specificControllerSelect">
+                            {this.state.groups.map(grp => {
+                            return (
+                                <option value={grp.ID}>
+                                {grp.Name}
                                 </option>
-                                <option>
-                                    support2
-                                </option>
-                                <option>
-                                    support3
-                                </option>
+                                );
+                            })}
                             </select>
 
-                            <select className="form-control specificControllerSelect">
-                                <option>
-                                    support1
+                            <select onChange={this.changeGroups.bind(this)} className="form-control specificControllerSelect">
+       
+                            {this.state.controllerGroups.map(controllerGroup => {
+                            return (
+                                <option value={controllerGroup.ID}>
+                                {controllerGroup.Name}
                                 </option>
-                                <option>
-                                    support2
-                                </option>
-                                <option>
-                                    support3
-                                </option>
+                                );
+                            })}
                             </select>
 
-                            <select className="form-control specificControllerSelect">
-                                <option>
-                                    support1
+                            <select onChange={this.changeControllers} className="form-control specificControllerSelect">
+                            {this.state.controllers.map(controller => {
+                            return (
+                                <option value={controller.ID}>
+                                {controller.Name}
                                 </option>
-                                <option>
-                                    support2
-                                </option>
-                                <option>
-                                    support3
-                                </option>
+                                );
+                            })}
                             </select>
                         </div>
                         <br/>

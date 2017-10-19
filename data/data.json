@@ -28,12 +28,12 @@
 
     {
         "fileTypes": [
-            
+
             {
                 "DispValue": "All",
                 "CodeValue": "  "
             },
-            
+
             {
                 "DispValue": "Boot Code",
                 "CodeValue": "BC"
@@ -64,34 +64,30 @@
 
     {
 
-   "controllerTypes": [
-  {
-    "ID": 1,
-    "Name": "sample string 1",
-    "Description": "sample string 3",
-    "Flag": 4,
-    "DispOrder": 5,
-    "LastUpdate": "2017-10-18T20:17:44.8121984+07:00",
-    "LastUpdatedByName": "sample string 7",
-    "CreateDate": "2017-10-18T20:17:44.8121984+07:00",
-    "CreatedByName": "sample string 9"
-  },
-  {
-    "ID": 2,
-    "Name": "sample string 2",
-    "Description": "sample string 3",
-    "Flag": 4,
-    "DispOrder": 5,
-    "LastUpdate": "2017-10-18T20:17:44.8121984+07:00",
-    "LastUpdatedByName": "sample string 7",
-    "CreateDate": "2017-10-18T20:17:44.8121984+07:00",
-    "CreatedByName": "sample string 9"
-  }
-]
+        "controllerTypes": [{
+                "ID": 1,
+                "Name": "sample string 1",
+                "Description": "sample string 3",
+                "Flag": 4,
+                "DispOrder": 5,
+                "LastUpdate": "2017-10-18T20:17:44.8121984+07:00",
+                "LastUpdatedByName": "sample string 7",
+                "CreateDate": "2017-10-18T20:17:44.8121984+07:00",
+                "CreatedByName": "sample string 9"
+            },
+            {
+                "ID": 2,
+                "Name": "sample string 2",
+                "Description": "sample string 3",
+                "Flag": 4,
+                "DispOrder": 5,
+                "LastUpdate": "2017-10-18T20:17:44.8121984+07:00",
+                "LastUpdatedByName": "sample string 7",
+                "CreateDate": "2017-10-18T20:17:44.8121984+07:00",
+                "CreatedByName": "sample string 9"
+            }
+        ]
 
     }
-
-
-
 
 ]
