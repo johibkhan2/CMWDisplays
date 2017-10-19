@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../shared/PopUp.css';
 import './DownloadConfiguration.css';
 
 class DownloadConfiguration extends React.Component {

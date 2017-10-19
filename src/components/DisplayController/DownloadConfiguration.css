@@ -1,14 +1,14 @@
-.mm-popup__box__footer {
+footer.mm-popup__box__footer {
     background-color: #e0e0e0;
 }
 
-.mm-popup__btn--cancel {
+button.mm-popup__btn--cancel {
     background-color: #e0e0e0;;
-    border-color: #9E9E9E;
+    border-color:black;
     color: black;
 }
 
-.mm-popup__btn--success {
+button.mm-popup__btn--success {
     background-color: #e0e0e0;
     border-color: black;
     color: black;

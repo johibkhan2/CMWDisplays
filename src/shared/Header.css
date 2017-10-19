@@ -1,40 +1,32 @@
-/* Header */
 
-.main-header {
-    /* height: 12vh; */
+li {
+    display: inline;
 }
 
-.mn-hd {
-   /* margin-top: 1vh;
-   sposition: fixed;
-    top: 0; */
-}
-
-.head {
-    /* margin-left: -3vw; */
-}
 .cmw-btn {
-    background-image: linear-gradient(0deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 0%, rgba(255, 255, 255, 0.55) 51%);
+    background-image: linear-gradient(0deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 5%, rgba(255, 255, 255, 0.55) 51%);
     border-radius: 7px;
     background-color: black;
     padding: 1.5vw;
     margin-left: 2px;
 }
 
-.btn-wd {
-    width: 21vw;
+.hd-ul {
+    margin-top: 1vw;
+}
+.a-txt {
+    font-size: 2vw;
+    color: #ddd;
+    padding: 2vw;
 }
 
-.btn-wd-dc {
-    width: 41vw;
-}
-.btn-text {
-	font-size: 2vw;
-	color: #ddd;
+.txt {
+    padding: 2vw;
 }
 
 .icn-fn-sz {
     font-size: 3vw;
+    margin-left: 2vw;
 }
 .btn-hm-icn {
 	color: #ff1800;	
