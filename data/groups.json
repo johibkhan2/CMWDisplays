@@ -1,21 +1,21 @@
 [{
         "ID": 1,
-        "Name": "sample string 1",
+        "Name": "sample groupType 1",
         "theControllerGroups": [{
                 "ID": 1,
                 "Name": "sample string 2",
-                "DisplayName": "sample string 3",
+                "DisplayName": "sample theControllerGroups 3",
                 "Version": "sample string 4",
                 "theControllers": [{
                         "ID": 1,
-                        "Name": "sample string 2",
+                        "Name": "sample theControllers 3",
                         "DisplayName": "sample string 3",
                         "Version": 4,
                         "CtrFlag": 5
                     },
                     {
                         "ID": 2,
-                        "Name": "sample string 2",
+                        "Name": "sample theControllers 2",
                         "DisplayName": "sample string 3",
                         "Version": 4,
                         "CtrFlag": 5
@@ -24,12 +24,12 @@
             },
             {
                 "ID": 2,
-                "Name": "sample string 2",
+                "Name": "sample theControllerGroups 2",
                 "DisplayName": "sample string 3",
                 "Version": "sample string 4",
                 "theControllers": [{
                         "ID": 1,
-                        "Name": "sample string 2",
+                        "Name": "sample theControllers 2",
                         "DisplayName": "sample string 3",
                         "Version": 4,
                         "CtrFlag": 5
@@ -37,7 +37,7 @@
                     {
                         "ID": 2,
                         "Name": "sample string 2",
-                        "DisplayName": "sample string 3",
+                        "DisplayName": "sample theControllers 4",
                         "Version": 4,
                         "CtrFlag": 5
                     }
@@ -47,22 +47,22 @@
     },
     {
         "ID": 2,
-        "Name": "sample string 2",
+        "Name": "sample groupType 2",
         "theControllerGroups": [{
                 "ID": 1,
-                "Name": "sample string 2",
+                "Name": "sample theControllerGroups 1",
                 "DisplayName": "sample string 3",
                 "Version": "sample string 4",
                 "theControllers": [{
                         "ID": 1,
-                        "Name": "sample string 2",
+                        "Name": "sample theControllers 1",
                         "DisplayName": "sample string 3",
                         "Version": 4,
                         "CtrFlag": 5
                     },
                     {
                         "ID": 2,
-                        "Name": "sample string 2",
+                        "Name": "sample theControllers 2",
                         "DisplayName": "sample string 3",
                         "Version": 4,
                         "CtrFlag": 5
@@ -71,19 +71,19 @@
             },
             {
                 "ID": 2,
-                "Name": "sample string 2",
+                "Name": "sample theControllerGroups 2",
                 "DisplayName": "sample string 3",
                 "Version": "sample string 4",
                 "theControllers": [{
                         "ID": 1,
-                        "Name": "sample string 2",
+                        "Name": "sample theControllers 1",
                         "DisplayName": "sample string 3",
                         "Version": 4,
                         "CtrFlag": 5
                     },
                     {
                         "ID": 2,
-                        "Name": "sample string 2",
+                        "Name": "sample theControllers 2",
                         "DisplayName": "sample string 3",
                         "Version": 4,
                         "CtrFlag": 5

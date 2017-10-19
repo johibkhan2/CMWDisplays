@@ -194,6 +194,7 @@ class FileDownloadComponent extends Component {
                         </div>
                         <div>
                             <select onChange={this.changeGroupTypes} className="form-control specificControllerSelect">
+                            <option value=""></option>
                             {this.state.groups.map(grp => {
                             return (
                                 <option value={grp.ID}>
@@ -204,7 +205,7 @@ class FileDownloadComponent extends Component {
                             </select>
 
                             <select onChange={this.changeGroups.bind(this)} className="form-control specificControllerSelect">
-       
+                            <option value=""></option>
                             {this.state.controllerGroups.map(controllerGroup => {
                             return (
                                 <option value={controllerGroup.ID}>
@@ -215,6 +216,7 @@ class FileDownloadComponent extends Component {
                             </select>
 
                             <select onChange={this.changeControllers} className="form-control specificControllerSelect">
+                            <option value=""></option>
                             {this.state.controllers.map(controller => {
                             return (
                                 <option value={controller.ID}>
@@ -230,6 +232,7 @@ class FileDownloadComponent extends Component {
                             <input type="radio" name="specificController"/>
                             <span>&nbsp;&nbsp;Available Globally to Controllers of Type</span>
                             <select className="form-control globalType">
+                            <option value=""></option>
                             {this.state.controllerTypes.map(cnt => {
                             return (
                                 <option value={cnt.ID}>
