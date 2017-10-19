@@ -14,7 +14,8 @@ class FileDownloadComponent extends Component {
         super();
         this.state = {
             files: [],
-            fileTypes:[]
+            fileTypes:[],
+            controllerTypes:[]
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);   
     }
@@ -22,6 +23,7 @@ class FileDownloadComponent extends Component {
     componentDidMount() {
         this.getFiles();
         this.getFileTypes();
+        this.getControllerTypes();
     }
 
     getFiles() {
@@ -30,6 +32,10 @@ class FileDownloadComponent extends Component {
 
     getFileTypes() {
         axios.get('http://localhost:3001/2').then(response => this.setState({fileTypes: response.data.fileTypes}));
+    }
+
+    getControllerTypes() {
+        axios.get('http://localhost:3001/3').then(response => this.setState({controllerTypes: response.data.controllerTypes}));
     }
 
     downLoadConfirm(id){
@@ -126,13 +132,13 @@ class FileDownloadComponent extends Component {
                             <input type="radio" name="showSupport"/>
                             <span>&nbsp;&nbsp;Show Support Files</span>
                             <select className="form-control supportFileSelect">
-                    {this.state.fileTypes.map(file => {
-                        return (
+                            {this.state.fileTypes.map(file => {
+                            return (
                                 <option value={file.CodeValue}>
                                 {file.DispValue}
                                 </option>
                                 );
-                    })}
+                            })}
                             </select>
                         </div>
                     </div>
@@ -188,15 +194,13 @@ class FileDownloadComponent extends Component {
                             <input type="radio" name="specificController"/>
                             <span>&nbsp;&nbsp;Available Globally to Controllers of Type</span>
                             <select className="form-control globalType">
-                                <option>
-                                    support1
+                            {this.state.controllerTypes.map(cnt => {
+                            return (
+                                <option value={cnt.ID}>
+                                {cnt.Name}
                                 </option>
-                                <option>
-                                    support2
-                                </option>
-                                <option>
-                                    support3
-                                </option>
+                                );
+                            })}
                             </select>
                         </div>
 
