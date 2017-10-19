@@ -206,7 +206,7 @@ class FileDownloadComponent extends Component {
 
                     </div>
                     <div className="col-sm-1 Label">
-                        <h4>Label</h4>
+                        <h4 className="Label-size">Label</h4>
                     </div>
                 </div>
 <br/>
