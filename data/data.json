@@ -1,32 +1,70 @@
-[
-    {
+[{
         "isLoggedIn": true
     },
 
 
     {
 
-       "files":[
-        {   
-        "type": "jpg",
-        "version": "1",
-        "notes": "xxyxyx",
-        "fileName": "file1",
-        "createdOn": "2017-08-01",
-        "lastUpdatedBy": "2017-08-01",
-        "id": 1
-        },
-            {   
-        "type": "jpg",
-        "version": "1",
-        "notes": "xxyxyx",
-        "fileName": "file1",
-        "createdOn": "2017-08-01",
-        "lastUpdatedBy": "2017-08-01",
-        "id": 2
-        }
-       ]
+        "files": [{
+                "type": "jpg",
+                "version": "1",
+                "notes": "xxyxyx",
+                "fileName": "file1",
+                "createdOn": "2017-08-01",
+                "lastUpdatedBy": "2017-08-01",
+                "id": 1
+            },
+            {
+                "type": "jpg",
+                "version": "1",
+                "notes": "xxyxyx",
+                "fileName": "file1",
+                "createdOn": "2017-08-01",
+                "lastUpdatedBy": "2017-08-01",
+                "id": 2
+            }
+        ]
+    },
+
+    {
+        "fileTypes": [
+            
+            {
+                "DispValue": "All",
+                "CodeValue": "  "
+            },
+            
+            {
+                "DispValue": "Boot Code",
+                "CodeValue": "BC"
+            },
+            {
+                "DispValue": "Boot Loader",
+                "CodeValue": "BL"
+            },
+            {
+                "DispValue": "Flash Code",
+                "CodeValue": "FL"
+            },
+            {
+                "DispValue": "Source File",
+                "CodeValue": "SF"
+            },
+            {
+                "DispValue": "Instructions",
+                "CodeValue": "IN"
+            },
+            {
+                "DispValue": "Tool",
+                "CodeValue": "TO"
+            }
+        ]
+
     }
+
+
+
+
 
 
 ]

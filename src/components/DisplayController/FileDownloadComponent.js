@@ -13,19 +13,23 @@ class FileDownloadComponent extends Component {
     constructor() {
         super();
         this.state = {
-            files: []
+            files: [],
+            fileTypes:[]
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);   
     }
 
     componentDidMount() {
         this.getFiles();
+        this.getFileTypes();
     }
 
     getFiles() {
-        axios
-            .get('http://localhost:3001/1')
-            .then(response => this.setState({files: response.data.files}));
+        axios.get('http://localhost:3001/1').then(response => this.setState({files: response.data.files}));
+    }
+
+    getFileTypes() {
+        axios.get('http://localhost:3001/2').then(response => this.setState({fileTypes: response.data.fileTypes}));
     }
 
     downLoadConfirm(id){
@@ -122,15 +126,13 @@ class FileDownloadComponent extends Component {
                             <input type="radio" name="showSupport"/>
                             <span>&nbsp;&nbsp;Show Support Files</span>
                             <select className="form-control supportFileSelect">
-                                <option>
-                                    support1
+                    {this.state.fileTypes.map(file => {
+                        return (
+                                <option value={file.CodeValue}>
+                                {file.DispValue}
                                 </option>
-                                <option>
-                                    support2
-                                </option>
-                                <option>
-                                    support3
-                                </option>
+                                );
+                    })}
                             </select>
                         </div>
                     </div>
