@@ -52,22 +52,22 @@ class LoginForm extends React.Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={this.state.value}
-                                onChange={this.onChange}/>
+
+/>
                         </div>
                     </div>
 
                     <div className="form-group">
                         <label className="txt-clr col-lg-2 control-label">Dealer&nbsp;Id:</label>
                         <div className="col-lg-10">
-                            <input type="text" className="form-control" value={this.state.value}/>
+                            <input type="text" className="form-control" />
                         </div>
                     </div>
 
                     <div className="form-group">
                         <label className="txt-clr col-lg-2 control-label">Password:</label>
                         <div className="col-lg-10">
-                            <input type="password" className="form-control" value=''/>
+                            <input type="password" className="form-control"/>
                         </div>
                     </div>
 
