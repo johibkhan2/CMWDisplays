@@ -27,8 +27,8 @@ class ProgressBar extends Component {
       width: '250px',
     };
     const circleContainerStyle = {
-      width: '250px',
-      height: '250px',
+      width: '20vw',
+      height: '20vh',
       display: 'inline-block',
     };
     return (
