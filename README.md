@@ -7,7 +7,7 @@ npm install --save webpack-dev-server
 #if u are getting an error regarding prop-types,then execute below command
 npm install --save prop-types
 
-#start the webpack dev server it is running on 8080 port
+#start the webpack dev server it is running on 8080 port..this is for development
 
 npm start
 
@@ -16,3 +16,7 @@ npm start
 
 #start the json server
 node ./node_modules/json-server/bin/index.js --watch ./data/data.json --port 3001
+
+
+#prod build
+ npm run build

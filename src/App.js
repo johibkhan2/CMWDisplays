@@ -18,16 +18,11 @@ class App extends Component {
   }
 
   openLoginPop() {
-    axios
-      .get('http://localhost:3001/0')
-      .then(response => {
-
+    axios.get('http://localhost:3001/0').then(response => {
         this.setState({isLoggedIn: response.data.isLoggedIn});
         if (!this.state.isLoggedIn) {
           /** Call the plugin */
-
-          PopupLogin
-            .registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+          PopupLogin.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
               let promptValue = null;
               let promptChange = function (value) {
                 promptValue = value;
@@ -54,10 +49,9 @@ class App extends Component {
               });
             });
 
-          PopupLogin
-            .plugins()
-            .prompt('', '', function (value) {
-              //  Popup.alert('You typed: ' + value);
+          PopupLogin.plugins().prompt('', '', function (value) {
+              //this is called when we save the login form ...make a back end call to authenicate
+              //Popup.alert('You typed: ' + value);
             });
         }
       });
