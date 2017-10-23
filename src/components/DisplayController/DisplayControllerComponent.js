@@ -4,8 +4,6 @@ import './DisplayControllerComponent.css';
 import FileDownloadComponent from '../DisplayController/FileDownloadComponent';
 
 
-
-
 class DisplayControllerComponent extends Component {
 
   constructor() {

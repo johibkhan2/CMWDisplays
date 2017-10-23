@@ -3,10 +3,7 @@ import './FileDownload.css';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import axios from 'axios';
 import DownloadConfiguration from './DownloadConfiguration';
-import Popup from 'react-popup';
 import { Circle } from 'rc-progress';
-import ProgressBar from '../../shared/ProgressBar';
-import PopupProgress from 'react-popup';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -114,41 +111,6 @@ class FileDownloadComponent extends Component {
     downLoadConfirm(id){
         console.log('ddd'+id);
         this.openDownloadConfirmModal();
-        // Popup.plugins().prompt('', '', function (value) {
-
-
-        //   /** Call the plugin */
-
-        //   PopupProgress
-        //     .registerPlugin('prompt', function (defaultValue, placeholder, callback) {
-        //       this.create({
-        //         title: 'Download', content: <ProgressBar/>,
-        //         buttons: {
-        //           left: [''],
-        //           right: [
-        //             {
-        //               text: 'cancel',
-        //               className: 'success',
-        //               action: function () {
-        //                 callback();
-        //                 PopupProgress.close();
-        //               }
-        //             }
-        //           ]
-        //         }
-        //       });
-        //     });
-
-        //   PopupProgress
-        //     .plugins()
-        //     .prompt('', '', function () {
-        //       //  Popup.alert('You typed: ' + value);
-        //     });
-
-
-
-
-        // });
     }
 
 
@@ -192,155 +154,159 @@ class FileDownloadComponent extends Component {
             // hidePageListOnlyOnePage: true > Hide the page list if only one page.
         };
 
-        return (
-            <div className="wrapper wrapper-content">
-                <div className="row">
-                    <div className="col-md-3 common">
-                        <h4>File Type:</h4>
-                        <div>
-                            <input type="radio" name="showConfig"/>
-                            <span>&nbsp;&nbsp;Show Config Files</span>
-                        </div>
-                        <br/>
-                        <div>
-                            <input type="radio" name="showSupport"/>
-                            <span>&nbsp;&nbsp;Show Support Files</span>
-                            <select className="form-control supportFileSelect">
-                            {this.state.fileTypes.map(file => {
-                            return (
-                                <option value={file.CodeValue}>
-                                {file.DispValue}
-                                </option>
-                                );
-                            })}
-                            </select>
-                        </div>
-                    </div>
-                    <div className="col-sm-1"></div>
-
-                    <div className="col-md-7  common">
-                        <h4>Association:</h4>
-                        <div>
-                            <input type="radio" name="specificController"/>
-                            <span>&nbsp;&nbsp;For the specific controller</span>
-
-                        </div>
-                        <div>
-                            <select onChange={this.changeGroupTypes} className="form-control specificControllerSelect">
-                            <option value=""></option>
-                            {this.state.groups.map(grp => {
-                            return (
-                                <option value={grp.ID}>
-                                {grp.Name}
-                                </option>
-                                );
-                            })}
-                            </select>
-
-                            <select onChange={this.changeGroups.bind(this)} className="form-control specificControllerSelect">
-                            <option value=""></option>
-                            {this.state.controllerGroups.map(controllerGroup => {
-                            return (
-                                <option value={controllerGroup.ID}>
-                                {controllerGroup.Name}
-                                </option>
-                                );
-                            })}
-                            </select>
-
-                            <select onChange={this.changeControllers} className="form-control specificControllerSelect">
-                            <option value=""></option>
-                            {this.state.controllers.map(controller => {
-                            return (
-                                <option value={controller.ID}>
-                                {controller.Name}
-                                </option>
-                                );
-                            })}
-                            </select>
-                        </div>
-                        <br/>
-                        <h4>Association:</h4>
-                        <div>
-                            <input type="radio" name="specificController"/>
-                            <span>&nbsp;&nbsp;Available Globally to Controllers of Type</span>
-                            <select className="form-control globalType">
-                            <option value=""></option>
-                            {this.state.controllerTypes.map(cnt => {
-                            return (
-                                <option value={cnt.ID}>
-                                {cnt.Name}
-                                </option>
-                                );
-                            })}
-                            </select>
-                        </div>
-
-                    </div>
-                    <div className="col-sm-1 Label">
-                        <h4 className="Label-size">Label</h4>
-                    </div>
+return (
+    <div className="wrapper wrapper-content">
+        <div className="row">
+            <div className="col-md-3 common">
+                <h4>File Type:</h4>
+                <div>
+                    <input type="radio" name="showConfig"/>
+                    <span>&nbsp;&nbsp;Show Config Files</span>
                 </div>
-<br/>
-                <div className="row">
-
-                    <div className="col-md-11 common">
-                        <BootstrapTable
-                            data={this.state.files}
-                            pagination={false}
-                            options={options}
-                            className="filesTable">
-                            <TableHeaderColumn width='100' tdStyle={ { width: '30px' } } dataField='id' isKey={true} dataFormat={ downloadFormatter.bind(this, 'id') }>Action</TableHeaderColumn>
-                            <TableHeaderColumn width='100' dataField='type'>Type</TableHeaderColumn>
-                            <TableHeaderColumn width='100' dataField='version'>Version</TableHeaderColumn>
-                            <TableHeaderColumn width='100' dataField='fileName'>File Name</TableHeaderColumn>
-                            <TableHeaderColumn width='100' dataField='notes'>Notes</TableHeaderColumn>
-                            <TableHeaderColumn width='100' dataField='createdOn'>
-                                Created On</TableHeaderColumn>
-                            <TableHeaderColumn width='100' dataField='lastUpdatedBy'>Last Updated By</TableHeaderColumn>
-                        </BootstrapTable>
-                    </div>
-      <div>
-        <Modal
-          isOpen={this.state.modalIsOpenConfrim}
-          onRequestClose={this.closeDownloadConfirmModal}
-          style={customStyles}
-          contentLabel="LogIn"
-        >
-        <label style={labelStyles}>Download Configuration</label>
-        <DownloadConfiguration closeDownloadConfirmModal={this.closeDownloadConfirmModal}/>
-        </Modal>
-      </div>
-                    <PopupProgress/>
+                <br/>
+                <div>
+                    <input type="radio" name="showSupport"/>
+                    <span>&nbsp;&nbsp;Show Support Files</span>
+                    <select className="form-control supportFileSelect">
+                        {this
+                            .state
+                            .fileTypes
+                            .map(file => {
+                                return (
+                                    <option value={file.CodeValue}>
+                                        {file.DispValue}
+                                    </option>
+                                );
+                            })}
+                    </select>
                 </div>
             </div>
-        );
+            <div className="col-sm-1"></div>
+
+            <div className="col-md-7  common">
+                <h4>Association:</h4>
+                <div>
+                    <input type="radio" name="specificController"/>
+                    <span>&nbsp;&nbsp;For the specific controller</span>
+
+                </div>
+                <div>
+                    <select
+                        onChange={this.changeGroupTypes}
+                        className="form-control specificControllerSelect">
+                        <option value=""></option>
+                        {this
+                            .state
+                            .groups
+                            .map(grp => {
+                                return (
+                                    <option value={grp.ID}>
+                                        {grp.Name}
+                                    </option>
+                                );
+                            })}
+                    </select>
+
+                    <select
+                        onChange={this
+                        .changeGroups
+                        .bind(this)}
+                        className="form-control specificControllerSelect">
+                        <option value=""></option>
+                        {this
+                            .state
+                            .controllerGroups
+                            .map(controllerGroup => {
+                                return (
+                                    <option value={controllerGroup.ID}>
+                                        {controllerGroup.Name}
+                                    </option>
+                                );
+                            })}
+                    </select>
+
+                    <select
+                        onChange={this.changeControllers}
+                        className="form-control specificControllerSelect">
+                        <option value=""></option>
+                        {this
+                            .state
+                            .controllers
+                            .map(controller => {
+                                return (
+                                    <option value={controller.ID}>
+                                        {controller.Name}
+                                    </option>
+                                );
+                            })}
+                    </select>
+                </div>
+                <br/>
+                <h4>Association:</h4>
+                <div>
+                    <input type="radio" name="specificController"/>
+                    <span>&nbsp;&nbsp;Available Globally to Controllers of Type</span>
+                    <select className="form-control globalType">
+                        <option value=""></option>
+                        {this
+                            .state
+                            .controllerTypes
+                            .map(cnt => {
+                                return (
+                                    <option value={cnt.ID}>
+                                        {cnt.Name}
+                                    </option>
+                                );
+                            })}
+                    </select>
+                </div>
+
+            </div>
+            <div className="col-sm-1 Label">
+                <h4 className="Label-size">Label</h4>
+            </div>
+        </div>
+        <br/>
+        <div className="row">
+
+            <div className="col-md-11 common">
+                <BootstrapTable
+                    data={this.state.files}
+                    pagination={false}
+                    options={options}
+                    className="filesTable">
+                    <TableHeaderColumn
+                        width='100'
+                        tdStyle={{
+                        width: '30px'
+                    }}
+                        dataField='id'
+                        isKey={true}
+                        dataFormat={downloadFormatter.bind(this, 'id')}>Action</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='type'>Type</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='version'>Version</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='fileName'>File Name</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='notes'>Notes</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='createdOn'>
+                        Created On</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='lastUpdatedBy'>Last Updated By</TableHeaderColumn>
+                </BootstrapTable>
+            </div>
+            <div>
+                <Modal
+                    isOpen={this.state.modalIsOpenConfrim}
+                    onRequestClose={this.closeDownloadConfirmModal}
+                    style={customStyles}
+                    contentLabel="LogIn">
+                    <label style={labelStyles}>Download Configuration</label>
+                    <DownloadConfiguration
+                        closeDownloadConfirmModal={this.closeDownloadConfirmModal}/>
+                </Modal>
+            </div>
+        </div>
+    </div>
+);
     }
 }
-
-/** Call the plugin */
-
-Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
-    let promptValue = null;
-    let promptChange = function (value) {
-        promptValue = value;
-    };
-
-    Popup.create({
-        title: 'Download Configuration',
-        content: <DownloadConfiguration onChange={promptChange} placeholder={placeholder} value={defaultValue} />,
-        buttons: {
-            left: ['cancel'],
-            right: [{
-                text: 'Save',
-                className: 'success',
-                action: function () {
-                    callback(promptValue);
-                    Popup.close();
-                }
-            }]
-        }
-    });
-});
 
 export default FileDownloadComponent;

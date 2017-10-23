@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-// import PopupLogin from 'react-popup';
 import LoginForm from './shared/LoginForm';
 import Header from './shared/Header';
 import Modal from 'react-modal';
@@ -34,7 +33,6 @@ class App extends Component {
     };
 
     this.openModal = this.openModal.bind(this);
-    //this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
@@ -46,10 +44,6 @@ class App extends Component {
     this.setState({modalIsOpen: true});
   }
 
-  // afterOpenModal() {
-  //   // references are now sync'd and can be accessed.
-  //   this.subtitle.style.color = '#f00';
-  // }
 
   closeModal() {
     this.setState({modalIsOpen: false});
@@ -60,38 +54,6 @@ class App extends Component {
         this.setState({isLoggedIn: response.data.isLoggedIn});
         if (!this.state.isLoggedIn) {
           this.openModal();
-          // /** Call the plugin */
-          // PopupLogin.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
-          //     let promptValue = null;
-          //     let promptChange = function (value) {
-          //       promptValue = value;
-          //     };
-
-          //     this.create({
-          //       title: 'LogIn', content: <LoginForm
-          //         onChange={promptChange}
-          //         placeholder={placeholder}
-          //         value={defaultValue}/>,
-          //       buttons: {
-          //         left: ['cancel'],
-          //         right: [
-          //           {
-          //             text: 'Save',
-          //             className: 'success',
-          //             action: function () {
-          //               callback(promptValue);
-          //               PopupLogin.close();
-          //             }
-          //           }
-          //         ]
-          //       }
-          //     });
-          //   });
-
-          // PopupLogin.plugins().prompt('', '', function (value) {
-          //     //this is called when we save the login form ...make a back end call to authenicate
-          //     PopupLogin.alert('You typed: ' + value);
-          //   });
         }
       });
   }

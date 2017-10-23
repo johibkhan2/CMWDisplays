@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Popup from 'react-popup';
 import './PopUp.css';
 import './LoginForm.css';
 
