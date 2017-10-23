@@ -7,6 +7,20 @@ import Popup from 'react-popup';
 import { Circle } from 'rc-progress';
 import ProgressBar from '../../shared/ProgressBar';
 import PopupProgress from 'react-popup';
+import Modal from 'react-modal';
+
+const customStyles = {
+  
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    width                 : '44vw'
+  }
+};
 
 class FileDownloadComponent extends Component {
 
@@ -18,11 +32,14 @@ class FileDownloadComponent extends Component {
             controllerTypes:[],
             groups:[],
             controllerGroups:[],
-            controllers:[]
+            controllers:[],
+            modalIsOpenConfrim: false
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
-     this.changeControllers=this.changeControllers.bind(this);   
+     this.changeControllers=this.changeControllers.bind(this);
+     this.openDownloadConfirmModal = this.openDownloadConfirmModal.bind(this);
+     this.closeDownloadConfirmModal = this.closeDownloadConfirmModal.bind(this);   
     }
 
 
@@ -63,6 +80,15 @@ class FileDownloadComponent extends Component {
         this.getGroups();
     }
 
+    openDownloadConfirmModal() {
+        this.setState({modalIsOpenConfrim: true});
+    }
+
+    closeDownloadConfirmModal() {
+        this.setState({modalIsOpenConfrim: false});
+    }
+
+
     getGroups(){
         axios.get('http://localhost:8080/data/groups.json').then(response => this.setState({groups: response.data}));
     }
@@ -81,41 +107,42 @@ class FileDownloadComponent extends Component {
 
     downLoadConfirm(id){
         console.log('ddd'+id);
-        Popup.plugins().prompt('', '', function (value) {
+        this.openDownloadConfirmModal();
+        // Popup.plugins().prompt('', '', function (value) {
 
 
-          /** Call the plugin */
+        //   /** Call the plugin */
 
-          PopupProgress
-            .registerPlugin('prompt', function (defaultValue, placeholder, callback) {
-              this.create({
-                title: 'Download', content: <ProgressBar/>,
-                buttons: {
-                  left: [''],
-                  right: [
-                    {
-                      text: 'cancel',
-                      className: 'success',
-                      action: function () {
-                        callback();
-                        PopupProgress.close();
-                      }
-                    }
-                  ]
-                }
-              });
-            });
+        //   PopupProgress
+        //     .registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+        //       this.create({
+        //         title: 'Download', content: <ProgressBar/>,
+        //         buttons: {
+        //           left: [''],
+        //           right: [
+        //             {
+        //               text: 'cancel',
+        //               className: 'success',
+        //               action: function () {
+        //                 callback();
+        //                 PopupProgress.close();
+        //               }
+        //             }
+        //           ]
+        //         }
+        //       });
+        //     });
 
-          PopupProgress
-            .plugins()
-            .prompt('', '', function () {
-              //  Popup.alert('You typed: ' + value);
-            });
-
-
+        //   PopupProgress
+        //     .plugins()
+        //     .prompt('', '', function () {
+        //       //  Popup.alert('You typed: ' + value);
+        //     });
 
 
-        });
+
+
+        // });
     }
 
 
@@ -267,7 +294,16 @@ class FileDownloadComponent extends Component {
                             <TableHeaderColumn width='100' dataField='lastUpdatedBy'>Last Updated By</TableHeaderColumn>
                         </BootstrapTable>
                     </div>
-                    <Popup/>
+      <div>
+        <Modal
+          isOpen={this.state.modalIsOpenConfrim}
+          onRequestClose={this.closeDownloadConfirmModal}
+          style={customStyles}
+          contentLabel="LogIn"
+        >
+        <DownloadConfiguration closeDownloadConfirmModal={this.closeDownloadConfirmModal}/>
+        </Modal>
+      </div>
                     <PopupProgress/>
                 </div>
             </div>
