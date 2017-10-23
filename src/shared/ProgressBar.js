@@ -13,6 +13,8 @@ class ProgressBar extends Component {
     this.changeState = this.changeState.bind(this);
   }
 
+
+
   changeState() {
     const colorMap = ['#3FC7FA', '#85D262', '#FE8C6A'];
     const value = parseInt(Math.random() * 100, 10);
@@ -41,6 +43,9 @@ class ProgressBar extends Component {
             strokeLinecap="square"
             strokeColor={this.state.color}
           />
+        </div>
+        <div className="col-sm-10">
+          <button className=".btn-default" onClick={this.props.closeModal}>Cancel</button>
         </div>
       </div>
     );

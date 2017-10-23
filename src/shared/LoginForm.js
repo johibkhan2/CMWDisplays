@@ -39,6 +39,7 @@ class LoginForm extends React.Component {
     render() {
         return (
             <div className="lgn ibox-content">
+                
                 <form className="form-horizontal" onSubmit={this.handleSubmit}>
 
                     <div className="form-group">
@@ -82,7 +83,9 @@ class LoginForm extends React.Component {
                     <div className="row">
                     <div className="col-lg-6">
                     </div>
-                    <div className="col-lg-6">
+                    <div className="col-lg-3">
+                    </div>
+                    <div className="lgn-cnl col-lg-3">
                     <div className="col-sm-2">
                     <button  className=".btn-default"  onClick={this.props.closeModal}>Cancel</button>                    
                     </div>

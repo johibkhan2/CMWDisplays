@@ -1,20 +1,47 @@
 import React, {Component} from 'react';
 import './DownloadConfiguration.css';
+import ProgressBar from '../../shared/ProgressBar';
+import Modal from 'react-modal';
 
+
+const customStyles = {
+  
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    width                 : '44vw'
+  }
+};
 class DownloadConfiguration extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
-        this.handleSubmit = this
-            .handleSubmit
-            .bind(this);
+        this.state = {
+             modalIsOpen: false
+        };
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event) {
         event.preventDefault();
+        this.openModal();
         console.log(this.state);
 
+    }
+
+    openModal() {
+        this.setState({modalIsOpen: true});
+    }
+
+
+    closeModal() {
+        this.setState({modalIsOpen: false});
     }
 
     render() {
@@ -59,6 +86,13 @@ class DownloadConfiguration extends React.Component {
                         </div>
                     </div>
                 </form>
+                <Modal
+                isOpen={this.state.modalIsOpen}
+                onRequestClose={this.closeModal}
+                style={customStyles}
+                contentLabel="">
+                <ProgressBar closeModal={this.closeModal}/>
+                </Modal>
             </div>
         );
     }

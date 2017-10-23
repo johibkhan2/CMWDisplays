@@ -14,8 +14,14 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
-    width                 : '44vw'
+    width                 : '44vw',
+    background            : '#eee'
   }
+};
+
+const labelStyles = { 
+    marginBottom          : '16px',
+    color                 : 'black'
 };
 
 class App extends Component {
@@ -107,6 +113,7 @@ class App extends Component {
           style={customStyles}
           contentLabel="LogIn"
         >
+        <label style={labelStyles}>LogIn</label>
         <LoginForm closeModal={this.closeModal}/>
         </Modal>
       }

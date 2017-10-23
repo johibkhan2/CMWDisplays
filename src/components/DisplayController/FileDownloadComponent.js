@@ -304,36 +304,35 @@ class FileDownloadComponent extends Component {
         <DownloadConfiguration closeDownloadConfirmModal={this.closeDownloadConfirmModal}/>
         </Modal>
       </div>
-                    <PopupProgress/>
                 </div>
             </div>
         );
     }
 }
 
-/** Call the plugin */
+// /** Call the plugin */
 
-Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
-    let promptValue = null;
-    let promptChange = function (value) {
-        promptValue = value;
-    };
+// Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+//     let promptValue = null;
+//     let promptChange = function (value) {
+//         promptValue = value;
+//     };
 
-    Popup.create({
-        title: 'Download Configuration',
-        content: <DownloadConfiguration onChange={promptChange} placeholder={placeholder} value={defaultValue} />,
-        buttons: {
-            left: ['cancel'],
-            right: [{
-                text: 'Save',
-                className: 'success',
-                action: function () {
-                    callback(promptValue);
-                    Popup.close();
-                }
-            }]
-        }
-    });
-});
+//     Popup.create({
+//         title: 'Download Configuration',
+//         content: <DownloadConfiguration onChange={promptChange} placeholder={placeholder} value={defaultValue} />,
+//         buttons: {
+//             left: ['cancel'],
+//             right: [{
+//                 text: 'Save',
+//                 className: 'success',
+//                 action: function () {
+//                     callback(promptValue);
+//                     Popup.close();
+//                 }
+//             }]
+//         }
+//     });
+// });
 
 export default FileDownloadComponent;
