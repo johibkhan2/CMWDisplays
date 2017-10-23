@@ -18,9 +18,15 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
-    width                 : '44vw'
+    width                 : '44vw',
+    background            : '#eee'
   }
 };
+
+const labelStyles = {
+    marginBottom          : '16px',
+    color                 : 'black' 
+  };
 
 class FileDownloadComponent extends Component {
 
@@ -301,38 +307,40 @@ class FileDownloadComponent extends Component {
           style={customStyles}
           contentLabel="LogIn"
         >
+        <label style={labelStyles}>Download Configuration</label>
         <DownloadConfiguration closeDownloadConfirmModal={this.closeDownloadConfirmModal}/>
         </Modal>
       </div>
+                    <PopupProgress/>
                 </div>
             </div>
         );
     }
 }
 
-// /** Call the plugin */
+/** Call the plugin */
 
-// Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
-//     let promptValue = null;
-//     let promptChange = function (value) {
-//         promptValue = value;
-//     };
+Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+    let promptValue = null;
+    let promptChange = function (value) {
+        promptValue = value;
+    };
 
-//     Popup.create({
-//         title: 'Download Configuration',
-//         content: <DownloadConfiguration onChange={promptChange} placeholder={placeholder} value={defaultValue} />,
-//         buttons: {
-//             left: ['cancel'],
-//             right: [{
-//                 text: 'Save',
-//                 className: 'success',
-//                 action: function () {
-//                     callback(promptValue);
-//                     Popup.close();
-//                 }
-//             }]
-//         }
-//     });
-// });
+    Popup.create({
+        title: 'Download Configuration',
+        content: <DownloadConfiguration onChange={promptChange} placeholder={placeholder} value={defaultValue} />,
+        buttons: {
+            left: ['cancel'],
+            right: [{
+                text: 'Save',
+                className: 'success',
+                action: function () {
+                    callback(promptValue);
+                    Popup.close();
+                }
+            }]
+        }
+    });
+});
 
 export default FileDownloadComponent;
