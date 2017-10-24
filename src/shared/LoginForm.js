@@ -7,30 +7,45 @@ class LoginForm extends React.Component {
         super(props);
 
         this.state = {
-            userName: this.props.defaultValue
+            corporateUser: 'C',
+            dealerUser:'D',
+            userType:'',
+            userName:'',
+            dealerId:'',
+            password:''
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeUserType = this.handleChangeUserType.bind(this);
     }
 
     handleChange(event) {
         event.preventDefault();
-        // let userName = e.target.userName;
-        // this.setState({userName: userName});
-        // console.log("userName"+userName);
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+        //const value = target.type === 'radio' ? target.checked : target.value;
+        if(target.type !== 'radio'){
+        const value = target.value;
+        const id = target.id;
         this.setState({
-        [name]: value
+        [id]: value
         });
+        }
     }
 
     handleSubmit(event) {
         event.preventDefault();
         console.log(this.state);
         this.props.closeModal();
+    }
+
+    handleChangeUserType(event){
+        const target = event.target;
+        const value = target.value;
+        const id = target.id;
+        this.setState({
+        [id]: value
+        });
     }
 
 
@@ -42,12 +57,11 @@ class LoginForm extends React.Component {
 
                     <div className="form-group">
                         <label className="col-lg-2 control-label"></label>
-                        <div className="col-lg-10">
-
-                            <input type="radio" name="dealer" value={this.state.userName} onChange={this.handleChange} />
+                        <div className="col-lg-10" >
+                            <input type="radio" id="userType" name="userType"  onChange={this.handleChangeUserType} value={this.state.corporateUser}/>
                             <span className="txt-clr"> Corporate User&nbsp;&nbsp;&nbsp;
                             </span>
-                            <input type="radio" name="dealer" onChange={this.handleChange} />
+                            <input type="radio" id="userType" name="userType"   onChange={this.handleChangeUserType} value={this.state.dealerUser}/>
                             <span className="txt-clr"> Dealer User
                             </span>
                         </div>
@@ -60,6 +74,8 @@ class LoginForm extends React.Component {
                                 type="text"
                                 className="form-control"
                                 onChange={this.handleChange}
+                                id="userName"
+                                value={this.state.userName}
                             />
                         </div>
                     </div>
@@ -68,7 +84,10 @@ class LoginForm extends React.Component {
                         <label className="txt-clr col-lg-2 control-label">Dealer&nbsp;Id:</label>
                         <div className="col-lg-10">
                             <input type="text" className="form-control" 
-                            onChange={this.handleChange} />
+                            onChange={this.handleChange}
+                             id="dealerId" 
+                            value={this.state.dealerId}
+                            />
                         </div>
                     </div>
 
@@ -76,7 +95,10 @@ class LoginForm extends React.Component {
                         <label className="txt-clr col-lg-2 control-label">Password:</label>
                         <div className="col-lg-10">
                             <input type="password" className="form-control"
-                            onChange={this.handleChange} />
+                            onChange={this.handleChange} 
+                            value={this.state.password}
+                             id="password"
+                            />
                         </div>
                     </div>
 
