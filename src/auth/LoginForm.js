@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './PopUp.css';
 import './LoginForm.css';
 
 class LoginForm extends React.Component {

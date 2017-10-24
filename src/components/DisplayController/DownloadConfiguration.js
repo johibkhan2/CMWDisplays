@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './DownloadConfiguration.css';
-import ProgressBar from '../../shared/ProgressBar';
+import ProgressBar from './ProgressBar';
 import Modal from 'react-modal';
 
 

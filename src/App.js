@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import LoginForm from './shared/LoginForm';
+import LoginForm from './auth/LoginForm';
 import Header from './shared/Header';
 import Modal from 'react-modal';
 
