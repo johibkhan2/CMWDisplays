@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './LoginForm.css';
+import * as authService from '../services/authService';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -36,6 +37,11 @@ class LoginForm extends React.Component {
         event.preventDefault();
         console.log(this.state);
         this.props.closeModal();
+        authService.authenticateUser().then(res => {
+            console.log(res);
+            //this.setState({data: res})
+        });
+        localStorage.setItem('isLoggedIn', false);
     }
 
     handleChangeUserType(event){

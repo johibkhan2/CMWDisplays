@@ -5,6 +5,7 @@ import axios from 'axios';
 import DownloadConfiguration from './DownloadConfiguration';
 import { Circle } from 'rc-progress';
 import Modal from 'react-modal';
+import * as displayControllerService from '../../services/displayControllerService';
 
 const customStyles = {
   
@@ -95,19 +96,19 @@ class FileDownloadComponent extends Component {
 
 
     getGroups(){
-        axios.get('http://localhost:8080/data/groups.json').then(response => this.setState({groups: response.data}));
+        displayControllerService.getGroups().then(response => {this.setState({groups: response})});
     }
 
     getFiles() {
-        axios.get('http://localhost:3001/1').then(response => this.setState({files: response.data.files}));
+        displayControllerService.getFiles().then(response => {this.setState({files: response.files})});
     }
 
     getFileTypes() {
-        axios.get('http://localhost:3001/2').then(response => this.setState({fileTypes: response.data.fileTypes}));
+        displayControllerService.getFileTypes().then(response => this.setState({fileTypes: response.fileTypes}));
     }
 
     getControllerTypes() {
-        axios.get('http://localhost:3001/3').then(response => this.setState({controllerTypes: response.data.controllerTypes}));
+        displayControllerService.getControllerTypes().then(response => this.setState({controllerTypes: response.controllerTypes}));
     }
 
     downLoadConfirm(id){
