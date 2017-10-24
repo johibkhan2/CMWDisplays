@@ -3,6 +3,9 @@ import axios from 'axios';
 import LoginForm from './auth/LoginForm';
 import Header from './shared/Header';
 import Modal from 'react-modal';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 
 const customStyles = {
   
@@ -81,6 +84,7 @@ class App extends Component {
         </Modal>
       }
       </div>
+      <Alert stack={{limit: 3}}  html={true}  timeout={5000}  position= 'top-right' effect='jelly'/>
       </div>
     );
   }

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './LoginForm.css';
 import * as authService from '../services/authService';
+import Alert from 'react-s-alert';
+import * as validator from '../validation/validator';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -33,8 +35,17 @@ class LoginForm extends React.Component {
         }
     }
 
+    IsValid(userName, password, DealerId) {
+        if (validator.isRequired(userName) && validator.isRequired(password) && validator.isRequired(DealerId)) {
+            return true;
+        }
+        return false;
+    }
+
+
     handleSubmit(event) {
         event.preventDefault();
+        if(this.IsValid(this.state.userName,this.state.password,this.state.DealerId)){ 
         console.log(this.state);
         this.props.closeModal();
         authService.authenticateUser().then(res => {
@@ -42,6 +53,9 @@ class LoginForm extends React.Component {
             //this.setState({data: res})
         });
         localStorage.setItem('isLoggedIn', false);
+        }else{
+            Alert.error('<h4>All fields are mandatory</h4>');
+        }
     }
 
     handleChangeUserType(event){
@@ -125,6 +139,7 @@ class LoginForm extends React.Component {
                     </div>
 
                 </form>
+
             </div>
         );
     }
