@@ -11,7 +11,7 @@ class LoginForm extends React.Component {
             dealerUser:'D',
             userType:'',
             userName:'',
-            dealerId:'',
+            DealerId:'',
             password:''
         };
 
@@ -85,8 +85,8 @@ class LoginForm extends React.Component {
                         <div className="col-lg-10">
                             <input type="text" className="form-control" 
                             onChange={this.handleChange}
-                             id="dealerId" 
-                            value={this.state.dealerId}
+                             id="DealerId" 
+                            value={this.state.DealerId}
                             />
                         </div>
                     </div>
