@@ -13,7 +13,8 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
-    width                 : '44vw'
+    width                 : '24vw',
+    background            : '#eee'
   }
 };
 class DownloadConfiguration extends React.Component {

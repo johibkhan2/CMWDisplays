@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Line, Circle } from 'rc-progress';
 
+const cancelStyles = { 
+  marginBottom          : '-11px'
+};
+
 class ProgressBar extends Component {
   constructor() {
     super();
@@ -44,8 +48,12 @@ class ProgressBar extends Component {
             strokeColor={this.state.color}
           />
         </div>
-        <div className="col-sm-10">
+        <div className="col-lg-6"></div>
+        <div className="col-lg-6">
+        <div className="col-sm-6"></div>
+        <div className="col-sm-6" style={cancelStyles}>
           <button className=".btn-default" onClick={this.props.closeModal}>Cancel</button>
+        </div>
         </div>
       </div>
     );
