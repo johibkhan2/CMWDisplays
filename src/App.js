@@ -72,6 +72,7 @@ class App extends Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
+          shouldCloseOnOverlayClick={false}
           style={customStyles}
           contentLabel="LogIn"
         >

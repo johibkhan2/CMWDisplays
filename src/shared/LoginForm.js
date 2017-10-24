@@ -10,28 +10,27 @@ class LoginForm extends React.Component {
             userName: this.props.defaultValue
         };
 
-        this.onChange = (e) => this._onChange(e);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.value !== this.state.userName) {
-            this
-                .props
-                .onChange(this.state.userName);
-        }
-    }
-
-    _onChange(e) {
-        let userName = e.target.userName;
-        this.setState({userName: userName});
-        console.log("userName"+userName);
+    handleChange(event) {
+        event.preventDefault();
+        // let userName = e.target.userName;
+        // this.setState({userName: userName});
+        // console.log("userName"+userName);
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        this.setState({
+        [name]: value
+        });
     }
 
     handleSubmit(event) {
         event.preventDefault();
         console.log(this.state);
-
+        this.props.closeModal();
     }
 
 
@@ -45,10 +44,10 @@ class LoginForm extends React.Component {
                         <label className="col-lg-2 control-label"></label>
                         <div className="col-lg-10">
 
-                            <input type="radio" name="dealer" value={this.state.userName}/>
+                            <input type="radio" name="dealer" value={this.state.userName} onChange={this.handleChange} />
                             <span className="txt-clr"> Corporate User&nbsp;&nbsp;&nbsp;
                             </span>
-                            <input type="radio" name="dealer"/>
+                            <input type="radio" name="dealer" onChange={this.handleChange} />
                             <span className="txt-clr"> Dealer User
                             </span>
                         </div>
@@ -60,22 +59,24 @@ class LoginForm extends React.Component {
                             <input
                                 type="text"
                                 className="form-control"
-
-/>
+                                onChange={this.handleChange}
+                            />
                         </div>
                     </div>
 
                     <div className="form-group">
                         <label className="txt-clr col-lg-2 control-label">Dealer&nbsp;Id:</label>
                         <div className="col-lg-10">
-                            <input type="text" className="form-control" />
+                            <input type="text" className="form-control" 
+                            onChange={this.handleChange} />
                         </div>
                     </div>
 
                     <div className="form-group">
                         <label className="txt-clr col-lg-2 control-label">Password:</label>
                         <div className="col-lg-10">
-                            <input type="password" className="form-control"/>
+                            <input type="password" className="form-control"
+                            onChange={this.handleChange} />
                         </div>
                     </div>
 

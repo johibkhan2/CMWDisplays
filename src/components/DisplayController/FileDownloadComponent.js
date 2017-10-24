@@ -88,7 +88,9 @@ class FileDownloadComponent extends Component {
     }
 
     closeDownloadConfirmModal() {
+        console.log("closeDownloadConfirmModal called");
         this.setState({modalIsOpenConfrim: false});
+        console.log(this.state);
     }
 
 
@@ -296,6 +298,7 @@ return (
                 <Modal
                     isOpen={this.state.modalIsOpenConfrim}
                     onRequestClose={this.closeDownloadConfirmModal}
+                    shouldCloseOnOverlayClick={false}
                     style={customStyles}
                     contentLabel="LogIn">
                     <label style={labelStyles}>Download Configuration</label>

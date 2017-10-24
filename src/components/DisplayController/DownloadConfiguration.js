@@ -37,11 +37,14 @@ class DownloadConfiguration extends React.Component {
     }
 
     openModal() {
+        console.log("openModal");
         this.setState({modalIsOpen: true});
+        //this.props.closeDownloadConfirmModal();
     }
 
 
     closeModal() {
+        console.log("closeModal");
         this.setState({modalIsOpen: false});
     }
 
@@ -91,6 +94,7 @@ render() {
             <Modal
                 isOpen={this.state.modalIsOpen}
                 onRequestClose={this.closeModal}
+                shouldCloseOnOverlayClick={false}
                 style={customStyles}
                 contentLabel="">
                 <ProgressBar closeModal={this.closeModal}/>
