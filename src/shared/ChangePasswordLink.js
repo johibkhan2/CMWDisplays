@@ -8,7 +8,6 @@ class ChangePasswordLink extends Component {
       <div className="box">
         <Link className="box_link" to="/changePassword">
           <i className="fa fa-key">Change Password</i>
-          <span className="txt">Change Password</span>
         </Link>
       </div>
     );
