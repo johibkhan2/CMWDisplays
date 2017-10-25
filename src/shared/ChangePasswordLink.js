@@ -6,7 +6,6 @@ class ChangePasswordLink extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {};
     this.openModal = this.openModal.bind(this);
   }

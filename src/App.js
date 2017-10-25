@@ -8,6 +8,7 @@ import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 import ChangePasswordLink from './shared/ChangePasswordLink';
 import ChangePassword from './auth/ChangePassword';
+import { browserHistory } from 'react-router';
 
 const customStyles = {
   
@@ -67,18 +68,18 @@ class App extends Component {
   }
 
   openLoginPop() {
-    axios.get('http://localhost:3001/0').then(response => {
-        this.setState({isLoggedIn: response.data.isLoggedIn});
-        if (!this.state.isLoggedIn) {
-          this.openModal();
-        }
-      });
+    const isLoggedIn = localStorage.getItem('isLoggedIn')==null || localStorage.getItem('isLoggedIn')==false ? false: true ;
+    this.setState({isLoggedIn: isLoggedIn});
+    if (!isLoggedIn) {
+      browserHistory.push('/');
+      this.openModal();
+    }
   }
 
   render() {
     return (
       <div>
-        <Header/>
+        <Header isLoggedIn={this.state.isLoggedIn}/>
         <div>
           <main>
             {this.props.children}
@@ -99,7 +100,9 @@ class App extends Component {
       }
       </div>
       <Alert stack={{limit: 3}}  html={true}  timeout={5000}  position= 'top-right' effect='jelly'/>
+      {this.state.isLoggedIn==true &&
       <ChangePasswordLink openModalChgPass={this.openModalChgPass}/>
+      }
       <div>
       {this.state.isLoggedIn==true &&
         <Modal

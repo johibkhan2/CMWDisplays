@@ -17,8 +17,6 @@ class ChangePassword extends React.Component {
     }
 
 
-
-
     handleSubmit(event) {
         this.props.closeModalChgPass();
     }

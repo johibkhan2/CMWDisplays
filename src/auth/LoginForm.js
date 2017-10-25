@@ -3,6 +3,7 @@ import './LoginForm.css';
 import * as authService from '../services/authService';
 import Alert from 'react-s-alert';
 import * as validator from '../validation/validator';
+import { browserHistory } from 'react-router';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -46,28 +47,28 @@ class LoginForm extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         if(this.IsValid(this.state.userName,this.state.password,this.state.DealerId)){ 
-        console.log(this.state);
         this.props.closeModal();
-        authService.authenticateUser(this.state.userName,this.state.password,this.state.DealerId,this.state.userType).then(res => {
-            console.log(res);
-            //this.setState({data: res})
-        })
-        .catch(function (error) {
-            /*      // console.log(error);*/
-            if (error.response) {
-                // The request was made, but the server responded with a status code that falls
-                // out of the range of 2xx
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.log('Error', error.message);
-            }
-            console.log(error.config);
-            return error;
-        });
-        localStorage.setItem('isLoggedIn', false);
+        // authService.authenticateUser(this.state.userName,this.state.password,this.state.DealerId,this.state.userType).then(res => {
+        //     console.log(res);
+        //     //this.setState({data: res})
+        // })
+        // .catch(function (error) {
+        //     /*      // console.log(error);*/
+        //     if (error.response) {
+        //         // The request was made, but the server responded with a status code that falls
+        //         // out of the range of 2xx
+        //         console.log(error.response.data);
+        //         console.log(error.response.status);
+        //         console.log(error.response.headers);
+        //     } else {
+        //         // Something happened in setting up the request that triggered an Error
+        //         console.log('Error', error.message);
+        //     }
+        //     console.log(error.config);
+        //     return error;
+        // });
+        localStorage.setItem('isLoggedIn', true);
+        window.location.href='./displayController';
         }else{
             Alert.error('<h4>All fields are mandatory</h4>');
         }

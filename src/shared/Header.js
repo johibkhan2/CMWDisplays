@@ -1,8 +1,24 @@
 import React, {Component} from 'react';
 import './Header.css';
 import {Link} from 'react-router';
+import { browserHistory } from 'react-router';
 
 class Header extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+    };
+
+    this.logout = this.logout.bind(this);
+  }
+
+  logout(){
+    localStorage.removeItem('isLoggedIn');
+    window.location.href='./';
+  }
+
+
   render() {
     return (
       <div>
@@ -15,18 +31,22 @@ class Header extends Component {
                   <span className="txt">Home</span>
                 </Link>
               </li>
+              {this.props.isLoggedIn==true &&
               <li>
                 <Link to="/displayController" className="a-txt cmw-btn">
                   <i className="btn-dn-icn icn-fn-sz fa fa-download"></i>
                   <span className="txt">Download Display Controller</span>
                 </Link>
               </li>
+              }
+              {this.props.isLoggedIn==true &&
               <li>
-                <a className="a-txt cmw-btn">
+                <a className="a-txt cmw-btn" onClick={this.logout}>
                   <i className="btn-ex-icn icn-fn-sz fa fa-sign-out"></i>
                   <span className="txt">Exit</span>
                 </a>
               </li>
+              }
             </ul>
           </nav>
         </header>
