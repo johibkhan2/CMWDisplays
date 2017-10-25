@@ -3,8 +3,28 @@ import './LoginForm.css';
 import * as authService from '../services/authService';
 import Alert from 'react-s-alert';
 import * as validator from '../validation/validator';
+import  Modal from 'react-modal';
 
-class LoginForm extends React.Component {
+const customStyles = {
+  
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    width                 : '44vw',
+    background            : '#eee'
+  }
+};
+
+const labelStyles = { 
+    marginBottom          : '16px',
+    color                 : 'black'
+};
+
+class ChangePassword extends React.Component {
     constructor(props) {
         super(props);
 
@@ -85,6 +105,16 @@ class LoginForm extends React.Component {
 
     render() {
         return (
+
+        <Modal
+          isOpen={true}
+          onRequestClose={this.closeModal}
+          shouldCloseOnOverlayClick={false}
+          style={customStyles}
+          contentLabel="Change Password"
+        >
+        <label style={labelStyles}>Change Password</label>
+        
             <div className="lgn ibox-content">
                 
                 <form className="form-horizontal" onSubmit={this.handleSubmit}>
@@ -156,8 +186,9 @@ class LoginForm extends React.Component {
                 </form>
 
             </div>
+            </Modal>
         );
     }
 }
 
-export default LoginForm;
+export default ChangePassword;

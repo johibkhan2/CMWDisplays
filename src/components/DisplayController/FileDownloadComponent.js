@@ -6,6 +6,7 @@ import DownloadConfiguration from './DownloadConfiguration';
 import { Circle } from 'rc-progress';
 import Modal from 'react-modal';
 import * as displayControllerService from '../../services/displayControllerService';
+import Alert from 'react-s-alert';
 
 const customStyles = {
   
@@ -96,7 +97,20 @@ class FileDownloadComponent extends Component {
 
 
     getGroups(){
-        displayControllerService.getGroups().then(response => {this.setState({groups: response})});
+        displayControllerService.getGroups().then(response => {this.setState({groups: response})})
+        .catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+                store.dispatch(addPhonesFailure(error.response.data));
+            } else {
+                console.log('Error in groups', error.message);
+            }
+
+            Alert.error('<h4>error occured while fetching the groups</h4>');
+
+        });
     }
 
     getFiles() {
