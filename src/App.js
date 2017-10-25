@@ -7,6 +7,7 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 import ChangePasswordLink from './shared/ChangePasswordLink';
+import ChangePassword from './auth/ChangePassword';
 
 const customStyles = {
   
@@ -33,11 +34,14 @@ class App extends Component {
     super();
     this.state = {
       isLoggedIn: false,
-      modalIsOpen: false
+      modalIsOpen: false,
+      modalIsOpenChgPass: false,
     };
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.openModalChgPass = this.openModalChgPass.bind(this);
+    this.closeModalChgPass = this.closeModalChgPass.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +55,15 @@ class App extends Component {
 
   closeModal() {
     this.setState({modalIsOpen: false});
+  }
+
+  openModalChgPass() {
+    this.setState({modalIsOpenChgPass: true});
+  }
+
+
+  closeModalChgPass() {
+    this.setState({modalIsOpenChgPass: false});
   }
 
   openLoginPop() {
@@ -86,7 +99,21 @@ class App extends Component {
       }
       </div>
       <Alert stack={{limit: 3}}  html={true}  timeout={5000}  position= 'top-right' effect='jelly'/>
-      <ChangePasswordLink/>
+      <ChangePasswordLink openModalChgPass={this.openModalChgPass}/>
+      <div>
+      {this.state.isLoggedIn==true &&
+        <Modal
+          isOpen={this.state.modalIsOpenChgPass}
+          onRequestClose={this.closeModalChgPass}
+          shouldCloseOnOverlayClick={false}
+          style={customStyles}
+          contentLabel="Change Password"
+        >
+        <label style={labelStyles}>Change Password</label>
+        <ChangePassword closeModalChgPass={this.closeModalChgPass}/>
+        </Modal>
+      }
+      </div>
       </div>
     );
   }

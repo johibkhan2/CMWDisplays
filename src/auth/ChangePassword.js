@@ -5,162 +5,56 @@ import Alert from 'react-s-alert';
 import * as validator from '../validation/validator';
 import  Modal from 'react-modal';
 
-const customStyles = {
-  
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)',
-    width                 : '44vw',
-    background            : '#eee'
-  }
-};
 
-const labelStyles = { 
-    marginBottom          : '16px',
-    color                 : 'black'
-};
 
 class ChangePassword extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            corporateUser: 'C',
-            dealerUser:'D',
-            userType:'',
-            userName:'',
-            DealerId:'',
-            password:''
         };
-
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChangeUserType = this.handleChangeUserType.bind(this);
     }
 
-    handleChange(event) {
-        event.preventDefault();
-        const target = event.target;
-        //const value = target.type === 'radio' ? target.checked : target.value;
-        if(target.type !== 'radio'){
-        const value = target.value;
-        const id = target.id;
-        this.setState({
-        [id]: value
-        });
-        }
-    }
 
-    IsValid(userName, password, DealerId) {
-        if (validator.isRequired(userName) && validator.isRequired(password) && validator.isRequired(DealerId)) {
-            return true;
-        }
-        return false;
-    }
 
 
     handleSubmit(event) {
-        event.preventDefault();
-        if(this.IsValid(this.state.userName,this.state.password,this.state.DealerId)){ 
-        console.log(this.state);
-        this.props.closeModal();
-        authService.authenticateUser(this.state.userName,this.state.password,this.state.DealerId,this.state.userType).then(res => {
-            console.log(res);
-            //this.setState({data: res})
-        })
-        .catch(function (error) {
-            /*      // console.log(error);*/
-            if (error.response) {
-                // The request was made, but the server responded with a status code that falls
-                // out of the range of 2xx
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.log('Error', error.message);
-            }
-            console.log(error.config);
-            return error;
-        });
-        localStorage.setItem('isLoggedIn', false);
-        }else{
-            Alert.error('<h4>All fields are mandatory</h4>');
-        }
-    }
-
-    handleChangeUserType(event){
-        const target = event.target;
-        const value = target.value;
-        const id = target.id;
-        this.setState({
-        [id]: value
-        });
+        this.props.closeModalChgPass();
     }
 
 
     render() {
         return (
-
-        <Modal
-          isOpen={true}
-          onRequestClose={this.closeModal}
-          shouldCloseOnOverlayClick={false}
-          style={customStyles}
-          contentLabel="Change Password"
-        >
-        <label style={labelStyles}>Change Password</label>
         
             <div className="lgn ibox-content">
                 
                 <form className="form-horizontal" onSubmit={this.handleSubmit}>
 
                     <div className="form-group">
-                        <label className="col-lg-2 control-label"></label>
-                        <div className="col-lg-10" >
-                            <input type="radio" id="userType" name="userType"  onChange={this.handleChangeUserType} value={this.state.corporateUser}/>
-                            <span className="txt-clr"> Corporate User&nbsp;&nbsp;&nbsp;
-                            </span>
-                            <input type="radio" id="userType" name="userType"   onChange={this.handleChangeUserType} value={this.state.dealerUser}/>
-                            <span className="txt-clr"> Dealer User
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className="form-group">
-                        <label className="txt-clr col-lg-2 control-label">UserName:</label>
+                        <label className="txt-clr col-lg-2 control-label">Old Password:</label>
                         <div className="col-lg-10">
                             <input
                                 type="text"
                                 className="form-control"
-                                onChange={this.handleChange}
                                 id="userName"
-                                value={this.state.userName}
                             />
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label className="txt-clr col-lg-2 control-label">Dealer&nbsp;Id:</label>
+                        <label className="txt-clr col-lg-2 control-label">New Password:</label>
                         <div className="col-lg-10">
                             <input type="text" className="form-control" 
-                            onChange={this.handleChange}
                              id="DealerId" 
-                            value={this.state.DealerId}
                             />
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label className="txt-clr col-lg-2 control-label">Password:</label>
+                        <label className="txt-clr col-lg-2 control-label">Confirm Password:</label>
                         <div className="col-lg-10">
                             <input type="password" className="form-control"
-                            onChange={this.handleChange} 
-                            value={this.state.password}
                              id="password"
                             />
                         </div>
@@ -173,7 +67,7 @@ class ChangePassword extends React.Component {
                     </div>
                     <div className="lgn-cnl col-lg-3">
                     <div className="col-sm-2">
-                    <button  className=".btn-default"  onClick={this.props.closeModal}>Cancel</button>                    
+                    <button  className=".btn-default"  onClick={this.props.closeModalChgPass}>Cancel</button>                    
                     </div>
                     <div className="col-sm-1">
                     </div>
@@ -186,7 +80,6 @@ class ChangePassword extends React.Component {
                 </form>
 
             </div>
-            </Modal>
         );
     }
 }
