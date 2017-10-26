@@ -11,6 +11,33 @@ import  Modal from 'react-modal';
         // Medium = 3,
         // Strong = 4,
         // VeryStrong = 5
+const veryWeak = { 
+    'background-color' : 'rgb(85, 0, 0)',
+    'width'            : '7%'
+};
+
+const weak = { 
+    'background-color' : 'rgb(136, 0, 0)',
+    'width'            : '13%'
+};
+
+const medium = { 
+    'background-color' : 'rgb(255, 102, 0)',
+    'width'            : '39%'
+};
+
+
+const strong = { 
+    'background-color' : 'lightgreen',
+    'width'            : '52%'
+};
+
+const veryStrong = { 
+    'background-color' : 'green',
+    'width'            : '67%'
+};
+
+var strengthStyle;
 
 class ChangePassword extends React.Component {
     constructor(props) {
@@ -75,6 +102,20 @@ class ChangePassword extends React.Component {
         const target = event.target;
         const value = target.value;
         const id = target.id;
+        if (id == 'newPassword') {
+            const score = validator.getPasswordScore(this.state.newPassword);
+            if (score == 1) 
+                strengthStyle = veryWeak;
+            else if (score == 2) 
+                strengthStyle = weak;
+            else if (score == 3) 
+                strengthStyle = medium;
+            else if (score == 4) 
+                strengthStyle = strong;
+            else if (score == 5) 
+                strengthStyle = veryStrong;
+            }
+
         this.setState({
         [id]: value
         });
@@ -92,7 +133,7 @@ class ChangePassword extends React.Component {
                         <label className="txt-clr col-lg-2 control-label">Old Password:</label>
                         <div className="col-lg-10">
                             <input
-                                type="text"
+                                type="password"
                                 className="form-control"
                                 id="oldPassword"
                                 value={this.state.oldPassword}
@@ -104,7 +145,7 @@ class ChangePassword extends React.Component {
                     <div className="form-group">
                         <label className="txt-clr col-lg-2 control-label">New Password:</label>
                         <div className="col-lg-10">
-                            <input type="text" className="form-control" 
+                            <input type="password" className="form-control" 
                              id="newPassword"
                              value={this.state.newPassword}
                              onChange={this.handleChange}
@@ -124,12 +165,16 @@ class ChangePassword extends React.Component {
                     </div>
 
                     <div className="row">
+                    <h4>Password Strength:</h4>
+                    <div className="col-md-8 passwordStrength" style={strengthStyle}>
+                    </div>
+                    </div>
+                    <br/>
+                    <div className="row">
                     <h4>Password should have at least 7 characters and atleast special characters/digit/upper case </h4>
                     </div>
 
-                    <div id="passwordStrength" className="row">
-                    <h4> </h4>
-                    </div>
+
 
                     <div className="row">
                     <div className="col-lg-6">
