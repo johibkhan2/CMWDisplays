@@ -8,3 +8,9 @@ let data={userName: userName, password:password};
   return axios.post(urls.authUrl+'?userType='+userType+'&DealerId='+DealerId,data)
     .then(response =>response.data);
 }
+
+export function changePassword(oldPassword,newpassword) {
+let data={oldPassword: oldPassword, oldPassword:oldPassword};
+  return axios.post(urls.authUrl+'?sessionId=',data)
+    .then(response =>response.data);
+}

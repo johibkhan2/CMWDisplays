@@ -165,7 +165,7 @@ class ChangePassword extends React.Component {
                     </div>
 
                     <div className="row">
-                    <h4>Password Strength:</h4>
+                    <h4 className="txt-clr">Password Strength:</h4>
                     <div className="col-md-8 passwordStrength" style={strengthStyle}>
                     </div>
                     </div>
