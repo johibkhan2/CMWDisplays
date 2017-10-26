@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './LoginForm.css';
+import './ChangePassword.css';
 import * as authService from '../services/authService';
 import Alert from 'react-s-alert';
 import * as validator from '../validation/validator';

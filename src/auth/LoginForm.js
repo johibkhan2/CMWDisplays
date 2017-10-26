@@ -12,7 +12,7 @@ class LoginForm extends React.Component {
         this.state = {
             corporateUser: 'C',
             dealerUser:'D',
-            userType:'',
+            userType:'C',
             userName:'',
             DealerId:'',
             password:''
@@ -93,7 +93,7 @@ class LoginForm extends React.Component {
                     <div className="form-group">
                         <label className="col-lg-2 control-label"></label>
                         <div className="col-lg-10" >
-                            <input type="radio" id="userType" name="userType"  onChange={this.handleChangeUserType} value={this.state.corporateUser}/>
+                            <input type="radio" id="userType" name="userType"  onChange={this.handleChangeUserType} value={this.state.corporateUser} defaultChecked={true}/>
                             <span className="txt-clr"> Corporate User&nbsp;&nbsp;&nbsp;
                             </span>
                             <input type="radio" id="userType" name="userType"   onChange={this.handleChangeUserType} value={this.state.dealerUser}/>
