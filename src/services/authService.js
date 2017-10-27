@@ -10,7 +10,8 @@ let data={userName: userName, password:password};
 }
 
 export function changePassword(oldPassword,newpassword) {
+let sessionID= localStorage.getItem('sessionID');
 let data={oldPassword: oldPassword, oldPassword:oldPassword};
-  return axios.post(urls.authUrl+'?sessionId=',data)
+  return axios.post(urls.authUrl+'?sessionID='+sessionID,data)
     .then(response =>response.data);
 }

@@ -38,13 +38,24 @@ class FileDownloadComponent extends Component {
             groups:[],
             controllerGroups:[],
             controllers:[],
-            modalIsOpenConfrim: false
+            modalIsOpenConfrim: false,
+            fileType:'',
+            showConfigFiles:'cFiles',
+            showSupportFiles:'sFiles',
+            isFileTypeDisabled:false,
+            associationType:'',
+            cgtName:'',
+            controllerID:'',
+            controllerTypeID:'',
+            supportFileType:''
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
      this.changeControllers=this.changeControllers.bind(this);
      this.openDownloadConfirmModal = this.openDownloadConfirmModal.bind(this);
-     this.closeDownloadConfirmModal = this.closeDownloadConfirmModal.bind(this);   
+     this.closeDownloadConfirmModal = this.closeDownloadConfirmModal.bind(this);
+     this.handleFileType=this.handleFileType.bind(this);
+     this.handleAssociationType=this.handleAssociationType.bind(this);   
     }
 
 
@@ -130,7 +141,28 @@ class FileDownloadComponent extends Component {
         this.openDownloadConfirmModal();
     }
 
+    handleFileType(event){
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        this.setState({
+        [name]: value
+        });
+        if (this.state.fileType == 'cFiles') {
+            this.setState({isFileTypeDisabled: false});
+        } else{
+             this.setState({isFileTypeDisabled: true});
+        }
+    }
 
+    handleAssociationType(event){
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        this.setState({
+        [name]: value
+        });
+    }
     
     render() {
 
@@ -177,14 +209,14 @@ return (
             <div className="col-md-3 common">
                 <h4>File Type:</h4>
                 <div>
-                    <input type="radio" name="showConfig"/>
+                    <input type="radio" name="fileType" value={this.state.showConfigFiles} onChange={this.handleFileType}/>
                     <span>&nbsp;&nbsp;Show Config Files</span>
                 </div>
                 <br/>
                 <div>
-                    <input type="radio" name="showSupport"/>
+                    <input type="radio" name="fileType" value={this.state.showSupportFiles} onChange={this.handleFileType}/>
                     <span>&nbsp;&nbsp;Show Support Files</span>
-                    <select className="form-control supportFileSelect">
+                    <select className="form-control supportFileSelect" disabled={this.state.isFileTypeDisabled}>
                         {this
                             .state
                             .fileTypes
@@ -203,7 +235,7 @@ return (
             <div className="col-md-7  common">
                 <h4>Association:</h4>
                 <div>
-                    <input type="radio" name="specificController"/>
+                    <input type="radio" name="associationType" onChange={this.state.handleAssociationType} value="sAssociationType"/>
                     <span>&nbsp;&nbsp;For the specific controller</span>
 
                 </div>
@@ -259,9 +291,8 @@ return (
                     </select>
                 </div>
                 <br/>
-                <h4>Association:</h4>
                 <div>
-                    <input type="radio" name="specificController"/>
+                    <input type="radio" name="associationType" onChange={this.state.handleAssociationType} value="gAssociationType"/>
                     <span>&nbsp;&nbsp;Available Globally to Controllers of Type</span>
                     <select className="form-control globalType">
                         <option value=""></option>

@@ -15,6 +15,8 @@ class Header extends Component {
 
   logout(){
     localStorage.removeItem('isLoggedIn');
+    //localStorage.setItem('isLoggedIn', false);
+    localStorage.removeItem('sessionID');
     window.location.href='./';
   }
 

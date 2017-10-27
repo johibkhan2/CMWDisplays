@@ -67,7 +67,8 @@ class LoginForm extends React.Component {
         //     console.log(error.config);
         //     return error;
         // });
-        localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('isLoggedIn', true);//IsLoggedIn
+        localStorage.setItem('sessionID', 'sdlkdosidosiodisodiosid');//SessionID
         window.location.href='./displayController';
         }else{
             Alert.error('<h4>All fields are mandatory</h4>');
