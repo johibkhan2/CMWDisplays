@@ -48,7 +48,7 @@ class FileDownloadComponent extends Component {
             controllerID:'',
             controllerTypeID:'',
             supportFileType:'',
-            supportFileType=''
+            supportFileType:''
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
