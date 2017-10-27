@@ -47,7 +47,6 @@ class FileDownloadComponent extends Component {
             cgtName:'',
             controllerID:'',
             controllerTypeID:'',
-            supportFileType:'',
             supportFileType:''
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
