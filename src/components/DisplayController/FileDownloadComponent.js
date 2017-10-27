@@ -47,7 +47,8 @@ class FileDownloadComponent extends Component {
             cgtName:'',
             controllerID:'',
             controllerTypeID:'',
-            supportFileType:''
+            supportFileType:'',
+            supportFileType=''
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
@@ -55,16 +56,21 @@ class FileDownloadComponent extends Component {
      this.openDownloadConfirmModal = this.openDownloadConfirmModal.bind(this);
      this.closeDownloadConfirmModal = this.closeDownloadConfirmModal.bind(this);
      this.handleFileType=this.handleFileType.bind(this);
-     this.handleAssociationType=this.handleAssociationType.bind(this);   
+     this.handleAssociationType=this.handleAssociationType.bind(this);
+     this.changeControllerTypes=this.changeControllerTypes.bind(this);
+     this.changeFileType=this.changeFileType.bind(this);  
     }
 
 
     changeGroupTypes(event){
          console.log("val1"+event.target.value);
+        this.setState({
+        cgtName: event.target.value
+        }); 
         let selectedVal=event.target.value; 
         let groups=this.state.groups;
          for(let i in groups){
-            if(groups[i].ID==selectedVal){
+            if(groups[i].Name==selectedVal){
                 this.setState({controllerGroups:groups[i].theControllerGroups });
                 break;
             }
@@ -85,8 +91,34 @@ class FileDownloadComponent extends Component {
         }
     }
 
+    //FirmwareVersion API call
     changeControllers(event){
-          console.log("val3"+event.target.value);
+        console.log("val3"+event.target.value);
+        this.setState({
+        controllerID: event.target.value
+        });   
+        if (this.state.fileType == 'cFiles' && this.state.associationType=='gAssociationType') {
+           // displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => {this.setState({groups: response})})
+        } else{
+            
+        }
+    }
+
+    //SupportFile API call
+
+    changeControllerTypes(event){
+        console.log("controllerTypes"+event.target.value);
+        this.setState({
+        controllerTypeID: event.target.value
+        });
+        //displayControllerService.getSupportFile(this.state.cgtName,this.state.controllerID,this.state.controllerTypeID,this.state.supportFileType).then(response => {this.setState({groups: response})})  
+    }
+
+    changeFileType(event){
+        console.log("fileTypes"+event.target.value);
+        this.setState({
+        supportFileType: event.target.value
+        });  
     }
 
     componentDidMount() {
@@ -123,7 +155,7 @@ class FileDownloadComponent extends Component {
 
         });
     }
-
+    //this is dummy rest call.it will not used in future  
     getFiles() {
         displayControllerService.getFiles().then(response => {this.setState({files: response.files})});
     }
@@ -216,7 +248,7 @@ return (
                 <div>
                     <input type="radio" name="fileType" value={this.state.showSupportFiles} onChange={this.handleFileType}/>
                     <span>&nbsp;&nbsp;Show Support Files</span>
-                    <select className="form-control supportFileSelect" disabled={this.state.isFileTypeDisabled}>
+                    <select className="form-control supportFileSelect" disabled={this.state.isFileTypeDisabled} onChange={this.changeFileType}>
                         {this
                             .state
                             .fileTypes
@@ -249,7 +281,7 @@ return (
                             .groups
                             .map(grp => {
                                 return (
-                                    <option value={grp.ID}>
+                                    <option value={grp.Name}>
                                         {grp.Name}
                                     </option>
                                 );
@@ -292,9 +324,9 @@ return (
                 </div>
                 <br/>
                 <div>
-                    <input type="radio" name="associationType" onChange={this.state.handleAssociationType} value="gAssociationType"/>
+                    <input type="radio" name="associationType" onChange={this.state.handleAssociationType} value="gAssociationType" disabled={this.state.isFileTypeDisabled} />
                     <span>&nbsp;&nbsp;Available Globally to Controllers of Type</span>
-                    <select className="form-control globalType">
+                    <select className="form-control globalType" disabled={this.state.isFileTypeDisabled} onChange={this.changeControllerTypes}>
                         <option value=""></option>
                         {this
                             .state
