@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Header.css';
 import {Link} from 'react-router';
 import { browserHistory } from 'react-router';
+import {logout} from '../auth/logout';
 
 class Header extends Component {
 
@@ -14,10 +15,7 @@ class Header extends Component {
   }
 
   logout(){
-    localStorage.removeItem('isLoggedIn');
-    //localStorage.setItem('isLoggedIn', false);
-    localStorage.removeItem('sessionID');
-    window.location.href='./';
+    logout();
   }
 
 

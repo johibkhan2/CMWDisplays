@@ -10,6 +10,8 @@ import ChangePasswordLink from './shared/ChangePasswordLink';
 import ChangePassword from './auth/ChangePassword';
 import { browserHistory } from 'react-router';
 
+
+
 const customStyles = {
   
   content : {
@@ -37,15 +39,23 @@ class App extends Component {
       isLoggedIn: false,
       modalIsOpen: false,
       modalIsOpenChgPass: false,
+      //interval:60000,
     };
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModalChgPass = this.openModalChgPass.bind(this);
     this.closeModalChgPass = this.closeModalChgPass.bind(this);
+    this.setIsLoggedIn = this.setIsLoggedIn.bind(this);
   }
 
   componentDidMount() {
+    this.openLoginPop();
+    //this.intervalId = setInterval(this.timer.bind(this), this.state.interval);
+  }
+
+  timer() {
+    console.log("timer calling");
     this.openLoginPop();
   }
 
@@ -66,6 +76,17 @@ class App extends Component {
   closeModalChgPass() {
     this.setState({modalIsOpenChgPass: false});
   }
+
+  setIsLoggedIn(){
+    if(this.state.isLoggedIn==false){
+    this.setState({isLoggedIn: true});
+    }else{
+      this.setState({isLoggedIn: false});
+    }
+  }
+
+
+
 
   openLoginPop() {
     const isLoggedIn = localStorage.getItem('isLoggedIn')==null || localStorage.getItem('isLoggedIn')==false ? false: true ;
@@ -95,7 +116,7 @@ class App extends Component {
           contentLabel="LogIn"
         >
         <label style={labelStyles}>LogIn</label>
-        <LoginForm closeModal={this.closeModal}/>
+        <LoginForm closeModal={this.closeModal} setIsLoggedIn={this.setIsLoggedIn}/>
         </Modal>
       }
       </div>

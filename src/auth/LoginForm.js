@@ -4,6 +4,7 @@ import * as authService from '../services/authService';
 import Alert from 'react-s-alert';
 import * as validator from '../validation/validator';
 import { browserHistory } from 'react-router';
+import  {setTimeOutNow} from '../constants/timer';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -67,9 +68,12 @@ class LoginForm extends React.Component {
         //     console.log(error.config);
         //     return error;
         // });
+        setTimeOutNow();
         localStorage.setItem('isLoggedIn', true);//IsLoggedIn
         localStorage.setItem('sessionID', 'sdlkdosidosiodisodiosid');//SessionID
-        window.location.href='./displayController';
+        this.props.setIsLoggedIn();
+        browserHistory.push('/displayController');
+        //window.location.href='./displayController';
         }else{
             Alert.error('<h4>All fields are mandatory</h4>');
         }

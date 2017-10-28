@@ -7,6 +7,7 @@ import { Circle } from 'rc-progress';
 import Modal from 'react-modal';
 import * as displayControllerService from '../../services/displayControllerService';
 import Alert from 'react-s-alert';
+import  {resetTimeoutNow} from '../../constants/timer';
 
 const customStyles = {
   
@@ -96,8 +97,10 @@ class FileDownloadComponent extends Component {
         this.setState({
         controllerID: event.target.value
         });   
-        if (this.state.fileType == 'cFiles' && this.state.associationType=='gAssociationType') {
-           // displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => {this.setState({groups: response})})
+        if (this.state.fileType == 'cFiles' && this.state.associationType=='sAssociationType') {
+            console.log("called the servoce firmware");
+            resetTimeoutNow();
+           // displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => {this.setState({groups: response})}) 
         } else{
             
         }
