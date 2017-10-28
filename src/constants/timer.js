@@ -1,7 +1,7 @@
 import {logout} from '../auth/logout';
 
-//const timeInterval = 13200000;
-const timeInterval = 60000;
+const timeInterval = 13200000;
+//const timeInterval = 60000;
 
 var timeout;
 

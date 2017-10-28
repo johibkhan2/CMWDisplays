@@ -115,6 +115,7 @@ class FileDownloadComponent extends Component {
         this.setState({
         controllerTypeID: event.target.value
         });
+        resetTimeoutNow();
         //displayControllerService.getSupportFile(this.state.cgtName,this.state.controllerID,this.state.controllerTypeID,this.state.supportFileType).then(response => {this.setState({groups: response})})  
     }
 
@@ -165,10 +166,12 @@ class FileDownloadComponent extends Component {
     }
 
     getFileTypes() {
+        resetTimeoutNow();
         displayControllerService.getFileTypes().then(response => this.setState({fileTypes: response.fileTypes}));
     }
 
     getControllerTypes() {
+        resetTimeoutNow();
         displayControllerService.getControllerTypes().then(response => this.setState({controllerTypes: response.controllerTypes}));
     }
 

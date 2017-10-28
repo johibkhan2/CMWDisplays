@@ -26,6 +26,8 @@
         ]
     },
 
+
+
     {
         "fileTypes": [
 
@@ -88,6 +90,53 @@
             }
         ]
 
+    },
+    
+    {
+
+        "supportFile": [{
+                "SupportFileType": "jpg",
+                "SFVersion": "1",
+                "Notes": "xxyxyx",
+                "SFileName": "file1",
+                "CreateDate": "2017-08-01",
+                "LastUpdateByName": "2017-08-01",
+                "ID": 1
+            },
+            {
+                "SupportFileType": "jpg",
+                "SFVersion": "1",
+                "Notes": "xxyxyx",
+                "SFileName": "file1",
+                "CreateDate": "2017-08-01",
+                "LastUpdateByName": "2017-08-01",
+                "ID": 2
+            }
+        ]
+    },
+
+
+    {
+
+        "firmware": [{
+                "SupportFileType": "jpg",
+                "Version": "1",
+                "Notes": "xxyxyx",
+                "FileName": "file1",
+                "CreateDate": "2017-08-01",
+                "LastUpdateUser": "2017-08-01",
+                "ID": 1
+            },
+            {
+                "SupportFileType": "jpg",
+                "Version": "1",
+                "Notes": "xxyxyx",
+                "FileName": "file1",
+                "CreateDate": "2017-08-01",
+                "LastUpdateUser": "2017-08-01",
+                "ID": 2
+            }
+        ]
     }
 
 ]
