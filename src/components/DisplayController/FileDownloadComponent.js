@@ -48,7 +48,9 @@ class FileDownloadComponent extends Component {
             cgtName:'',
             controllerID:'',
             controllerTypeID:'',
-            supportFileType:''
+            supportFileType:'',
+            gAssociationType:'gAssociationType',
+            sAssociationType:'sAssociationType'
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
@@ -98,7 +100,7 @@ class FileDownloadComponent extends Component {
         controllerID: event.target.value
         });   
         if (this.state.fileType == 'cFiles' && this.state.associationType=='sAssociationType') {
-            console.log("called the servoce firmware");
+            console.log("called the service firmware");
             resetTimeoutNow();
            // displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => {this.setState({groups: response})}) 
         } else{
@@ -269,7 +271,7 @@ return (
             <div className="col-md-7  common">
                 <h4>Association:</h4>
                 <div>
-                    <input type="radio" name="associationType" onChange={this.state.handleAssociationType} value="sAssociationType"/>
+                    <input type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.sAssociationType}/>
                     <span>&nbsp;&nbsp;For the specific controller</span>
 
                 </div>
@@ -326,7 +328,7 @@ return (
                 </div>
                 <br/>
                 <div>
-                    <input type="radio" name="associationType" onChange={this.state.handleAssociationType} value="gAssociationType" disabled={this.state.isFileTypeDisabled} />
+                    <input type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.gAssociationType} disabled={this.state.isFileTypeDisabled} />
                     <span>&nbsp;&nbsp;Available Globally to Controllers of Type</span>
                     <select className="form-control globalType" disabled={this.state.isFileTypeDisabled} onChange={this.changeControllerTypes}>
                         <option value=""></option>
