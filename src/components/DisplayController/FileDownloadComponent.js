@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 import * as displayControllerService from '../../services/displayControllerService';
 import Alert from 'react-s-alert';
 import  {resetTimeoutNow} from '../../constants/timer';
+import $ from 'jquery';
 
 const customStyles = {
   
@@ -106,11 +107,15 @@ class FileDownloadComponent extends Component {
         });   
         if (this.state.fileType == 'cFiles') {
             console.log("called the service firmware");
+            if(this.state.associationType == 'sAssociationType'){
             displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => 
             {
                 this.setState({firmWareFiles: response.firmware});
                 resetTimeoutNow();
-            }) 
+            })
+            }else{
+                 Alert.error("<h4>Please check the radio button For the specific controller</h4>");
+            } 
         } else{
             
         }
@@ -124,13 +129,17 @@ class FileDownloadComponent extends Component {
         controllerTypeID: event.target.value
         });
         if(this.state.cgtName!=''){
+            if(this.state.associationType != ''){
         displayControllerService.getSupportFile(this.state.cgtName,this.state.controllerID,this.state.controllerTypeID,this.state.supportFileType).then(response =>
         {
              this.setState({supportFiles: response.supportFile});
              resetTimeoutNow();
         })
+            }else{
+                Alert.error("<h4>Please check either the radio buttons</h4>");
+            }
         }else{
-            Alert.error('<h4>Please select group types</h4>');
+            Alert.error("<h4>Please select group type</h4>");
         }  
     }
 
@@ -205,16 +214,10 @@ class FileDownloadComponent extends Component {
         if (this.state.fileType == 'cFiles') {
             this.setState({isFileTypeDisabled: false});
             this.setState({supportFiles: []});
-            this.setState({ctrlByCT_rb: true});
-            this.setState({ctrlByCG_rb: false});
-           // document.getElementById("ctrlByCT_rb").checked = true;
-        } else{
+        } else if (this.state.fileType == 'sFiles'){
              this.setState({isFileTypeDisabled: true});
-             this.setState({firmWareFiles: []});
-             this.setState({ctrlByCT_rb: false});
-             this.setState({ctrlByCG_rb: true});             
-             //document.getElementById("ctrlByCG_rb").checked = true;
-        }
+             this.setState({firmWareFiles: []});             
+        }else{}
         this.clearDropDowns();    
         
     }
@@ -225,6 +228,11 @@ class FileDownloadComponent extends Component {
         document.getElementById('controllerGroups').value="";
         document.getElementById('controllers').value="";
         document.getElementById('controllerTypes').value="";
+        //document.getElementsByName('associationType').checked=false;
+        $("input:radio[name='associationType']").each(function(i) {
+        this.checked = false;
+        });
+        this.setState({associationType:''});
     }
 
     handleAssociationType(event){
@@ -312,7 +320,7 @@ return (
             <div className="col-md-7  common">
                 <h4>Association:</h4>
                 <div>
-                    <input type="radio" id="ctrlByCG_rb" name="associationType" onChange={this.handleAssociationType} value={this.state.sAssociationType} checked={this.state.ctrlByCG_rb} />
+                    <input type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.sAssociationType} />
                     <span>&nbsp;&nbsp;For the specific controller</span>
 
                 </div>
@@ -367,7 +375,7 @@ return (
                 </div>
                 <br/>
                 <div>
-                    <input id="ctrlByCT_rb" type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.gAssociationType} disabled={this.state.isFileTypeDisabled} checked={this.state.ctrlByCT_rb}/>
+                    <input type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.gAssociationType} disabled={this.state.isFileTypeDisabled} />
                     <span>&nbsp;&nbsp;Available Globally to Controllers of Type</span>
                     <select id="controllerTypes" className="form-control globalType" disabled={this.state.isFileTypeDisabled} onChange={this.changeControllerTypes}   >
                         <option value=""></option>
