@@ -53,7 +53,9 @@ class FileDownloadComponent extends Component {
             supportFileType:'',
             gAssociationType:'gAssociationType',
             sAssociationType:'sAssociationType',
-            isAssociationTypeDisabled:false
+            isAssociationTypeDisabled:false,
+            ctrlByCT_rb:false,
+            ctrlByCG_rb:false,
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
@@ -102,7 +104,7 @@ class FileDownloadComponent extends Component {
         this.setState({
         controllerID: event.target.value
         });   
-        if (this.state.fileType == 'cFiles' && this.state.associationType=='sAssociationType') {
+        if (this.state.fileType == 'cFiles') {
             console.log("called the service firmware");
             displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => 
             {
@@ -121,11 +123,15 @@ class FileDownloadComponent extends Component {
         this.setState({
         controllerTypeID: event.target.value
         });
+        if(this.state.cgtName!=''){
         displayControllerService.getSupportFile(this.state.cgtName,this.state.controllerID,this.state.controllerTypeID,this.state.supportFileType).then(response =>
-         {
+        {
              this.setState({supportFiles: response.supportFile});
              resetTimeoutNow();
-        })  
+        })
+        }else{
+            Alert.error('<h4>Please select group types</h4>');
+        }  
     }
 
     changeFileType(event){
@@ -199,9 +205,15 @@ class FileDownloadComponent extends Component {
         if (this.state.fileType == 'cFiles') {
             this.setState({isFileTypeDisabled: false});
             this.setState({supportFiles: []});
+            this.setState({ctrlByCT_rb: true});
+            this.setState({ctrlByCG_rb: false});
+           // document.getElementById("ctrlByCT_rb").checked = true;
         } else{
              this.setState({isFileTypeDisabled: true});
              this.setState({firmWareFiles: []});
+             this.setState({ctrlByCT_rb: false});
+             this.setState({ctrlByCG_rb: true});             
+             //document.getElementById("ctrlByCG_rb").checked = true;
         }
         this.clearDropDowns();    
         
@@ -300,7 +312,7 @@ return (
             <div className="col-md-7  common">
                 <h4>Association:</h4>
                 <div>
-                    <input type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.sAssociationType} />
+                    <input type="radio" id="ctrlByCG_rb" name="associationType" onChange={this.handleAssociationType} value={this.state.sAssociationType} checked={this.state.ctrlByCG_rb} />
                     <span>&nbsp;&nbsp;For the specific controller</span>
 
                 </div>
@@ -355,7 +367,7 @@ return (
                 </div>
                 <br/>
                 <div>
-                    <input type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.gAssociationType} disabled={this.state.isFileTypeDisabled} />
+                    <input id="ctrlByCT_rb" type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.gAssociationType} disabled={this.state.isFileTypeDisabled} checked={this.state.ctrlByCT_rb}/>
                     <span>&nbsp;&nbsp;Available Globally to Controllers of Type</span>
                     <select id="controllerTypes" className="form-control globalType" disabled={this.state.isFileTypeDisabled} onChange={this.changeControllerTypes}   >
                         <option value=""></option>
