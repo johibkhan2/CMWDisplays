@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 import * as displayControllerService from '../../services/displayControllerService';
 import Alert from 'react-s-alert';
 import  {resetTimeoutNow} from '../../constants/timer';
+import $ from 'jquery';
 
 const customStyles = {
   
@@ -50,7 +51,8 @@ class FileDownloadComponent extends Component {
             controllerTypeID:'',
             supportFileType:'',
             gAssociationType:'gAssociationType',
-            sAssociationType:'sAssociationType'
+            sAssociationType:'sAssociationType',
+            isAssociationTypeDisabled:false
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
@@ -192,6 +194,16 @@ class FileDownloadComponent extends Component {
         } else{
              this.setState({isFileTypeDisabled: true});
         }
+        this.clearDropDowns();    
+        
+    }
+
+    clearDropDowns() {
+        document.getElementById('fileTypes').value="";
+        document.getElementById('groups').value="";
+        document.getElementById('controllerGroups').value="";
+        document.getElementById('controllers').value="";
+        document.getElementById('controllerTypes').value="";
     }
 
     handleAssociationType(event){
@@ -201,6 +213,11 @@ class FileDownloadComponent extends Component {
         this.setState({
         [name]: value
         });
+        // if (this.state.associationType == 'sAssociationType') {
+        //     this.setState({isAssociationTypeDisabled: false});
+        // } else{
+        //      this.setState({isAssociationTypeDisabled: true});
+        // }
     }
     
     render() {
@@ -255,7 +272,7 @@ return (
                 <div>
                     <input type="radio" name="fileType" value={this.state.showSupportFiles} onChange={this.handleFileType}/>
                     <span>&nbsp;&nbsp;Show Support Files</span>
-                    <select className="form-control supportFileSelect" disabled={this.state.isFileTypeDisabled} onChange={this.changeFileType}>
+                    <select id="fileTypes" className="form-control supportFileSelect" disabled={this.state.isFileTypeDisabled} onChange={this.changeFileType}>
                         {this
                             .state
                             .fileTypes
@@ -274,13 +291,13 @@ return (
             <div className="col-md-7  common">
                 <h4>Association:</h4>
                 <div>
-                    <input type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.sAssociationType}/>
+                    <input type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.sAssociationType} />
                     <span>&nbsp;&nbsp;For the specific controller</span>
 
                 </div>
                 <div>
-                    <select
-                        onChange={this.changeGroupTypes}
+                    <select id="groups" 
+                        onChange={this.changeGroupTypes}  
                         className="form-control specificControllerSelect">
                         <option value=""></option>
                         {this
@@ -295,10 +312,8 @@ return (
                             })}
                     </select>
 
-                    <select
-                        onChange={this
-                        .changeGroups
-                        .bind(this)}
+                    <select id="controllerGroups"
+                        onChange={this.changeGroups.bind(this)}  
                         className="form-control specificControllerSelect">
                         <option value=""></option>
                         {this
@@ -313,8 +328,8 @@ return (
                             })}
                     </select>
 
-                    <select
-                        onChange={this.changeControllers}
+                    <select id="controllers"
+                        onChange={this.changeControllers}  
                         className="form-control specificControllerSelect">
                         <option value=""></option>
                         {this
@@ -333,7 +348,7 @@ return (
                 <div>
                     <input type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.gAssociationType} disabled={this.state.isFileTypeDisabled} />
                     <span>&nbsp;&nbsp;Available Globally to Controllers of Type</span>
-                    <select className="form-control globalType" disabled={this.state.isFileTypeDisabled} onChange={this.changeControllerTypes}>
+                    <select id="controllerTypes" className="form-control globalType" disabled={this.state.isFileTypeDisabled} onChange={this.changeControllerTypes}   >
                         <option value=""></option>
                         {this
                             .state
