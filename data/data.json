@@ -95,7 +95,7 @@
     {
 
         "supportFile": [{
-                "SupportFileType": "jpg",
+                "SupportFileType": "Sjpg",
                 "SFVersion": "1",
                 "Notes": "xxyxyx",
                 "SFileName": "file1",
@@ -119,7 +119,7 @@
     {
 
         "firmware": [{
-                "SupportFileType": "jpg",
+                "SupportFileType": "fjpg",
                 "Version": "1",
                 "Notes": "xxyxyx",
                 "FileName": "file1",

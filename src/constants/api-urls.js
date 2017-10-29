@@ -4,5 +4,7 @@ authUrl:rootUrl+'login',
 getFilesUrl:rootUrl+'1', 
 getFileTypesUrl:rootUrl+'2', 
 getControllerTypesUrl:rootUrl+'3',
-getGroupsUrl : 'http://localhost:8080/data/groups.json'
+getGroupsUrl : 'http://localhost:8080/data/groups.json',
+getSupportFilesUrl:rootUrl+'4',
+getFirmwareFilesUrl:rootUrl+'5'
 };

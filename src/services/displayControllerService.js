@@ -28,13 +28,19 @@ export function getControllerTypes() {
 //API based on back end logic
 export function getFirmwareVersion(cgtName,controllerID) {
     let sessionID= localStorage.getItem('sessionID');
-    return axios.get(urls.getFilesUrl+'?sessionID'+sessionID+'&cgtName='+cgtName+'&controllerID='+controllerID+'&version='+'All')
+    return axios.get(urls.getFirmwareFilesUrl)
         .then(response => response.data);
+      /**********uncomment below code when real time call is made**********/        
+    // return axios.get(urls.getFirmwareFilesUrl+'?sessionID'+sessionID+'&cgtName='+cgtName+'&controllerID='+controllerID+'&version='+'All')
+    //     .then(response => response.data);
 }
 
 export function getSupportFile(cgtName,controllerID,controllerTypeID,supportFileType) {
     let sessionID= localStorage.getItem('sessionID');
-    return axios.get(urls.getFilesUrl+'?sessionID'+sessionID+'&cgtName='+cgtName+'&controllerID='
-    +controllerID+'&controllerTypeID='+controllerTypeID+'&supportFileType='+supportFileType)
+    return axios.get(urls.getSupportFilesUrl)
         .then(response => response.data);
+    /**********uncomment below code when real time call is made**********/    
+    // return axios.get(urls.getSupportFilesUrl+'?sessionID'+sessionID+'&cgtName='+cgtName+'&controllerID='
+    // +controllerID+'&controllerTypeID='+controllerTypeID+'&supportFileType='+supportFileType)
+    //     .then(response => response.data);
 }

@@ -8,7 +8,6 @@ import Modal from 'react-modal';
 import * as displayControllerService from '../../services/displayControllerService';
 import Alert from 'react-s-alert';
 import  {resetTimeoutNow} from '../../constants/timer';
-import $ from 'jquery';
 
 const customStyles = {
   
@@ -35,6 +34,8 @@ class FileDownloadComponent extends Component {
         super();
         this.state = {
             files: [],
+            supportFiles: [],
+            firmWareFiles: [],
             fileTypes:[],
             controllerTypes:[],
             groups:[],
@@ -103,8 +104,11 @@ class FileDownloadComponent extends Component {
         });   
         if (this.state.fileType == 'cFiles' && this.state.associationType=='sAssociationType') {
             console.log("called the service firmware");
-            resetTimeoutNow();
-           // displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => {this.setState({groups: response})}) 
+            displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => 
+            {
+                this.setState({firmWareFiles: response.firmware});
+                resetTimeoutNow();
+            }) 
         } else{
             
         }
@@ -117,8 +121,11 @@ class FileDownloadComponent extends Component {
         this.setState({
         controllerTypeID: event.target.value
         });
-        resetTimeoutNow();
-        //displayControllerService.getSupportFile(this.state.cgtName,this.state.controllerID,this.state.controllerTypeID,this.state.supportFileType).then(response => {this.setState({groups: response})})  
+        displayControllerService.getSupportFile(this.state.cgtName,this.state.controllerID,this.state.controllerTypeID,this.state.supportFileType).then(response =>
+         {
+             this.setState({supportFiles: response.supportFile});
+             resetTimeoutNow();
+        })  
     }
 
     changeFileType(event){
@@ -191,8 +198,10 @@ class FileDownloadComponent extends Component {
         });
         if (this.state.fileType == 'cFiles') {
             this.setState({isFileTypeDisabled: false});
+            this.setState({supportFiles: []});
         } else{
              this.setState({isFileTypeDisabled: true});
+             this.setState({firmWareFiles: []});
         }
         this.clearDropDowns();    
         
@@ -370,10 +379,10 @@ return (
         </div>
         <br/>
         <div className="row">
-
             <div className="col-md-11 common">
+            {!this.state.isFileTypeDisabled==false &&
                 <BootstrapTable
-                    data={this.state.files}
+                    data={this.state.firmWareFiles}
                     pagination={false}
                     options={options}
                     className="filesTable">
@@ -382,17 +391,41 @@ return (
                         tdStyle={{
                         width: '30px'
                     }}
-                        dataField='id'
+                        dataField='ID'
                         isKey={true}
-                        dataFormat={downloadFormatter.bind(this, 'id')}>Action</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='type'>Type</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='version'>Version</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='fileName'>File Name</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='notes'>Notes</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='createdOn'>
+                        dataFormat={downloadFormatter.bind(this, 'ID')}>Action</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='SupportFileType'>Type</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='Version'>Version</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='FileName'>File Name</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='Notes'>Notes</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='CreateDate'>
                         Created On</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='lastUpdatedBy'>Last Updated By</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='LastUpdateUser'>Last Updated By</TableHeaderColumn>
                 </BootstrapTable>
+            }
+            {!this.state.isFileTypeDisabled==true &&
+                <BootstrapTable
+                    data={this.state.supportFiles}
+                    pagination={false}
+                    options={options}
+                    className="filesTable">
+                    <TableHeaderColumn
+                        width='100'
+                        tdStyle={{
+                        width: '30px'
+                    }}
+                        dataField='ID'
+                        isKey={true}
+                        dataFormat={downloadFormatter.bind(this, 'ID')}>Action</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='SupportFileType'>Type</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='SFVersion'>Version</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='SFileName'>File Name</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='Notes'>Notes</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='CreateDate'>
+                        Created On</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='LastUpdateByName'>Last Updated By</TableHeaderColumn>
+                </BootstrapTable>
+            }      
             </div>
             <div>
                 <Modal
