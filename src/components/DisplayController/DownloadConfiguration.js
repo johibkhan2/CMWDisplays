@@ -26,12 +26,25 @@ class DownloadConfiguration extends React.Component {
         this.state = {
              modalIsOpen: false,
              isKitConnected: false,
-             isPrepared:false
+             isPrepared:false,
+             percent: 30,
+             color: '#3FC7FA',
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
+        this.changeState = this.changeState.bind(this);
+    }
+
+    
+    changeState() {
+        const colorMap = ['#3FC7FA', '#85D262', '#FE8C6A'];
+        const value = parseInt(Math.random() * 100, 10);
+        this.setState({
+        percent: value,
+        color: colorMap[parseInt(Math.random() * 3, 10)],
+        });
     }
 
     handleSubmit(event) {
@@ -40,6 +53,7 @@ class DownloadConfiguration extends React.Component {
         displayControllerService.downloadFileFromSystem()
             .then(response => {
                 //resetTimeoutNow();
+                this.changeState();
             });
         this.openModal();
     } else {
@@ -121,7 +135,7 @@ render() {
                 shouldCloseOnOverlayClick={false}
                 style={customStyles}
                 contentLabel="">
-                <ProgressBar closeModal={this.closeModal}/>
+                <ProgressBar closeModal={this.closeModal} percent={this.state.percent} color={this.state.color}/>
             </Modal>
         </div>
     );

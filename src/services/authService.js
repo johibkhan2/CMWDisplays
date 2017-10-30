@@ -21,3 +21,9 @@ export function deleteSession() {
     return axios.get(urls.deleteSessionUrl+'?sessionID='+sessionID)
         .then(response => response.data);
 }
+
+export function getDealerId() {
+    let sessionID= localStorage.getItem('sessionID');
+    return axios.get(urls.getDealerIdUrl+'?sessionID='+sessionID)
+        .then(response => response.data);
+}

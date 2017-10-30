@@ -9,5 +9,6 @@ getSupportFilesUrl:rootUrl+'4',
 getFirmwareFilesUrl:rootUrl+'5',
 downloadFileFromDBUrl:rootUrl,
 downloadFileFromSystemUrl:rootUrl,
-deleteSessionUrl:rootUrl+'api/Session/Delete'
+deleteSessionUrl:rootUrl+'api/Session/Delete',
+getDealerIdUrl:rootUrl+'api/DealerID/'
 };
