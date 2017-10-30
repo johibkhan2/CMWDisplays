@@ -15,3 +15,9 @@ let data={oldPassword: oldPassword, oldPassword:oldPassword};
   return axios.post(urls.authUrl+'?sessionID='+sessionID,data)
     .then(response =>response.data);
 }
+
+export function deleteSession() {
+    let sessionID= localStorage.getItem('sessionID');
+    return axios.get(urls.deleteSessionUrl+'?sessionID='+sessionID)
+        .then(response => response.data);
+}

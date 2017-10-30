@@ -136,7 +136,7 @@ class FileDownloadComponent extends Component {
         if (this.state.fileType == 'cFiles') {
             console.log("called the service firmware");
             if(this.state.associationType == 'sAssociationType'){
-                this.getMyControllerFlag(event.target.value);
+            this.getMyControllerFlag(event.target.value);
             displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => 
             {
                 this.setState({firmWareFiles: response.firmware});
@@ -238,12 +238,12 @@ class FileDownloadComponent extends Component {
         displayControllerService.getControllerTypes().then(response => this.setState({controllerTypes: response.controllerTypes}));
     }
 
-    downLoadConfirm(id){
-        console.log('ddd'+id);
+    downLoadConfirm(id,supportFileType){
+        console.log('id'+id+"supportFileType"+supportFileType);
         if (this.state.myControllerFlag != 0 && this.state.controllerTypeID < 0) {
             this.setState({isDBcall: true});
             this.openModal();
-            // displayControllerService.downloadFileFromDB(this.state.cgtName,id,0,-1).then(response => 
+            // displayControllerService.downloadFileFromDB(this.state.cgtName,id,supportFileType,0,-1).then(response => 
             // {
             //     resetTimeoutNow();
             // });
@@ -304,8 +304,8 @@ class FileDownloadComponent extends Component {
     
     render() {
 
-        function downloadFormatter(data, cell){
-            return <button  className=".btn-default"  onClick={this.downLoadConfirm.bind(this,cell)}>Download</button> ;
+        function downloadFormatter(data, cell,row){
+            return <button  className=".btn-default" onClick={this.downLoadConfirm.bind(this,cell, row['SupportFileType'])}>Download</button> ;
         }
 
         const options = {
