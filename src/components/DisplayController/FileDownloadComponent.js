@@ -9,6 +9,21 @@ import * as displayControllerService from '../../services/displayControllerServi
 import Alert from 'react-s-alert';
 import  {resetTimeoutNow} from '../../constants/timer';
 import $ from 'jquery';
+import ProgressBar from './ProgressBar';
+
+const customLoaderStyles = {
+  
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    width                 : '24vw',
+    background            : '#eee'
+  }
+};
 
 const customStyles = {
   
@@ -43,6 +58,7 @@ class FileDownloadComponent extends Component {
             controllerGroups:[],
             controllers:[],
             modalIsOpenConfrim: false,
+            modalIsOpen:false,
             fileType:'',
             showConfigFiles:'cFiles',
             showSupportFiles:'sFiles',
@@ -60,12 +76,24 @@ class FileDownloadComponent extends Component {
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
      this.changeControllers=this.changeControllers.bind(this);
-     this.openDownloadConfirmModal = this.openDownloadConfirmModal.bind(this);
      this.closeDownloadConfirmModal = this.closeDownloadConfirmModal.bind(this);
      this.handleFileType=this.handleFileType.bind(this);
      this.handleAssociationType=this.handleAssociationType.bind(this);
      this.changeControllerTypes=this.changeControllerTypes.bind(this);
-     this.changeFileType=this.changeFileType.bind(this);  
+     this.changeFileType=this.changeFileType.bind(this);
+     this.openModal=this.openModal.bind(this);
+     this.closeModal=this.closeModal.bind(this);
+    }
+
+    openModal() {
+        console.log("openModal");
+        this.setState({modalIsOpen: true});
+    }
+
+
+    closeModal() {
+        console.log("closeModal");
+        this.setState({modalIsOpen: false});
     }
 
 
@@ -147,7 +175,7 @@ class FileDownloadComponent extends Component {
              resetTimeoutNow();
         })
             }else{
-                Alert.error("<h4>Please check either the radio buttons</h4>");
+                Alert.error("<h4>Please select Association</h4>");
             }
         }else{
             Alert.error("<h4>Please select group type</h4>");
@@ -212,16 +240,17 @@ class FileDownloadComponent extends Component {
 
     downLoadConfirm(id){
         console.log('ddd'+id);
-        this.openDownloadConfirmModal();
-    }
-
-    openDownloadConfirmModal() {
-    if (this.state.myControllerFlag != 0 && this.state.controllerTypeID < 0) {
-        this.setState({isDBcall: true});
-    } else {
-        this.setState({isDBcall: false});
-        this.setState({modalIsOpenConfrim: true});
-    }
+        if (this.state.myControllerFlag != 0 && this.state.controllerTypeID < 0) {
+            this.setState({isDBcall: true});
+            this.openModal();
+            // displayControllerService.downloadFileFromDB(this.state.cgtName,id,0,-1).then(response => 
+            // {
+            //     resetTimeoutNow();
+            // });
+        } else {
+            this.setState({isDBcall: false});
+            this.setState({modalIsOpenConfrim: true});
+        }
     }
 
     handleFileType(event){
@@ -253,6 +282,10 @@ class FileDownloadComponent extends Component {
         this.checked = false;
         });
         this.setState({associationType:''});
+        this.setState({myControllerFlag: 0});
+        this.setState({controllerID: 0});
+        this.setState({controllerTypeID: 0});
+        this.setState({cgtName: ''});
     }
 
     handleAssociationType(event){
@@ -475,8 +508,16 @@ return (
                     style={customStyles}
                     contentLabel="Confrimation">
                     <label style={labelStyles}>Download Configuration</label>
-                    <DownloadConfiguration myControllerFlag={this.state.myControllerFlag}
-                        closeDownloadConfirmModal={this.closeDownloadConfirmModal}/>
+                    <DownloadConfiguration 
+                    closeDownloadConfirmModal={this.closeDownloadConfirmModal}/>
+                </Modal>
+                <Modal
+                isOpen={this.state.modalIsOpen}
+                onRequestClose={this.closeModal}
+                shouldCloseOnOverlayClick={false}
+                style={customLoaderStyles}
+                contentLabel="">
+                <ProgressBar closeModal={this.closeModal}/>
                 </Modal>
             </div>
         </div>

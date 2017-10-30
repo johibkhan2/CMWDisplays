@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './DownloadConfiguration.css';
 import ProgressBar from './ProgressBar';
 import Modal from 'react-modal';
+import Alert from 'react-s-alert';
+import * as displayControllerService from '../../services/displayControllerService';
 
 
 const customStyles = {
@@ -22,18 +24,27 @@ class DownloadConfiguration extends React.Component {
         super(props);
 
         this.state = {
-             modalIsOpen: false
+             modalIsOpen: false,
+             isKitConnected: false,
+             isPrepared:false
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
     }
 
     handleSubmit(event) {
-        event.preventDefault();
+    event.preventDefault();
+    if (this.state.isKitConnected && this.state.isPrepared) {
+        displayControllerService.downloadFileFromSystem()
+            .then(response => {
+                resetTimeoutNow();
+            });
         this.openModal();
-        console.log(this.state);
-
+    } else {
+        Alert.error("<h4>Please check both the checkboxs</h4>");
+    }
     }
 
     openModal() {
@@ -46,6 +57,13 @@ class DownloadConfiguration extends React.Component {
     closeModal() {
         console.log("closeModal");
         this.setState({modalIsOpen: false});
+    }
+
+    handleCheckBoxChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox'? target.checked: target.value;
+        const name = target.name;
+        this.setState({[name]: value});
     }
 
 render() {
@@ -62,7 +80,7 @@ render() {
                         1. You have a Display Config Cable and Adapter Kit (P/N 220-2267) plug into a
                         USB port on your computer</span>
                     <div className="kit">
-                        <input type="checkbox"/>
+                        <input name="isKitConnected" type="checkbox" onChange={this.handleCheckBoxChange}/>
                         <span>Kit Connected</span>
                     </div>
                 </div>
@@ -71,7 +89,7 @@ render() {
                         2. You have prepared the root directory of the connected programming kit by
                         either removing all files or by placing them in subfolders</span>
                     <div className="kit">
-                        <input type="checkbox"/>
+                        <input name="isPrepared" type="checkbox" onChange={this.handleCheckBoxChange}/>
                         <span>Root Directory Prepared</span>
                     </div>
                 </div>
