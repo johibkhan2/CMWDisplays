@@ -7,6 +7,7 @@ const cancelStyles = {
   marginBottom          : '-11px'
 };
 
+// for reference https://github.com/react-component/progress
 class ProgressBar extends Component {
   constructor() {
     super();

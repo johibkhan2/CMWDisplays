@@ -3,7 +3,7 @@ import Header from '../../shared/Header';
 import './DisplayControllerComponent.css';
 import FileDownloadComponent from '../DisplayController/FileDownloadComponent';
 
-
+//display controller component main page
 class DisplayControllerComponent extends Component {
 
   constructor() {

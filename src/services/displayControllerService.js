@@ -1,31 +1,28 @@
 import axios from 'axios';
 import {urls} from '../constants/api-urls';
 
+//API call to get groups for right most 3 drop downs
 export function getGroups() {
     let sessionID= localStorage.getItem('sessionID');
     return axios.get(urls.getGroupsUrl)
         .then(response => response.data);
 }
 
-export function getFiles() {
-    let sessionID= localStorage.getItem('sessionID');
-    return axios.get(urls.getFilesUrl)
-        .then(response => response.data);
-}
-
+//API call to get right drop downs to get file types
 export function getFileTypes() {
     let sessionID= localStorage.getItem('sessionID');
     return axios.get(urls.getFileTypesUrl)
         .then(response => response.data);
 }
 
+//API call to get controller types from right bottom drop downs
 export function getControllerTypes() {
     let sessionID= localStorage.getItem('sessionID');
     return axios.get(urls.getControllerTypesUrl)
         .then(response => response.data);
 }
 
-//API based on back end logic
+//API call to get firmware files
 export function getFirmwareVersion(cgtName,controllerID) {
     let sessionID= localStorage.getItem('sessionID');
     return axios.get(urls.getFirmwareFilesUrl)
@@ -35,6 +32,7 @@ export function getFirmwareVersion(cgtName,controllerID) {
     //     .then(response => response.data);
 }
 
+//API to get support files
 export function getSupportFile(cgtName,controllerID,controllerTypeID,supportFileType) {
     let sessionID= localStorage.getItem('sessionID');
     return axios.get(urls.getSupportFilesUrl)
@@ -45,13 +43,13 @@ export function getSupportFile(cgtName,controllerID,controllerTypeID,supportFile
     //     .then(response => response.data);
 }
 
-
+//API to download files from DB
 export function downloadFileFromDB(cgtName,fileID,fileType) {
     //&cgtName={cgtName}&fileID={fileID}&fileType={fileType}&startByte={startByte}&numBytes={numBytes}
     let sessionID= localStorage.getItem('sessionID');
     return fetch(urls.downloadFileFromDBUrl+'?sessionID='+sessionID+'&cgtName='+cgtName+'&fileID='+fileID+'&fileType='+fileType)
         .then(response => 
-        {
+        {   //download the file in chunks
             this.downloadFile(response);
         });
 }
@@ -59,7 +57,7 @@ export function downloadFileFromDB(cgtName,fileID,fileType) {
 
 
 
-//readt file chunk by chunk using javascript
+//read file chunk by chunk using javascript
 
 function downloadFile(response){
  // response.body is a readable stream.
@@ -96,6 +94,7 @@ export function cacelDownload(){
 }
 
 
+//download the file from system
 export function downloadFileFromSystem() {
     let sessionID= localStorage.getItem('sessionID');
     return axios.get(urls.downloadFileFromSystemUrl+'?sessionID='+sessionID)

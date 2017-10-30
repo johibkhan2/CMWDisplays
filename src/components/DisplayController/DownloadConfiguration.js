@@ -19,6 +19,7 @@ const customStyles = {
     background            : '#eee'
   }
 };
+//this is the download configuration component
 class DownloadConfiguration extends React.Component {
     constructor(props) {
         super(props);
@@ -37,7 +38,7 @@ class DownloadConfiguration extends React.Component {
         this.changeState = this.changeState.bind(this);
     }
 
-    
+    //it change the % and color of loader
     changeState() {
         const colorMap = ['#3FC7FA', '#85D262', '#FE8C6A'];
         const value = parseInt(Math.random() * 100, 10);
@@ -47,14 +48,18 @@ class DownloadConfiguration extends React.Component {
         });
     }
 
+    // it is called when download configuration pop up is submitted
     handleSubmit(event) {
     event.preventDefault();
+    //making sure both the checkboxes are checked
     if (this.state.isKitConnected && this.state.isPrepared) {
+        //making api call to download file from system
         displayControllerService.downloadFileFromSystem()
             .then(response => {
                 //resetTimeoutNow();
                 this.changeState();
             });
+            //opening downloading progress bar
         this.openModal();
     } else {
         Alert.error("<h4>Please check both the checkboxs</h4>");
@@ -67,7 +72,7 @@ class DownloadConfiguration extends React.Component {
         //this.props.closeDownloadConfirmModal();
     }
 
-
+//cancelling the downloading progress bar 
     closeModal() {
         console.log("closeModal");
         this.setState({modalIsOpen: false});
@@ -79,6 +84,7 @@ class DownloadConfiguration extends React.Component {
         }
     }
 
+    //setting the values for checkboxs
     handleCheckBoxChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox'? target.checked: target.value;
