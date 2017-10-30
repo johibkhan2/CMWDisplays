@@ -49,14 +49,13 @@ class FileDownloadComponent extends Component {
             isFileTypeDisabled:false,
             associationType:'',
             cgtName:'',
-            controllerID:'',
-            controllerTypeID:'',
+            controllerID:0,
+            controllerTypeID:0,
             supportFileType:'',
             gAssociationType:'gAssociationType',
             sAssociationType:'sAssociationType',
-            isAssociationTypeDisabled:false,
-            ctrlByCT_rb:false,
-            ctrlByCG_rb:false,
+            myControllerFlag:0,
+            isDBcall:false
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
@@ -102,12 +101,14 @@ class FileDownloadComponent extends Component {
     //FirmwareVersion API call
     changeControllers(event){
         console.log("val3"+event.target.value);
+        //console.log("cnt"+event.target.cnt);
         this.setState({
         controllerID: event.target.value
         });   
         if (this.state.fileType == 'cFiles') {
             console.log("called the service firmware");
             if(this.state.associationType == 'sAssociationType'){
+                this.getMyControllerFlag(event.target.value);
             displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => 
             {
                 this.setState({firmWareFiles: response.firmware});
@@ -116,8 +117,17 @@ class FileDownloadComponent extends Component {
             }else{
                  Alert.error("<h4>Please check the radio button For the specific controller</h4>");
             } 
-        } else{
-            
+        } else if (this.state.fileType == '') {
+            Alert.error("<h4>Please select file type</h4>");
+        }
+    }
+
+    getMyControllerFlag(controllerID){
+        for(let i in this.state.controllers){
+                if(this.state.controllers[i].ID==controllerID){
+                    this.setState({myControllerFlag: this.state.controllers[i].CtrFlag});
+                    break;
+                }
         }
     }
 
@@ -128,9 +138,10 @@ class FileDownloadComponent extends Component {
         this.setState({
         controllerTypeID: event.target.value
         });
+       if (this.state.fileType == 'sFiles') {
         if(this.state.cgtName!=''){
             if(this.state.associationType != ''){
-        displayControllerService.getSupportFile(this.state.cgtName,this.state.controllerID,this.state.controllerTypeID,this.state.supportFileType).then(response =>
+            displayControllerService.getSupportFile(this.state.cgtName,this.state.controllerID,this.state.controllerTypeID,this.state.supportFileType).then(response =>
         {
              this.setState({supportFiles: response.supportFile});
              resetTimeoutNow();
@@ -140,7 +151,10 @@ class FileDownloadComponent extends Component {
             }
         }else{
             Alert.error("<h4>Please select group type</h4>");
-        }  
+        }
+       }else if (this.state.fileType == '') {
+            Alert.error("<h4>Please select file type</h4>");
+        } 
     }
 
     changeFileType(event){
@@ -157,9 +171,6 @@ class FileDownloadComponent extends Component {
         this.getGroups();
     }
 
-    openDownloadConfirmModal() {
-        this.setState({modalIsOpenConfrim: true});
-    }
 
     closeDownloadConfirmModal() {
         console.log("closeDownloadConfirmModal called");
@@ -204,6 +215,15 @@ class FileDownloadComponent extends Component {
         this.openDownloadConfirmModal();
     }
 
+    openDownloadConfirmModal() {
+    if (this.state.myControllerFlag != 0 && this.state.controllerTypeID < 0) {
+        this.setState({isDBcall: true});
+    } else {
+        this.setState({isDBcall: false});
+        this.setState({modalIsOpenConfrim: true});
+    }
+    }
+
     handleFileType(event){
         const target = event.target;
         const value = target.value;
@@ -211,10 +231,10 @@ class FileDownloadComponent extends Component {
         this.setState({
         [name]: value
         });
-        if (this.state.fileType == 'cFiles') {
+        if (value == 'sFiles') {
             this.setState({isFileTypeDisabled: false});
             this.setState({supportFiles: []});
-        } else if (this.state.fileType == 'sFiles'){
+        } else if (value == 'cFiles'){
              this.setState({isFileTypeDisabled: true});
              this.setState({firmWareFiles: []});             
         }else{}
@@ -453,9 +473,9 @@ return (
                     onRequestClose={this.closeDownloadConfirmModal}
                     shouldCloseOnOverlayClick={false}
                     style={customStyles}
-                    contentLabel="LogIn">
+                    contentLabel="Confrimation">
                     <label style={labelStyles}>Download Configuration</label>
-                    <DownloadConfiguration
+                    <DownloadConfiguration myControllerFlag={this.state.myControllerFlag}
                         closeDownloadConfirmModal={this.closeDownloadConfirmModal}/>
                 </Modal>
             </div>

@@ -6,5 +6,7 @@ getFileTypesUrl:rootUrl+'2',
 getControllerTypesUrl:rootUrl+'3',
 getGroupsUrl : 'http://localhost:8080/data/groups.json',
 getSupportFilesUrl:rootUrl+'4',
-getFirmwareFilesUrl:rootUrl+'5'
+getFirmwareFilesUrl:rootUrl+'5',
+downloadFileFromDBUrl:rootUrl,
+downloadFileFromSystemUrl:rootUrl,
 };

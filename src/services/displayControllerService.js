@@ -44,3 +44,17 @@ export function getSupportFile(cgtName,controllerID,controllerTypeID,supportFile
     // +controllerID+'&controllerTypeID='+controllerTypeID+'&supportFileType='+supportFileType)
     //     .then(response => response.data);
 }
+
+
+export function downloadFileFromDB(cgtName,fileID,fileType) {
+    //&cgtName={cgtName}&fileID={fileID}&fileType={fileType}&startByte={startByte}&numBytes={numBytes}
+    let sessionID= localStorage.getItem('sessionID');
+    return axios.get(urls.downloadFileFromDBUrl+'?sessionID='+sessionID+'&cgtName='+cgtName+'&fileID='+fileID+'&fileType='+fileType)
+        .then(response => response.data);
+}
+
+export function downloadFileFromSystem() {
+    let sessionID= localStorage.getItem('sessionID');
+    return axios.get(urls.downloadFileFromSystemUrl+'?sessionID='+sessionID)
+        .then(response => response.data);
+}
