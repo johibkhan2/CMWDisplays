@@ -94,6 +94,12 @@ class FileDownloadComponent extends Component {
     closeModal() {
         console.log("closeModal");
         this.setState({modalIsOpen: false});
+               //cancelling download
+        if (window.stop !== undefined) {
+            window.stop();
+        } else if (document.execCommand !== undefined) {
+            document.execCommand("Stop", false);
+        }
     }
 
 

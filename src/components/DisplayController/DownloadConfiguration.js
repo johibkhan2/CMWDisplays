@@ -39,7 +39,7 @@ class DownloadConfiguration extends React.Component {
     if (this.state.isKitConnected && this.state.isPrepared) {
         displayControllerService.downloadFileFromSystem()
             .then(response => {
-                resetTimeoutNow();
+                //resetTimeoutNow();
             });
         this.openModal();
     } else {
@@ -57,6 +57,12 @@ class DownloadConfiguration extends React.Component {
     closeModal() {
         console.log("closeModal");
         this.setState({modalIsOpen: false});
+        //cancelling download
+        if (window.stop !== undefined) {
+            window.stop();
+        } else if (document.execCommand !== undefined) {
+            document.execCommand("Stop", false);
+        }
     }
 
     handleCheckBoxChange(event) {

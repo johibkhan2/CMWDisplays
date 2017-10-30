@@ -49,9 +49,52 @@ export function getSupportFile(cgtName,controllerID,controllerTypeID,supportFile
 export function downloadFileFromDB(cgtName,fileID,fileType) {
     //&cgtName={cgtName}&fileID={fileID}&fileType={fileType}&startByte={startByte}&numBytes={numBytes}
     let sessionID= localStorage.getItem('sessionID');
-    return axios.get(urls.downloadFileFromDBUrl+'?sessionID='+sessionID+'&cgtName='+cgtName+'&fileID='+fileID+'&fileType='+fileType)
-        .then(response => response.data);
+    return fetch(urls.downloadFileFromDBUrl+'?sessionID='+sessionID+'&cgtName='+cgtName+'&fileID='+fileID+'&fileType='+fileType)
+        .then(response => 
+        {
+            this.downloadFile(response);
+        });
 }
+
+
+
+
+//readt file chunk by chunk using javascript
+
+function downloadFile(response){
+ // response.body is a readable stream.
+  // Calling getReader() gives us exclusive access to
+  // the stream's content
+  var reader = response.body.getReader();
+  var bytesReceived = 0;
+
+  // read() returns a promise that resolves
+  // when a value has been received
+  return reader.read().then(function processResult(result) {
+    // Result objects contain two properties:
+    // done  - true if the stream has already given
+    //         you all its data.
+    // value - some data. Always undefined when
+    //         done is true.
+    if (result.done) {
+      console.log("Fetch completed");
+      return;
+    }
+
+    // result.value for fetch streams is a Uint8Array
+    bytesReceived += result.value.length;
+    console.log('Received', bytesReceived, 'bytes of data so far');
+    // Read some more, and call this function again
+    return reader.read().then(processResult);
+  });
+
+}
+
+export function cacelDownload(){
+
+
+}
+
 
 export function downloadFileFromSystem() {
     let sessionID= localStorage.getItem('sessionID');
