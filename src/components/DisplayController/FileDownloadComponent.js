@@ -11,6 +11,7 @@ import  {resetTimeoutNow} from '../../constants/timer';
 import $ from 'jquery';
 import ProgressBar from './ProgressBar';
 
+//loader style
 const customLoaderStyles = {
   
   content : {
@@ -25,6 +26,7 @@ const customLoaderStyles = {
   }
 };
 
+//confirmation pop up style
 const customStyles = {
   
   content : {
@@ -45,7 +47,6 @@ const labelStyles = {
   };
 
 class FileDownloadComponent extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -85,12 +86,13 @@ class FileDownloadComponent extends Component {
      this.closeModal=this.closeModal.bind(this);
     }
 
+    //open loader modal
     openModal() {
         console.log("openModal");
         this.setState({modalIsOpen: true});
     }
 
-
+     //close loader modal
     closeModal() {
         console.log("closeModal");
         this.setState({modalIsOpen: false});
@@ -102,7 +104,7 @@ class FileDownloadComponent extends Component {
         }
     }
 
-
+    //called when group types is changed and getting value for cgtName. Also getting data for second drop downs
     changeGroupTypes(event){
          console.log("val1"+event.target.value);
         this.setState({
@@ -118,7 +120,7 @@ class FileDownloadComponent extends Component {
 
          }
     }
-
+   //called when group types second drop downs is changed. also getting data for third drop downs
     changeGroups(event){
         console.log("val2"+event.target.value);
         let selectedVal=event.target.value; 
@@ -132,30 +134,35 @@ class FileDownloadComponent extends Component {
         }
     }
 
-    //FirmwareVersion API call
+    //FirmwareVersion API call and controller is changed
     changeControllers(event){
         console.log("val3"+event.target.value);
-        //console.log("cnt"+event.target.cnt);
         this.setState({
         controllerID: event.target.value
-        });   
+        });
+    //checking if Show Config Files is checked   
         if (this.state.fileType == 'cFiles') {
             console.log("called the service firmware");
+            //checking if For the specific controller is checked  
             if(this.state.associationType == 'sAssociationType'){
             this.getMyControllerFlag(event.target.value);
+            //making API call
             displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => 
             {
                 this.setState({firmWareFiles: response.firmware});
+                //resetting timer
                 resetTimeoutNow();
             })
             }else{
                  Alert.error("<h4>Please check the radio button For the specific controller</h4>");
-            } 
+            }
+                //if file type is not selected 
         } else if (this.state.fileType == '') {
             Alert.error("<h4>Please select file type</h4>");
         }
     }
 
+    //getting myControllerFlag
     getMyControllerFlag(controllerID){
         for(let i in this.state.controllers){
                 if(this.state.controllers[i].ID==controllerID){
@@ -165,16 +172,21 @@ class FileDownloadComponent extends Component {
         }
     }
 
-    //SupportFile API call
+    //SupportFile API call when controller type is selected
 
     changeControllerTypes(event){
         console.log("controllerTypes"+event.target.value);
+        //setting controller type ID
         this.setState({
         controllerTypeID: event.target.value
         });
+        //checking if Show Support Files is checked 
        if (this.state.fileType == 'sFiles') {
+            //checking if group type is selected or not
         if(this.state.cgtName!=''){
+            //checking if association type is selected or not
             if(this.state.associationType != ''){
+                //making api call
             displayControllerService.getSupportFile(this.state.cgtName,this.state.controllerID,this.state.controllerTypeID,this.state.supportFileType).then(response =>
         {
              this.setState({supportFiles: response.supportFile});
@@ -191,6 +203,7 @@ class FileDownloadComponent extends Component {
         } 
     }
 
+    //hwne file type left most drop down is selected
     changeFileType(event){
         console.log("fileTypes"+event.target.value);
         this.setState({
@@ -198,23 +211,25 @@ class FileDownloadComponent extends Component {
         });  
     }
 
+    //we would like to reloaded data for groups file types and controller types when html is loaded 
     componentDidMount() {
-        this.getFiles();
         this.getFileTypes();
         this.getControllerTypes();
         this.getGroups();
     }
 
-
+    //download configuration pop up is closed
     closeDownloadConfirmModal() {
         console.log("closeDownloadConfirmModal called");
         this.setState({modalIsOpenConfrim: false});
         console.log(this.state);
     }
 
-
+    //getting groups--right most 3 drop downs
     getGroups(){
+        //API call
         displayControllerService.getGroups().then(response => {this.setState({groups: response})})
+        //exception handling in case of service is not reachable
         .catch(function (error) {
             if (error.response) {
                 console.log(error.response.data);
@@ -229,36 +244,40 @@ class FileDownloadComponent extends Component {
 
         });
     }
-    //this is dummy rest call.it will not used in future  
-    getFiles() {
-        displayControllerService.getFiles().then(response => {this.setState({files: response.files})});
-    }
-
+ 
+    //getting right most drop downs for file types
     getFileTypes() {
         resetTimeoutNow();
+        //API call
         displayControllerService.getFileTypes().then(response => this.setState({fileTypes: response.fileTypes}));
     }
 
+    //getting right most drop downs for file controller types
     getControllerTypes() {
         resetTimeoutNow();
+        //API call
         displayControllerService.getControllerTypes().then(response => this.setState({controllerTypes: response.controllerTypes}));
     }
 
+    //when we click on download button on grid
     downLoadConfirm(id,supportFileType){
         console.log('id'+id+"supportFileType"+supportFileType);
+        //logic whether file to be downloaded from DB/System
         if (this.state.myControllerFlag != 0 && this.state.controllerTypeID < 0) {
-            this.setState({isDBcall: true});
-            this.openModal();
+            //making API call to DB
             // displayControllerService.downloadFileFromDB(this.state.cgtName,id,supportFileType,0,-1).then(response => 
             // {
             //     resetTimeoutNow();
             // });
+            //opening the loader pop up 
+            this.openModal();
         } else {
-            this.setState({isDBcall: false});
+            //open up download configuration window
             this.setState({modalIsOpenConfrim: true});
         }
     }
 
+    //when left most radio button show config/support files is selected 
     handleFileType(event){
         const target = event.target;
         const value = target.value;
@@ -266,6 +285,8 @@ class FileDownloadComponent extends Component {
         this.setState({
         [name]: value
         });
+    
+        //html will be generated for respective grid based on selection of combo box
         if (value == 'sFiles') {
             this.setState({isFileTypeDisabled: false});
             this.setState({supportFiles: []});
@@ -277,6 +298,7 @@ class FileDownloadComponent extends Component {
         
     }
 
+    //when left most radio button show config/support files is selected then clearing up right most drop down and selection of radio button 
     clearDropDowns() {
         document.getElementById('fileTypes').value="";
         document.getElementById('groups').value="";
@@ -294,6 +316,7 @@ class FileDownloadComponent extends Component {
         this.setState({cgtName: ''});
     }
 
+    //when association type is selected
     handleAssociationType(event){
         const target = event.target;
         const value = target.value;
@@ -309,11 +332,12 @@ class FileDownloadComponent extends Component {
     }
     
     render() {
-
+        //configure download even when click on download
         function downloadFormatter(data, cell,row){
             return <button  className=".btn-default" onClick={this.downLoadConfirm.bind(this,cell, row['SupportFileType'])}>Download</button> ;
         }
 
+        //react-boostrap grid configuration
         const options = {
             page: 2, // which page you want to show as default
             sizePerPageList: [
