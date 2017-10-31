@@ -9,6 +9,7 @@ import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 import ChangePasswordLink from './shared/ChangePasswordLink';
 import ChangePassword from './auth/ChangePassword';
 import { browserHistory } from 'react-router';
+import * as authService from './services/authService';
 
 
 /**pop up styles */
@@ -43,6 +44,7 @@ class App extends Component {
       isLoggedIn: false,
       modalIsOpen: false,
       modalIsOpenChgPass: false,
+      dealers:[]
       //interval:60000,
     };
 
@@ -58,19 +60,25 @@ class App extends Component {
     this.openLoginPop();
   }
 
-  timer() {
-    console.log("timer calling");
-    this.openLoginPop();
-  }
-
+  //open login pop up
   openModal() {
     this.setState({modalIsOpen: true});
   }
 
+  //get dealers ID
+  getDealers(){
+    authService.getDealers().then(response=>{
+      this.setState({dealers: response.dealers});
+    });
+  }
 
+
+  //close login pop up
   closeModal() {
     this.setState({modalIsOpen: false});
   }
+
+  //open password pop up
  
   openModalChgPass() {
     this.setState({modalIsOpenChgPass: true});
@@ -81,6 +89,7 @@ class App extends Component {
     this.setState({modalIsOpenChgPass: false});
   }
 
+  //set property in flag
   setIsLoggedIn(){
     if(this.state.isLoggedIn==false){
     this.setState({isLoggedIn: true});
@@ -96,6 +105,7 @@ class App extends Component {
     const isLoggedIn = localStorage.getItem('isLoggedIn')==null || localStorage.getItem('isLoggedIn')==false ? false: true ;
     this.setState({isLoggedIn: isLoggedIn});
     if (!isLoggedIn) {
+      this.getDealers();
       //if not logged in then redirecting to home page
       browserHistory.push('/');
       this.openModal();
@@ -122,7 +132,7 @@ class App extends Component {
           contentLabel="LogIn"
         >
         <label style={labelStyles}>LogIn</label>
-        <LoginForm closeModal={this.closeModal} setIsLoggedIn={this.setIsLoggedIn}/>
+        <LoginForm closeModal={this.closeModal} setIsLoggedIn={this.setIsLoggedIn} dealers={this.state.dealers}/>
         </Modal>
       }
       </div>

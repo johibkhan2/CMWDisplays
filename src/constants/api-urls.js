@@ -11,5 +11,5 @@ getFirmwareFilesUrl:rootUrl+'5',
 downloadFileFromDBUrl:rootUrl,
 downloadFileFromSystemUrl:rootUrl,
 deleteSessionUrl:rootUrl+'api/Session/Delete',
-getDealerIdUrl:rootUrl+'api/DealerID/'
+getDealerIdUrl:rootUrl+'6'
 };

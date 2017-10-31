@@ -4,8 +4,7 @@ import * as authService from '../services/authService';
 import Alert from 'react-s-alert';
 import * as validator from '../validation/validator';
 import  Modal from 'react-modal';
-import * as authService from '../services/authService';
-import  {resetTimeoutNow} from '../../constants/timer';
+import  {resetTimeoutNow} from '../constants/timer';
 
 //password strength styles
 const veryWeak = { 

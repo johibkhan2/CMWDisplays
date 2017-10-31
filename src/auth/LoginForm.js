@@ -27,16 +27,27 @@ class LoginForm extends React.Component {
 
 //setting the values of radio buttons
     handleChange(event) {
-        event.preventDefault();
-        const target = event.target;
-        //const value = target.type === 'radio' ? target.checked : target.value;
-        if(target.type !== 'radio'){
+    event.preventDefault();
+    const target = event.target;
+    //const value = target.type === 'radio' ? target.checked : target.value;
+    if (target.type !== 'radio') {
         const value = target.value;
         const id = target.id;
-        this.setState({
-        [id]: value
-        });
+        if (id === 'DealerId') {
+            //looping the dealers
+            for(let i in this.props.dealers){
+                //if entered text maches the starting string then populate the dealer
+                if (this.props.dealers[i].indexOf(value)) {
+                    //this.setState({[id]: value});
+                }else{
+                    this.setState({[id]: this.props.dealers[i]});
+                    break;
+                }
+            }
+        } else {
+            this.setState({[id]: value});
         }
+    }
     }
     //checking whether all fields are not blank
     IsValid(userName, password, DealerId) {

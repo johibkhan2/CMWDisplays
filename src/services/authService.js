@@ -28,8 +28,10 @@ export function deleteSession() {
 
 //API call to get Dealer ID
 
-export function getDealerId() {
+export function getDealers() {
     let sessionID= localStorage.getItem('sessionID');
-    return axios.get(urls.getDealerIdUrl+'?sessionID='+sessionID)
+    /**uncomment below code */
+    //return axios.get(urls.getDealerIdUrl+'?sessionID='+sessionID)
+    return axios.get(urls.getDealerIdUrl)
         .then(response => response.data);
 }
