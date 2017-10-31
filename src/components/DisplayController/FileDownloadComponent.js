@@ -264,11 +264,14 @@ class FileDownloadComponent extends Component {
         console.log('id'+id+"supportFileType"+supportFileType);
         //logic whether file to be downloaded from DB/System
         if (this.state.myControllerFlag != 0 && this.state.controllerTypeID < 0) {
+            /**uncomment below code when replacing with real time url */
             //making API call to DB
-            // displayControllerService.downloadFileFromDB(this.state.cgtName,id,supportFileType,0,-1).then(response => 
-            // {
-            //     resetTimeoutNow();
-            // });
+            displayControllerService.downloadFileFromDB(this.state.cgtName,id,supportFileType,0,-1).then(response => 
+            {
+            //download the file in chunks
+                 this.downloadFile(response); 
+                 resetTimeoutNow();
+                });
             //opening the loader pop up 
             this.openModal();
         } else {
@@ -276,6 +279,38 @@ class FileDownloadComponent extends Component {
             this.setState({modalIsOpenConfrim: true});
         }
     }
+
+    
+//read file chunk by chunk using javascript
+
+ downloadFile(response){
+ // response.body is a readable stream.
+  // Calling getReader() gives us exclusive access to
+  // the stream's content
+  var reader = response.body.getReader();
+  var bytesReceived = 0;
+
+  // read() returns a promise that resolves
+  // when a value has been received
+  return reader.read().then(function processResult(result) {
+    // Result objects contain two properties:
+    // done  - true if the stream has already given
+    //         you all its data.
+    // value - some data. Always undefined when
+    //         done is true.
+    if (result.done) {
+      console.log("Fetch completed");
+      return;
+    }
+
+    // result.value for fetch streams is a Uint8Array
+    bytesReceived += result.value.length;
+    console.log('Received', bytesReceived, 'bytes of data so far');
+    // Read some more, and call this function again
+    return reader.read().then(processResult);
+  });
+
+}
 
     //when left most radio button show config/support files is selected 
     handleFileType(event){

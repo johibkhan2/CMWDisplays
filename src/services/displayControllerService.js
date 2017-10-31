@@ -48,50 +48,13 @@ export function downloadFileFromDB(cgtName,fileID,fileType) {
     //&cgtName={cgtName}&fileID={fileID}&fileType={fileType}&startByte={startByte}&numBytes={numBytes}
     let sessionID= localStorage.getItem('sessionID');
     return fetch(urls.downloadFileFromDBUrl+'?sessionID='+sessionID+'&cgtName='+cgtName+'&fileID='+fileID+'&fileType='+fileType)
-        .then(response => 
-        {   //download the file in chunks
-            this.downloadFile(response);
-        });
+        .then(response => response);
 }
 
 
 
 
-//read file chunk by chunk using javascript
 
-function downloadFile(response){
- // response.body is a readable stream.
-  // Calling getReader() gives us exclusive access to
-  // the stream's content
-  var reader = response.body.getReader();
-  var bytesReceived = 0;
-
-  // read() returns a promise that resolves
-  // when a value has been received
-  return reader.read().then(function processResult(result) {
-    // Result objects contain two properties:
-    // done  - true if the stream has already given
-    //         you all its data.
-    // value - some data. Always undefined when
-    //         done is true.
-    if (result.done) {
-      console.log("Fetch completed");
-      return;
-    }
-
-    // result.value for fetch streams is a Uint8Array
-    bytesReceived += result.value.length;
-    console.log('Received', bytesReceived, 'bytes of data so far');
-    // Read some more, and call this function again
-    return reader.read().then(processResult);
-  });
-
-}
-
-export function cacelDownload(){
-
-
-}
 
 //download the file from system
 export function downloadFileFromSystem() {
