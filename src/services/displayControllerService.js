@@ -93,7 +93,6 @@ export function cacelDownload(){
 
 }
 
-
 //download the file from system
 export function downloadFileFromSystem() {
     let sessionID= localStorage.getItem('sessionID');

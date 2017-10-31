@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './ChangePasswordLink.css';
 import {Link} from 'react-router';
 
+//it contains the bottom link for changing password pop up
 class ChangePasswordLink extends Component {
 
   constructor(props) {
@@ -10,6 +11,7 @@ class ChangePasswordLink extends Component {
     this.openModal = this.openModal.bind(this);
   }
 
+  //open up the change password pop up
   openModal() {
       console.log("openModal");
       this.props.openModalChgPass();

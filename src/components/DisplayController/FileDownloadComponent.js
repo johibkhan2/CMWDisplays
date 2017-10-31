@@ -531,7 +531,7 @@ return (
             }      
             </div>
             <div>
-            // modal for download configuration
+            {/* modal for download configuration */}
                 <Modal
                     isOpen={this.state.modalIsOpenConfrim}
                     onRequestClose={this.closeDownloadConfirmModal}
@@ -542,7 +542,7 @@ return (
                     <DownloadConfiguration 
                     closeDownloadConfirmModal={this.closeDownloadConfirmModal}/>
                 </Modal>
-                // modal for downloading progress bar
+                   {/* modal for downloading progress bar */}
                 <Modal
                 isOpen={this.state.modalIsOpen}
                 onRequestClose={this.closeModal}
