@@ -24,6 +24,8 @@ class LoginForm extends React.Component {
         this.handleChangeUserType = this.handleChangeUserType.bind(this);
     }
 
+
+//setting the values of radio buttons
     handleChange(event) {
         event.preventDefault();
         const target = event.target;
@@ -36,7 +38,7 @@ class LoginForm extends React.Component {
         });
         }
     }
-
+    //checking whether all fields are not blank
     IsValid(userName, password, DealerId) {
         if (validator.isRequired(userName) && validator.isRequired(password) && validator.isRequired(DealerId)) {
             return true;
@@ -44,11 +46,12 @@ class LoginForm extends React.Component {
         return false;
     }
 
-
+    //calling the submit function when click on login
     handleSubmit(event) {
         event.preventDefault();
         if(this.IsValid(this.state.userName,this.state.password,this.state.DealerId)){ 
         this.props.closeModal();
+        /**uncomment below code when replacing real time url */
         // authService.authenticateUser(this.state.userName,this.state.password,this.state.DealerId,this.state.userType).then(res => {
         //     console.log(res);
         //     //this.setState({data: res})
@@ -69,9 +72,12 @@ class LoginForm extends React.Component {
         //     return error;
         // });
         setTimeOutNow();
+        //setting global variable in local storage
         localStorage.setItem('isLoggedIn', true);//IsLoggedIn
         localStorage.setItem('sessionID', 'sdlkdosidosiodisodiosid');//SessionID
+        //setting isLoggedIn flag on higher component --App.js
         this.props.setIsLoggedIn();
+        //navigating to display controller page
         browserHistory.push('/displayController');
         //window.location.href='./displayController';
         }else{
@@ -79,6 +85,7 @@ class LoginForm extends React.Component {
         }
     }
 
+    //setting values for user input
     handleChangeUserType(event){
         const target = event.target;
         const value = target.value;

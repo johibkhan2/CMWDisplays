@@ -11,6 +11,7 @@ import ChangePassword from './auth/ChangePassword';
 import { browserHistory } from 'react-router';
 
 
+/**pop up styles */
 
 const customStyles = {
   
@@ -26,11 +27,14 @@ const customStyles = {
   }
 };
 
+/**pop up header styles */
+
 const labelStyles = { 
     marginBottom          : '16px',
     color                 : 'black'
 };
 
+/**top most component of application */
 class App extends Component {
 
   constructor() {
@@ -49,9 +53,9 @@ class App extends Component {
     this.setIsLoggedIn = this.setIsLoggedIn.bind(this);
   }
 
+  /**componentDidMount-check react doc */
   componentDidMount() {
     this.openLoginPop();
-    //this.intervalId = setInterval(this.timer.bind(this), this.state.interval);
   }
 
   timer() {
@@ -67,7 +71,7 @@ class App extends Component {
   closeModal() {
     this.setState({modalIsOpen: false});
   }
-
+ 
   openModalChgPass() {
     this.setState({modalIsOpenChgPass: true});
   }
@@ -87,11 +91,12 @@ class App extends Component {
 
 
 
-
+//checking isLoggedIn flag if not found/flase then opening up the login pop up
   openLoginPop() {
     const isLoggedIn = localStorage.getItem('isLoggedIn')==null || localStorage.getItem('isLoggedIn')==false ? false: true ;
     this.setState({isLoggedIn: isLoggedIn});
     if (!isLoggedIn) {
+      //if not logged in then redirecting to home page
       browserHistory.push('/');
       this.openModal();
     }
@@ -107,6 +112,7 @@ class App extends Component {
           </main>
         </div> 
       <div>
+             {/* login pop up...it will render when isLoggedIn false*/}
       {this.state.isLoggedIn==false &&
         <Modal
           isOpen={this.state.modalIsOpen}
@@ -125,6 +131,7 @@ class App extends Component {
       <ChangePasswordLink openModalChgPass={this.openModalChgPass}/>
       }
       <div>
+       {/* change password pop up...it will render when isLoggedIn true*/}
       {this.state.isLoggedIn==true &&
         <Modal
           isOpen={this.state.modalIsOpenChgPass}

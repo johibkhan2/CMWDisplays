@@ -6,7 +6,7 @@ import DisplayControllerComponent from './components/DisplayController/DisplayCo
 import App from './App';
 
 
-
+/**routing of app is implemented..it is the entry point of app */
 
 ReactDOM.render(
     <Router history={browserHistory}>

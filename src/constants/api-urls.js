@@ -1,3 +1,4 @@
+/** root url and sub urls of back end app*/
 const rootUrl='http://localhost:3001/'
 export var urls={
 authUrl:rootUrl+'login',

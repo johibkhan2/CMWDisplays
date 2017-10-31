@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import { browserHistory } from 'react-router';
 import {logout} from '../auth/logout';
 
+/**header of app */
 class Header extends Component {
 
   constructor() {
@@ -14,6 +15,7 @@ class Header extends Component {
     this.logout = this.logout.bind(this);
   }
 
+  //when click on logout
   logout(){
     logout();
   }

@@ -4,13 +4,10 @@ import * as authService from '../services/authService';
 import Alert from 'react-s-alert';
 import * as validator from '../validation/validator';
 import  Modal from 'react-modal';
+import * as authService from '../services/authService';
+import  {resetTimeoutNow} from '../../constants/timer';
 
-        // Blank = 0,
-        // VeryWeak = 1,
-        // Weak = 2,
-        // Medium = 3,
-        // Strong = 4,
-        // VeryStrong = 5
+//password strength styles
 const veryWeak = { 
     'background-color' : 'rgb(85, 0, 0)',
     'width'            : '7%'
@@ -52,7 +49,7 @@ class ChangePassword extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-
+//checking all the fields are valid or not
     isValid(oldPassword, newPassword, confirmPassword){
     if (this.isRequired(oldPassword, newPassword,confirmPassword)) {
         const score = validator.getPasswordScore(newPassword);
@@ -76,6 +73,7 @@ class ChangePassword extends React.Component {
 
     }
 
+    //checking whether all fields are not blank
     isRequired(oldPassword, newPassword, confirmPassword) {
         if (validator.isRequired(oldPassword) && validator.isRequired(newPassword) && validator.isRequired(confirmPassword)) {
             return true;
@@ -83,20 +81,26 @@ class ChangePassword extends React.Component {
         return false;
     }
 
+    //new and confirm password equality check
     isEqualPassword(newPassword, confirmPassword){
         if(newPassword==confirmPassword) return true;
         return false;
     }
 
-
+    //chaning password on submit
     handleSubmit(event) {
         event.preventDefault();
         if (this.isValid(this.state.oldPassword, this.state.newPassword, this.state.confirmPassword)) {
+            /**uncomment below code when replacing with real time url */
+            // authService.changePassword(this.state.oldPassword,this.state.newPassword).then(response =>{
+            //     resetTimeoutNow();
+            // });
             this.props.closeModalChgPass();
         }
 
     }
 
+    //checking new password strength
     handleChange(event) {
         event.preventDefault();
         const target = event.target;
