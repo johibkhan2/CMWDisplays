@@ -87,7 +87,6 @@ class FileDownloadComponent extends Component {
      this.openModal=this.openModal.bind(this);
      this.closeModal=this.closeModal.bind(this);
      this.changeState=this.changeState.bind(this);
-     this.downloadFile=this.downloadFile.bind(this);
     }
 
     //open loader modal
@@ -267,7 +266,6 @@ class FileDownloadComponent extends Component {
     downLoadConfirm(id,supportFileType){
         console.log('id'+id+"supportFileType"+supportFileType);
         //logic whether file to be downloaded from DB/System
-        //if (true) {
         if (this.state.myControllerFlag != 0 && this.state.controllerTypeID < 0) {
             /**uncomment below code when replacing with real time url */
             //making API call to DB
@@ -310,8 +308,8 @@ changeState(percent, color) {
     // value - some data. Always undefined when
     //         done is true.
     if (result.done) {
-      console.log("Fetch completed");
-      this.changeState(100,'lightgreen');
+      console.log("Fetch completed"+result.value);
+      this.changeState(100,'lightgreen').bind(this);
       return;
     }
 
@@ -324,6 +322,9 @@ changeState(percent, color) {
   }.bind(this));
 
 }
+
+
+
 
     //when left most radio button show config/support files is selected 
     handleFileType(event){
