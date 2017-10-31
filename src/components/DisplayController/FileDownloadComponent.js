@@ -72,7 +72,9 @@ class FileDownloadComponent extends Component {
             gAssociationType:'gAssociationType',
             sAssociationType:'sAssociationType',
             myControllerFlag:0,
-            isDBcall:false
+            isDBcall:false,
+            percent: 30,
+            color: '#3FC7FA'
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
@@ -84,6 +86,8 @@ class FileDownloadComponent extends Component {
      this.changeFileType=this.changeFileType.bind(this);
      this.openModal=this.openModal.bind(this);
      this.closeModal=this.closeModal.bind(this);
+     this.changeState=this.changeState.bind(this);
+     this.downloadFile=this.downloadFile.bind(this);
     }
 
     //open loader modal
@@ -280,7 +284,13 @@ class FileDownloadComponent extends Component {
         }
     }
 
-    
+//changing % and color of loader
+
+changeState(percent, color) {
+        this.setState({percent: percent, color: color});
+}
+
+
 //read file chunk by chunk using javascript
 
  downloadFile(response){
@@ -300,11 +310,13 @@ class FileDownloadComponent extends Component {
     //         done is true.
     if (result.done) {
       console.log("Fetch completed");
+      //this.changeState(100,'lightgreen');
       return;
     }
 
     // result.value for fetch streams is a Uint8Array
     bytesReceived += result.value.length;
+    //this.changeState(50,'#FF6600').bind(this);
     console.log('Received', bytesReceived, 'bytes of data so far');
     // Read some more, and call this function again
     return reader.read().then(processResult);
@@ -584,7 +596,7 @@ return (
                 shouldCloseOnOverlayClick={false}
                 style={customLoaderStyles}
                 contentLabel="">
-                <ProgressBar closeModal={this.closeModal}/>
+                <ProgressBar closeModal={this.closeModal} percent={this.state.percent} color={this.state.color}/>
                 </Modal>
             </div>
         </div>

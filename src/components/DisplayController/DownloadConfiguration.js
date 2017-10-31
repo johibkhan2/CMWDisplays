@@ -28,8 +28,6 @@ class DownloadConfiguration extends React.Component {
              modalIsOpen: false,
              isKitConnected: false,
              isPrepared:false,
-             percent: 30,
-             color: '#3FC7FA',
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
