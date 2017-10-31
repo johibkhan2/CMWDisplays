@@ -47,11 +47,13 @@ export function getSupportFile(cgtName,controllerID,controllerTypeID,supportFile
 export function downloadFileFromDB(cgtName,fileID,fileType) {
     //&cgtName={cgtName}&fileID={fileID}&fileType={fileType}&startByte={startByte}&numBytes={numBytes}
     let sessionID= localStorage.getItem('sessionID');
-        //return fetch('')
-        //.then(response => response);
     return fetch(urls.downloadFileFromDBUrl+'?sessionID='+sessionID+'&cgtName='+cgtName+'&fileID='+fileID+'&fileType='+fileType)
         .then(response => response);
 }
+
+
+
+
 
 
 //download the file from system

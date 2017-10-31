@@ -309,7 +309,7 @@ changeState(percent, color) {
     //         done is true.
     if (result.done) {
       console.log("Fetch completed"+result.value);
-      this.changeState(100,'lightgreen').bind(this);
+      this.changeState(100,'lightgreen');
       return;
     }
 
