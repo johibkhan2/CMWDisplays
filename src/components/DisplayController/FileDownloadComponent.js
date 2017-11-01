@@ -60,7 +60,7 @@ class FileDownloadComponent extends Component {
             controllers:[],
             modalIsOpenConfrim: false,
             modalIsOpen:false,
-            fileType:'',
+            fileType:'cFiles',
             showConfigFiles:'cFiles',
             showSupportFiles:'sFiles',
             isFileTypeDisabled:true,
@@ -139,9 +139,10 @@ class FileDownloadComponent extends Component {
         }
     }
 
-    //FirmwareVersion API call and controller is changed
+    
     changeControllers(event){
         console.log("val3"+event.target.value);
+        this.getMyControllerFlag(event.target.value);
         this.setState({
         controllerID: event.target.value
         });
@@ -150,8 +151,7 @@ class FileDownloadComponent extends Component {
             console.log("called the service firmware");
             //checking if For the specific controller is checked  
             if(this.state.associationType == 'sAssociationType'){
-            this.getMyControllerFlag(event.target.value);
-            //making API call
+           //FirmwareVersion API call and controller is changed
             displayControllerService.getFirmwareVersion(this.state.cgtName,this.state.controllerID).then(response => 
             {
                 this.setState({firmWareFiles: response.firmware});
@@ -162,7 +162,22 @@ class FileDownloadComponent extends Component {
                  Alert.error("<h4>Please check the radio button For the specific controller</h4>");
             }
                 //if file type is not selected 
-        } else if (this.state.fileType == '') {
+        }else if (this.state.fileType == 'sFiles') {
+            console.log("called the service suuport");
+            //checking if For the specific controller is checked  
+            if(this.state.associationType == 'sAssociationType'){
+            //making support API call
+            displayControllerService.getSupportFile(this.state.cgtName,this.state.controllerID,-1,this.state.supportFileType).then(response => 
+            {
+                this.setState({supportFiles: response.supportFile});
+                //resetting timer
+                resetTimeoutNow();
+            })
+            }else{
+                 Alert.error("<h4>Please check the radio button For the specific controller</h4>");
+            }
+                //if file type is not selected 
+        }else if (this.state.fileType == '') {
             Alert.error("<h4>Please select file type</h4>");
         }
     }
@@ -187,22 +202,17 @@ class FileDownloadComponent extends Component {
         });
         //checking if Show Support Files is checked 
        if (this.state.fileType == 'sFiles') {
-            //checking if group type is selected or not
-        if(this.state.cgtName!=''){
-            //checking if association type is selected or not
-            if(this.state.associationType != ''){
+        //     //checking if association type is selected or not
+            if(this.state.associationType == 'gAssociationType'){
                 //making api call
-            displayControllerService.getSupportFile(this.state.cgtName,this.state.controllerID,this.state.controllerTypeID,this.state.supportFileType).then(response =>
-        {
-             this.setState({supportFiles: response.supportFile});
-             resetTimeoutNow();
-        })
+                displayControllerService.getSupportFile('',-1,this.state.controllerTypeID,this.state.supportFileType).then(response =>
+                {
+                    this.setState({supportFiles: response.supportFile});
+                    resetTimeoutNow();
+                })
             }else{
                 Alert.error("<h4>Please select Association</h4>");
             }
-        }else{
-            Alert.error("<h4>Please select group type</h4>");
-        }
        }else if (this.state.fileType == '') {
             Alert.error("<h4>Please select file type</h4>");
         } 
