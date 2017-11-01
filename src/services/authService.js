@@ -14,7 +14,7 @@ let data={userName: userName, password:password};
 //API call to change password 
 export function changePassword(oldPassword,newpassword) {
 let sessionID= localStorage.getItem('sessionID');
-let data={oldPassword: oldPassword, oldPassword:oldPassword};
+let data={oldPassword: oldPassword, newpassword:newpassword};
   return axios.post(urls.authUrl+'?sessionID='+sessionID,data)
     .then(response =>response.data);
 }

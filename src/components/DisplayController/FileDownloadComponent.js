@@ -249,7 +249,6 @@ class FileDownloadComponent extends Component {
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
-                store.dispatch(addPhonesFailure(error.response.data));
             } else {
                 console.log('Error in groups', error.message);
             }
@@ -449,9 +448,7 @@ return (
                     <input type="radio" name="fileType" value={this.state.showSupportFiles} onChange={this.handleFileType}/>
                     <span>&nbsp;&nbsp;Show Support Files</span>
                     <select id="fileTypes" className="form-control supportFileSelect" disabled={this.state.isFileTypeDisabled} onChange={this.changeFileType}>
-                        {this
-                            .state
-                            .fileTypes
+                        {this.state.fileTypes
                             .map(file => {
                                 return (
                                     <option value={file.CodeValue}>
