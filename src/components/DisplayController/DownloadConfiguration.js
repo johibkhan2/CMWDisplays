@@ -133,6 +133,9 @@ render() {
                     </div>
                 </div>
             </form>
+            {/**
+             https://github.com/reactjs/react-modal
+             */}
             <Modal
                 isOpen={this.state.modalIsOpen}
                 onRequestClose={this.closeModal}
