@@ -449,7 +449,7 @@ return (
             </div>
             <div className="col-sm-1"></div>
 
-            <div className="col-md-7  common">
+            <div className="col-md-8  common">
                 <h4>Association:</h4>
                 <div>
                     <input type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.sAssociationType} />
@@ -525,13 +525,15 @@ return (
                 </div>
 
             </div>
-            <div className="col-sm-1 Label">
+      {/**
+       * 
+          <div className="col-sm-1 Label">
                 <h4 className="Label-size">Label</h4>
-            </div>
+            </div>   */ }
         </div>
         <br/>
         <div className="row">
-            <div className="col-md-11 common">
+            <div className="col-md-12 common">
             {!this.state.isFileTypeDisabled==false &&
                 <BootstrapTable
                     data={this.state.firmWareFiles}

@@ -27,4 +27,5 @@ body {
 .line {
     width: 35vw;
     border: 1px solid #f47c56;
+    margin-top: 8vw;
 }
