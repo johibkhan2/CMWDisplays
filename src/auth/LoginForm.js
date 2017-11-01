@@ -37,11 +37,12 @@ class LoginForm extends React.Component {
             //looping the dealers
             for(let i in this.props.dealers){
                 //if entered text maches the starting string then populate the dealer
-                if (this.props.dealers[i].indexOf(value)) {
-                    //this.setState({[id]: value});
-                }else{
+                console.log("this.props.dealers[i].indexOf(value)="+this.props.dealers[i].indexOf(value))
+                if (this.props.dealers[i].indexOf(value) >=0) {
                     this.setState({[id]: this.props.dealers[i]});
                     break;
+                }else{
+                    this.setState({[id]: value});
                 }
             }
         } else {
