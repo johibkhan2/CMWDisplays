@@ -219,20 +219,7 @@ class FileDownloadComponent extends Component {
     //getting groups--right most 3 drop downs
     getGroups(){
         //API call
-        displayControllerService.getGroups().then(response => {this.setState({groups: response})})
-        //exception handling in case of service is not reachable
-        .catch(function (error) {
-            if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else {
-                console.log('Error in groups', error.message);
-            }
-
-            Alert.error('<h4>error occured while fetching the groups</h4>');
-
-        });
+        displayControllerService.getGroups().then(response => {this.setState({groups: response})});
     }
  
     //getting right most drop downs for file types
