@@ -128,6 +128,7 @@ class App extends Component {
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
           shouldCloseOnOverlayClick={false}
+          overlayClassName="ModalOverlayClass"
           style={customStyles}
           contentLabel="LogIn"
         >
@@ -147,6 +148,7 @@ class App extends Component {
           isOpen={this.state.modalIsOpenChgPass}
           onRequestClose={this.closeModalChgPass}
           shouldCloseOnOverlayClick={false}
+          overlayClassName="ModalOverlayClass"
           style={customStyles}
           contentLabel="Change Password"
         >

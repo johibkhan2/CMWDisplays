@@ -56,6 +56,7 @@ class DownloadConfiguration extends React.Component {
             .then(response => {
                 //resetTimeoutNow();
                 this.changeState();
+                //this.props.closeDownloadConfirmModal();
             });
             //opening downloading progress bar
         this.openModal();
@@ -140,6 +141,7 @@ render() {
                 isOpen={this.state.modalIsOpen}
                 onRequestClose={this.closeModal}
                 shouldCloseOnOverlayClick={false}
+                overlayClassName="ModalOverlayClass"
                 style={customStyles}
                 contentLabel="">
                 <ProgressBar closeModal={this.closeModal} percent={this.state.percent} color={this.state.color}/>

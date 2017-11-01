@@ -237,7 +237,6 @@ class FileDownloadComponent extends Component {
     closeDownloadConfirmModal() {
         console.log("closeDownloadConfirmModal called");
         this.setState({modalIsOpenConfrim: false});
-        console.log(this.state);
     }
 
     //getting groups--right most 3 drop downs
@@ -604,6 +603,7 @@ return (
                     onRequestClose={this.closeDownloadConfirmModal}
                     shouldCloseOnOverlayClick={false}
                     style={customStyles}
+                    overlayClassName="ModalOverlayClass" 
                     contentLabel="Confrimation">
                     <label style={labelStyles}>Download Configuration</label>
                     <DownloadConfiguration 
@@ -614,7 +614,8 @@ return (
                 isOpen={this.state.modalIsOpen}
                 onRequestClose={this.closeModal}
                 shouldCloseOnOverlayClick={false}
-                style={customLoaderStyles}
+                style={customLoaderStyles} 
+                overlayClassName="ModalOverlayClass" 
                 contentLabel="">
                 <ProgressBar closeModal={this.closeModal} percent={this.state.percent} color={this.state.color}/>
                 </Modal>
