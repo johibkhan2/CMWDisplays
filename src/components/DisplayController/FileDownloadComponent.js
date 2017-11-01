@@ -66,17 +66,14 @@ class FileDownloadComponent extends Component {
             isFileTypeDisabled:true,
             associationType:'',
             cgtName:'',
-            controllerID:0,
-            controllerTypeID:0,
+            controllerID:-1,
+            controllerTypeID:-1,
             supportFileType:'',
             gAssociationType:'gAssociationType',
             sAssociationType:'sAssociationType',
             isAssocSDisabled:false,
             isAssocGDisabled:false,
-            myControllerFlag:0,
-            isDBcall:false,
-            percent: 30,
-            color: '#3FC7FA'
+            myControllerFlag:0
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
@@ -86,32 +83,12 @@ class FileDownloadComponent extends Component {
      this.handleAssociationType=this.handleAssociationType.bind(this);
      this.changeControllerTypes=this.changeControllerTypes.bind(this);
      this.changeFileType=this.changeFileType.bind(this);
-     this.openModal=this.openModal.bind(this);
-     this.closeModal=this.closeModal.bind(this);
-     this.changeState=this.changeState.bind(this);
     }
 
-    //open loader modal
-    openModal() {
-        console.log("openModal");
-        this.setState({modalIsOpen: true});
-    }
-
-     //close loader modal
-    closeModal() {
-        console.log("closeModal");
-        this.setState({modalIsOpen: false});
-               //cancelling download
-        if (window.stop !== undefined) {
-            window.stop();
-        } else if (document.execCommand !== undefined) {
-            document.execCommand("Stop", false);
-        }
-    }
 
     //called when group types is changed and getting value for cgtName. Also getting data for second drop downs
     changeGroupTypes(event){
-         console.log("val1"+event.target.value);
+        console.log("val1"+event.target.value);
         this.setState({
         cgtName: event.target.value
         }); 
@@ -218,7 +195,7 @@ class FileDownloadComponent extends Component {
         } 
     }
 
-    //hwne file type left most drop down is selected
+    //when file type left most drop down is selected
     changeFileType(event){
         console.log("fileTypes"+event.target.value);
         this.setState({
@@ -282,58 +259,15 @@ class FileDownloadComponent extends Component {
             displayControllerService.downloadFileFromDB(this.state.cgtName,id,supportFileType,0,-1).then(response => 
             {
             //download the file in chunks
-                 this.downloadFile(response); 
+                //popping up a message
+                 Alert.error('<h4>downloading the file from DB</h4>');
                  resetTimeoutNow();
                 });
-            //opening the loader pop up 
-            this.openModal();
         } else {
             //open up download configuration window
             this.setState({modalIsOpenConfrim: true});
         }
     }
-
-//changing % and color of loader
-
-changeState(percent, color) {
-        this.setState({percent: percent, color: color});
-}
-
-
-//read file chunk by chunk using javascript
-
- downloadFile(response){
- // response.body is a readable stream.
-  // Calling getReader() gives us exclusive access to
-  // the stream's content
-  var reader = response.body.getReader();
-  var bytesReceived = 0;
-
-  // read() returns a promise that resolves
-  // when a value has been received
-  return reader.read().then(function processResult(result) {
-    // Result objects contain two properties:
-    // done  - true if the stream has already given
-    //         you all its data.
-    // value - some data. Always undefined when
-    //         done is true.
-    if (result.done) {
-      console.log("Fetch completed"+result.value);
-      this.changeState(100,'lightgreen');
-      return;
-    }
-
-    // result.value for fetch streams is a Uint8Array
-    bytesReceived += result.value.length;
-    this.changeState(50,'#FF6600');
-    console.log('Received', bytesReceived, 'bytes of data so far');
-    // Read some more, and call this function again
-    return reader.read().then(processResult);
-  }.bind(this));
-
-}
-
-
 
 
     //when left most radio button show config/support files is selected 
@@ -370,8 +304,8 @@ changeState(percent, color) {
         });
         this.setState({associationType:''});
         this.setState({myControllerFlag: 0});
-        this.setState({controllerID: 0});
-        this.setState({controllerTypeID: 0});
+        this.setState({controllerID: -1});
+        this.setState({controllerTypeID: -1});
         this.setState({cgtName: ''});
         this.setState({isAssocSDisabled:false});
         this.setState({isAssocGDisabled:false});
@@ -392,6 +326,15 @@ changeState(percent, color) {
             this.setState({isAssocGDisabled: true});
             this.setState({isAssocSDisabled: false});
         }
+        document.getElementById('groups').value="";
+        document.getElementById('controllerGroups').value="";
+        document.getElementById('controllers').value="";
+        document.getElementById('controllerTypes').value="";
+        this.setState({controllerID: -1});
+        this.setState({controllerTypeID: -1});
+        this.setState({cgtName: ''});
+        this.setState({supportFiles: []});
+        this.setState({firmWareFiles: []}); 
     }
     
     render() {
@@ -605,16 +548,6 @@ return (
                     <label style={labelStyles}>Download Configuration</label>
                     <DownloadConfiguration 
                     closeDownloadConfirmModal={this.closeDownloadConfirmModal}/>
-                </Modal>
-                   {/* modal for downloading progress bar */}
-                <Modal
-                isOpen={this.state.modalIsOpen}
-                onRequestClose={this.closeModal}
-                shouldCloseOnOverlayClick={false}
-                style={customLoaderStyles} 
-                overlayClassName="ModalOverlayClass" 
-                contentLabel="">
-                <ProgressBar closeModal={this.closeModal} percent={this.state.percent} color={this.state.color}/>
                 </Modal>
             </div>
         </div>

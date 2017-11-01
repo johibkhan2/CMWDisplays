@@ -52,13 +52,9 @@ export function downloadFileFromDB(cgtName,fileID,fileType) {
 }
 
 
-
-
-
-
 //download the file from system
 export function downloadFileFromSystem() {
     let sessionID= localStorage.getItem('sessionID');
-    return axios.get(urls.downloadFileFromSystemUrl+'?sessionID='+sessionID)
-        .then(response => response.data);
+    return fetch(urls.downloadFileFromSystemUrl+'?sessionID='+sessionID)
+        .then(response => response);
 }
