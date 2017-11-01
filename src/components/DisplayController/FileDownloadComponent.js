@@ -63,7 +63,7 @@ class FileDownloadComponent extends Component {
             fileType:'',
             showConfigFiles:'cFiles',
             showSupportFiles:'sFiles',
-            isFileTypeDisabled:false,
+            isFileTypeDisabled:true,
             associationType:'',
             cgtName:'',
             controllerID:0,
@@ -71,6 +71,8 @@ class FileDownloadComponent extends Component {
             supportFileType:'',
             gAssociationType:'gAssociationType',
             sAssociationType:'sAssociationType',
+            isAssocSDisabled:false,
+            isAssocGDisabled:false,
             myControllerFlag:0,
             isDBcall:false,
             percent: 30,
@@ -363,6 +365,8 @@ changeState(percent, color) {
         this.setState({controllerID: 0});
         this.setState({controllerTypeID: 0});
         this.setState({cgtName: ''});
+        this.setState({isAssocSDisabled:false});
+        this.setState({isAssocGDisabled:false});
     }
 
     //when association type is selected
@@ -373,11 +377,13 @@ changeState(percent, color) {
         this.setState({
         [name]: value
         });
-        // if (this.state.associationType == 'sAssociationType') {
-        //     this.setState({isAssociationTypeDisabled: false});
-        // } else{
-        //      this.setState({isAssociationTypeDisabled: true});
-        // }
+        if (value == 'sAssociationType') {
+            this.setState({isAssocSDisabled: true});
+            this.setState({isAssocGDisabled: false});
+        } else{
+            this.setState({isAssocGDisabled: true});
+            this.setState({isAssocSDisabled: false});
+        }
     }
     
     render() {
@@ -426,7 +432,7 @@ return (
             <div className="col-md-3 common">
                 <h4>File Type:</h4>
                 <div>
-                    <input type="radio" name="fileType" value={this.state.showConfigFiles} onChange={this.handleFileType}/>
+                    <input type="radio" name="fileType" value={this.state.showConfigFiles} onChange={this.handleFileType} defaultChecked={true}/>
                     <span>&nbsp;&nbsp;Show Config Files</span>
                 </div>
                 <br/>
@@ -457,8 +463,8 @@ return (
 
                 </div>
                 <div>
-                    <select id="groups" 
-                        onChange={this.changeGroupTypes}  
+                    <select id="groups" disabled={this.state.isAssocGDisabled}
+                        onChange={this.changeGroupTypes}   
                         className="form-control specificControllerSelect">
                         <option value=""></option>
                         {this
@@ -473,7 +479,7 @@ return (
                             })}
                     </select>
 
-                    <select id="controllerGroups"
+                    <select id="controllerGroups" disabled={this.state.isAssocGDisabled}
                         onChange={this.changeGroups.bind(this)}  
                         className="form-control specificControllerSelect">
                         <option value=""></option>
@@ -489,8 +495,8 @@ return (
                             })}
                     </select>
 
-                    <select id="controllers"
-                        onChange={this.changeControllers}  
+                    <select id="controllers" disabled={this.state.isAssocGDisabled}
+                        onChange={this.changeControllers} 
                         className="form-control specificControllerSelect">
                         <option value=""></option>
                         {this
@@ -509,7 +515,7 @@ return (
                 <div>
                     <input type="radio" name="associationType" onChange={this.handleAssociationType} value={this.state.gAssociationType} disabled={this.state.isFileTypeDisabled} />
                     <span>&nbsp;&nbsp;Available Globally to Controllers of Type</span>
-                    <select id="controllerTypes" className="form-control globalType" disabled={this.state.isFileTypeDisabled} onChange={this.changeControllerTypes}   >
+                    <select id="controllerTypes" className="form-control globalType" disabled={this.state.isFileTypeDisabled || this.state.isAssocSDisabled} onChange={this.changeControllerTypes}   >
                         <option value=""></option>
                         {this
                             .state
