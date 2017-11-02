@@ -20,7 +20,7 @@ let data={userName: userName, password:password};
                 console.log('Error in authenticateUser', error.message);
             }
 
-            Alert.error('<h4>error occured while fetching the groups</h4>');
+            Alert.error('<h4>error occured while authenticating the user</h4>');
 
         });
 }
@@ -41,7 +41,7 @@ let data={oldPassword: oldPassword, newpassword:newpassword};
                 console.log('Error in changePassword', error.message);
             }
 
-            Alert.error('<h4>error occured while fetching the groups</h4>');
+            Alert.error('<h4>error occured while changing password</h4>');
 
         });
 }
@@ -61,7 +61,7 @@ export function deleteSession() {
                 console.log('Error in deleteSession', error.message);
             }
 
-            Alert.error('<h4>error occured while fetching the groups</h4>');
+            Alert.error('<h4>error occured while deleting session</h4>');
 
         });
 }
@@ -84,7 +84,7 @@ export function getDealers() {
                 console.log('Error in getDealers', error.message);
             }
 
-            Alert.error('<h4>error occured while fetching the groups</h4>');
+            Alert.error('<h4>error occured while fetching the dealers</h4>');
 
         });
 }

@@ -37,7 +37,7 @@ export function getFileTypes() {
                 console.log('Error in getFileTypes', error.message);
             }
 
-            Alert.error('<h4>error occured while fetching the groups</h4>');
+            Alert.error('<h4>error occured while fetching the file types</h4>');
 
         });
 }
@@ -57,7 +57,7 @@ export function getControllerTypes() {
                 console.log('Error in getControllerTypes', error.message);
             }
 
-            Alert.error('<h4>error occured while fetching the groups</h4>');
+            Alert.error('<h4>error occured while fetching the controller types</h4>');
 
         });
 }
@@ -80,7 +80,7 @@ export function getFirmwareVersion(cgtName,controllerID) {
                 console.log('Error in getFirmwareVersion', error.message);
             }
 
-            Alert.error('<h4>error occured while fetching the groups</h4>');
+            Alert.error('<h4>error occured while fetching the records</h4>');
 
         });
 }
@@ -104,7 +104,7 @@ export function getSupportFile(cgtName,controllerID,controllerTypeID,supportFile
                 console.log('Error in getSupportFile', error.message);
             }
 
-            Alert.error('<h4>error occured while fetching the groups</h4>');
+            Alert.error('<h4>error occured while fetching the records</h4>');
 
         });
 }
@@ -125,7 +125,7 @@ export function downloadFileFromDB(cgtName,fileID,fileType) {
                 console.log('Error in downloadFileFromDB', error.message);
             }
 
-            Alert.error('<h4>error occured while fetching the groups</h4>');
+            Alert.error('<h4>error occured while fetching the DB files</h4>');
 
         });
 }
@@ -146,7 +146,7 @@ export function downloadFileFromSystem() {
                 console.log('Error in downloadFileFromSystem', error.message);
             }
 
-            Alert.error('<h4>error occured while fetching the groups</h4>');
+            Alert.error('<h4>error occured while fetching the system files</h4>');
 
         });
 }
