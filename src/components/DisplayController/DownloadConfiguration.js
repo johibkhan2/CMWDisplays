@@ -59,48 +59,30 @@ class DownloadConfiguration extends React.Component {
     }
     }
 
-   //read file chunk by chunk using javascript
-
     downloadFile(response){
-    // response.body is a readable stream.
-    // Calling getReader() gives us exclusive access to
-    // the stream's content
-    var reader = response.body.getReader();
-    var bytesReceived = 0;
+    
+    //response.FileName    and response.FileType from response.remove hard coded value    
+    const fileStream = streamSaver.createWriteStream('filename.docx')
+	const writer = fileStream.getWriter()
+	// Later you will be able to just simply do
+	// res.body.pipeTo(fileStream)
+        
+	const reader = response.body.getReader()
+	const pump = () => reader.read()
+		.then(({ value, done }) => done
+			// close the stream so we stop writing
+			? writer.close()
+			// Write one chunk, then get the next one
+			: writer.write(value).then(pump)
+		)
 
-    //     var arrayBuffer = this.result,
-    //   array = new Uint8Array(arrayBuffer);
-
-    // read() returns a promise that resolves
-    // when a value has been received
-    return reader.read().then(function processResult(result) {
-        // Result objects contain two properties:
-        // done  - true if the stream has already given
-        //         you all its data.
-        // value - some data. Always undefined when
-        //         done is true.
-        if (result.done) {
-        console.log("Fetch completed"+result.value);
-        //this.changeState(100,'lightgreen');
-        return;
-        }
-
-        // result.value for fetch streams is a Uint8Array
-        bytesReceived += result.value.length;
-        this.changeState(50,'#FF6600');
-        console.log('Received', bytesReceived, 'bytes of data so far');
-        // Read some more, and call this function again
-        return reader.read().then(processResult);
-        }.bind(this))
-        .then(function(result) {
-            saveByteArray(result,'example.doc');
-          })
-          .catch(function(err) {
-            console.log("err", err)
-          });
-
-        }
-
+	// Start the reader
+	pump().then(() =>
+		console.log('Closed the stream, Done writing')
+    )
+    this.changeState(100,'lightgreen');
+    //this.changeState(50,'#FF6600');
+    }
     
 
     //changing % and color of loader

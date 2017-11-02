@@ -2,6 +2,8 @@ import axios from 'axios';
 import {urls} from '../constants/api-urls';
 import Alert from 'react-s-alert';
 
+
+
 //API call to get groups for right most 3 drop downs
 export function getGroups() {
     let sessionID= localStorage.getItem('sessionID');
@@ -134,7 +136,7 @@ export function downloadFileFromDB(cgtName,fileID,fileType) {
 //download the file from system
 export function downloadFileFromSystem() {
     let sessionID= localStorage.getItem('sessionID');
-    //return fetch('http://localhost:8080/dist/test.txt')
+    //return fetch('http://localhost:8080/dist/test.docx')
     return fetch(urls.downloadFileFromSystemUrl+'?sessionID='+sessionID)
         .then(response => response)
         //exception handling in case of service is not reachable
