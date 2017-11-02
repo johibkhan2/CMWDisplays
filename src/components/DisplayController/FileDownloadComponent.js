@@ -247,7 +247,7 @@ class FileDownloadComponent extends Component {
             {
             //download the file in chunks
                 //popping up a message
-                 Alert.error('<h4>downloading the file from DB</h4>');
+                 Alert.success('<h4>downloading the file from DB</h4>');
                  resetTimeoutNow();
                 });
         } else {

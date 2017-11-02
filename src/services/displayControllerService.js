@@ -134,6 +134,7 @@ export function downloadFileFromDB(cgtName,fileID,fileType) {
 //download the file from system
 export function downloadFileFromSystem() {
     let sessionID= localStorage.getItem('sessionID');
+    //return fetch('http://localhost:8080/dist/test.txt')
     return fetch(urls.downloadFileFromSystemUrl+'?sessionID='+sessionID)
         .then(response => response)
         //exception handling in case of service is not reachable

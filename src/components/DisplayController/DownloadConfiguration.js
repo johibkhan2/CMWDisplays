@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import Alert from 'react-s-alert';
 import * as displayControllerService from '../../services/displayControllerService';
 import  {resetTimeoutNow} from '../../constants/timer';
+import {saveByteArray} from './saveFile';
 
 const customStyles = {
   
@@ -28,6 +29,8 @@ class DownloadConfiguration extends React.Component {
              modalIsOpen: false,
              isKitConnected: false,
              isPrepared:false,
+             percent:10,
+             color:'#D3D3D3'
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -46,7 +49,7 @@ class DownloadConfiguration extends React.Component {
         displayControllerService.downloadFileFromSystem()
             .then(response => {
                 resetTimeoutNow();
-                //this.downloadFile(response);
+                this.downloadFile(response);
                 //this.props.closeDownloadConfirmModal();
             });
             //opening downloading progress bar
@@ -65,6 +68,9 @@ class DownloadConfiguration extends React.Component {
     var reader = response.body.getReader();
     var bytesReceived = 0;
 
+    //     var arrayBuffer = this.result,
+    //   array = new Uint8Array(arrayBuffer);
+
     // read() returns a promise that resolves
     // when a value has been received
     return reader.read().then(function processResult(result) {
@@ -75,7 +81,7 @@ class DownloadConfiguration extends React.Component {
         //         done is true.
         if (result.done) {
         console.log("Fetch completed"+result.value);
-        this.changeState(100,'lightgreen');
+        //this.changeState(100,'lightgreen');
         return;
         }
 
@@ -85,9 +91,17 @@ class DownloadConfiguration extends React.Component {
         console.log('Received', bytesReceived, 'bytes of data so far');
         // Read some more, and call this function again
         return reader.read().then(processResult);
-    }.bind(this));
+        }.bind(this))
+        .then(function(result) {
+            saveByteArray(result,'example.doc');
+          })
+          .catch(function(err) {
+            console.log("err", err)
+          });
 
-    }
+        }
+
+    
 
     //changing % and color of loader
 
