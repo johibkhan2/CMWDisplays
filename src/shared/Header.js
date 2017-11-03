@@ -30,22 +30,14 @@ class Header extends Component {
         <header>
           <nav className="navbar">
             <ul className="hd-ul">
-            {this.props.isLoggedIn==false &&
-                <li style={homeCenter}>
-                <Link to="/" className="a-txt cmw-btn">
-                  <i className="btn-hm-icn icn-fn-sz fa fa-home"></i>
-                  <span className="txt">Home</span>
-                </Link>
-              </li>
-              }
-            {this.props.isLoggedIn==true &&
+            
               <li>
                 <Link to="/" className="a-txt cmw-btn">
                   <i className="btn-hm-icn icn-fn-sz fa fa-home"></i>
                   <span className="txt">Home</span>
                 </Link>
               </li>
-            }
+            
               {this.props.isLoggedIn==true &&
               <li>
                 <Link to="/displayController" className="a-txt cmw-btn">

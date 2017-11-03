@@ -15,4 +15,4 @@ ReactDOM.render(
       <Route path="/displayController" component={DisplayControllerComponent}/>
      </Route> 
     </Router>
-  , document.querySelector('.container'));
+  , document.getElementById('cmwDisplay'));
