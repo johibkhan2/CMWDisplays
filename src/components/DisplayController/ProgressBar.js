@@ -38,7 +38,7 @@ class ProgressBar extends Component {
         <div className="col-lg-6">
         <div className="col-sm-6"></div>
         <div className="col-sm-6" style={cancelStyles}>
-          <button className=".btn-default" onClick={this.props.closeModal}>Cancel</button>
+          <button id="close-progress" className=".btn-default" onClick={this.props.closeModal}>Cancel</button>
         </div>
         </div>
       </div>

@@ -73,7 +73,10 @@ class FileDownloadComponent extends Component {
             sAssociationType:'sAssociationType',
             isAssocSDisabled:false,
             isAssocGDisabled:false,
-            myControllerFlag:0
+            myControllerFlag:0,
+            modalIsOpen: false,
+            percent:10,
+            color:'#D3D3D3'
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
@@ -83,6 +86,9 @@ class FileDownloadComponent extends Component {
      this.handleAssociationType=this.handleAssociationType.bind(this);
      this.changeControllerTypes=this.changeControllerTypes.bind(this);
      this.changeFileType=this.changeFileType.bind(this);
+     this.openModal = this.openModal.bind(this);
+     this.closeModal = this.closeModal.bind(this);
+     this.changeState = this.changeState.bind(this);
     }
 
 
@@ -324,6 +330,29 @@ class FileDownloadComponent extends Component {
         this.setState({firmWareFiles: []}); 
     }
     
+    openModal() {
+        console.log("openModal");
+        this.setState({modalIsOpen: true});
+    }
+
+//cancelling the downloading progress bar 
+    closeModal() {
+        console.log("closeModal");
+        this.setState({modalIsOpen: false});
+        //cancelling download
+        if (window.stop !== undefined) {
+            window.stop();
+        } else if (document.execCommand !== undefined) {
+            document.execCommand("Stop", false);
+        }
+    }
+
+    //changing % and color of loader
+
+    changeState(percent, color) {
+            this.setState({percent: percent, color: color});
+    } 
+    
     render() {
         //configure download even when click on download
         function downloadFormatter(data, cell,row){
@@ -534,7 +563,21 @@ return (
                     contentLabel="Confrimation">
                     <label style={labelStyles}>Download Configuration</label>
                     <DownloadConfiguration 
-                    closeDownloadConfirmModal={this.closeDownloadConfirmModal}/>
+                    closeDownloadConfirmModal={this.closeDownloadConfirmModal}
+                    openModal={this.openModal} changeState={this.changeState} 
+                    closeModal={this.closeModal} />
+                </Modal>
+                                {/** progress bar
+                https://github.com/reactjs/react-modal
+                */}
+                <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onRequestClose={this.closeModal}
+                    shouldCloseOnOverlayClick={false}
+                    overlayClassName="ModalOverlayClass"
+                    style={customLoaderStyles}
+                    contentLabel="">
+                    <ProgressBar closeModal={this.closeModal} percent={this.state.percent} color={this.state.color}/>
                 </Modal>
             </div>
         </div>
