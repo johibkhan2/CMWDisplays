@@ -167,14 +167,14 @@ class LoginForm extends React.Component {
                     <div className="col-lg-3">
                     </div>
                     <div className="lgn-cnl col-lg-3">
+                    <div className="col-sm-2">                 
+                    <button  type="submit" className=".btn-default" >LogIn</button>  
+                    </div>
+                    <div className="col-sm-1">
+                    </div> 
                     <div className="col-sm-2">
                     <button  className=".btn-default"  onClick={this.props.closeModal}>Cancel</button>                    
                     </div>
-                    <div className="col-sm-1">
-                    </div>
-                    <div className="col-sm-2">                 
-                    <button  className=".btn-default"  onClick={this.handleSubmit}>LogIn</button>  
-                    </div> 
                     </div>                   
                     </div>
 
