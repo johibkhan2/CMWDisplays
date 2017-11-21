@@ -109,6 +109,11 @@ class FileDownloadComponent extends Component {
             }
 
          }
+        document.getElementById('controllerGroups').value="";
+        document.getElementById('controllers').value="";
+        this.setState({supportFiles: []});
+        this.setState({firmWareFiles: []});
+        
     }
    //called when group types second drop downs is changed. also getting data for third drop downs
     changeGroups(event){
@@ -122,6 +127,9 @@ class FileDownloadComponent extends Component {
                 }
 
         }
+        document.getElementById('controllers').value="";
+        this.setState({supportFiles: []});
+        this.setState({firmWareFiles: []});
     }
 
     
@@ -316,10 +324,11 @@ class FileDownloadComponent extends Component {
             this.setState({isAssocGDisabled: true});
             this.setState({isAssocSDisabled: false});
         }
-        document.getElementById('groups').value="";
-        document.getElementById('controllerGroups').value="";
-        document.getElementById('controllers').value="";
-        document.getElementById('controllerTypes').value="";
+        //commeted code
+        // document.getElementById('groups').value="";
+        // document.getElementById('controllerGroups').value="";
+        // document.getElementById('controllers').value="";
+        // document.getElementById('controllerTypes').value="";
         this.setState({controllerID: -1});
         this.setState({controllerTypeID: -1});
         this.setState({cgtName: ''});
