@@ -76,7 +76,9 @@ class FileDownloadComponent extends Component {
             myControllerFlag:0,
             modalIsOpen: false,
             percent:10,
-            color:'#D3D3D3'
+            color:'#D3D3D3',
+            isDBCall:false,
+            rowID:0
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
@@ -245,20 +247,15 @@ class FileDownloadComponent extends Component {
     //when we click on download button on grid
     downLoadConfirm(id,supportFileType){
         console.log('id'+id+"supportFileType"+supportFileType);
+                    //open up download configuration window
+        this.setState({modalIsOpenConfrim: true});
         //logic whether file to be downloaded from DB/System
         if (this.state.myControllerFlag != 0 && this.state.controllerTypeID < 0) {
-            /**uncomment below code when replacing with real time url */
-            //making API call to DB
-            displayControllerService.downloadFileFromDB(this.state.cgtName,id,supportFileType,0,-1).then(response => 
-            {
-            //download the file in chunks
-                //popping up a message
-                 Alert.success('<h4>downloading the file from DB</h4>');
-                 resetTimeoutNow();
-                });
+            this.setState({isDBCall: true});
+            this.setState({supportFileType: supportFileType});
+            this.setState({rowID: id});
         } else {
-            //open up download configuration window
-            this.setState({modalIsOpenConfrim: true});
+            this.setState({isDBCall: false});
         }
     }
 
@@ -565,7 +562,8 @@ return (
                     <DownloadConfiguration 
                     closeDownloadConfirmModal={this.closeDownloadConfirmModal}
                     openModal={this.openModal} changeState={this.changeState} 
-                    closeModal={this.closeModal} />
+                    closeModal={this.closeModal} isDBCall={this.state.isDBCall}
+                    supportFileType={this.state.supportFileType} cgtName={this.state.cgtName} rowID={this.state.rowID}/>
                 </Modal>
                                 {/** progress bar
                 https://github.com/reactjs/react-modal

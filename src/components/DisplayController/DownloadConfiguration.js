@@ -28,14 +28,25 @@ class DownloadConfiguration extends React.Component {
     event.preventDefault();
     //making sure both the checkboxes are checked
     if (this.state.isKitConnected && this.state.isPrepared) {
-        //making api call to download file from system
+        resetTimeoutNow();
+        if(this.props.isDBCall==false){
+        //making api call to download file from system    
         displayControllerService.downloadFileFromSystem()
-            .then(response => {
-                //$('#close-download-confrim').click();
-                resetTimeoutNow();
+            .then(response => 
+            {            
                 this.downloadFile(response);
                 this.props.closeDownloadConfirmModal();
             });
+        }else{
+        //making api call to download file from DB
+        displayControllerService.downloadFileFromDB(this.props.cgtName,this.props.rowID,this.props.supportFileType,0,-1)
+        .then(response => 
+            {
+                 saveByteArray(response.FileData,response.fileName);
+                 Alert.success('<h4>downloading the file from DB</h4>');
+                 this.props.closeDownloadConfirmModal(); 
+            });
+        }    
     } else {
         Alert.error("<h4>Please check both the checkboxs</h4>");
     }
@@ -49,7 +60,7 @@ class DownloadConfiguration extends React.Component {
 	const writer = fileStream.getWriter()
 	// Later you will be able to just simply do
 	// res.body.pipeTo(fileStream)
-        
+    //response.DataBytes.getReader() will be replaced    
 	const reader = response.body.getReader()
 	const pump = () => reader.read()
 		.then(({ value, done }) => done
@@ -62,10 +73,10 @@ class DownloadConfiguration extends React.Component {
 	// Start the reader
 	pump().then(() =>{
         console.log('Closed the stream, Done writing');
+        this.props.changeState(100,'lightgreen');
         this.props.closeModal();   
     }
     )
-    this.props.changeState(100,'lightgreen');
     //this.props.changeState(50,'#FF6600');
     }
 
