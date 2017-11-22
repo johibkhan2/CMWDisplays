@@ -365,6 +365,12 @@ class FileDownloadComponent extends Component {
             return <button  className=".btn-default" onClick={this.downLoadConfirm.bind(this,cell, row['SupportFileType'])}>Download</button> ;
         }
 
+        // const fileTypes = {
+        //     0: 'good',
+        //     1: 'bad',
+        //     2: 'unknown'
+        // };
+
         //react-boostrap grid configuration
         const options = {
             page: 2, // which page you want to show as default
@@ -413,7 +419,8 @@ return (
                     <input type="radio" name="fileType" value={this.state.showSupportFiles} onChange={this.handleFileType}/>
                     <span>&nbsp;&nbsp;Show Support Files</span>
                     <select id="fileTypes" className="form-control supportFileSelect" disabled={this.state.isFileTypeDisabled} onChange={this.changeFileType}>
-                        {this.state.fileTypes
+                    <option value=""></option>    
+                    {this.state.fileTypes
                             .map(file => {
                                 return (
                                     <option value={file.CodeValue}>
@@ -525,7 +532,7 @@ return (
                         dataField='ID'
                         isKey={true}
                         dataFormat={downloadFormatter.bind(this, 'ID')}>Action</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='SupportFileType'>Type</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='SupportFileType' filter={ { type: 'RegexFilter'} } >Type</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='Version'>Version</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='FileName'>File Name</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='Notes'>Notes</TableHeaderColumn>
@@ -548,7 +555,7 @@ return (
                         dataField='ID'
                         isKey={true}
                         dataFormat={downloadFormatter.bind(this, 'ID')}>Action</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='SupportFileType'>Type</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='SupportFileType' filter={ { type: 'RegexFilter'} } >Type</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='SFVersion'>Version</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='SFileName'>File Name</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='Notes'>Notes</TableHeaderColumn>

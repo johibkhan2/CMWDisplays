@@ -15,7 +15,11 @@ class DownloadConfiguration extends React.Component {
 
         this.state = {
              isKitConnected: false,
-             isPrepared:false
+             isPrepared:false,
+             totalFileSize:0,
+             totalBytesSaved:0,
+             totalBytes: new new Int8Array(),
+             offset=0
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
@@ -30,12 +34,14 @@ class DownloadConfiguration extends React.Component {
     if (this.state.isKitConnected && this.state.isPrepared) {
         resetTimeoutNow();
         if(this.props.isDBCall==false){
-        //making api call to download file from system    
-        displayControllerService.downloadFileFromSystem()
-            .then(response => 
-            {            
-                this.downloadFile(response);
-                this.props.closeDownloadConfirmModal();
+        //making api call to download file from system
+            // if (this.state.dataLength < 1 || this.state.totalBytesSaved >= this.state.totalFileSize) {
+            //     saveByteArray(this.state.totalBytes,'xyx');
+            // } else {
+            displayControllerService.downloadFileFromSystem().then(response => 
+            {           this.props.closeDownloadConfirmModal();
+                        this.readSystemfileInChunks(response);
+                        
             });
         }else{
         //making api call to download file from DB
@@ -52,33 +58,60 @@ class DownloadConfiguration extends React.Component {
     }
     }
 
-    downloadFile(response){
-    //opening downloading progress bar
-    this.props.openModal();
-    //response.FileName    and response.FileType from response.remove hard coded value    
-    const fileStream = streamSaver.createWriteStream('filename.docx')
-	const writer = fileStream.getWriter()
-	// Later you will be able to just simply do
-	// res.body.pipeTo(fileStream)
-    //response.DataBytes.getReader() will be replaced    
-	const reader = response.body.getReader()
-	const pump = () => reader.read()
-		.then(({ value, done }) => done
-			// close the stream so we stop writing
-			? writer.close()
-			// Write one chunk, then get the next one
-			: writer.write(value).then(pump)
-		)
+    readSystemfileInChunks(response){
+        //this.setState({totalFileSize:response.TotalFileSize});
+        this.setState({totalBytes: new Int8Array(response.TotalFileSize)}); 
+        while(this.state.totalBytesSaved >= response.TotalFileSize)
+        {
+            displayControllerService.downloadFileFromSystem().then(response => 
+            {
+                if(response.DataLength < 1 || this.state.totalBytesSaved >= response.TotalFileSize){
+                    saveByteArray(this.state.totalBytes,response.fileName);
+                    break;
+                }else{        
+                this.concatenate(response.DataBytes,response.DataLength);
+                }
+            });
+        }
+    }
 
-	// Start the reader
-	pump().then(() =>{
-        console.log('Closed the stream, Done writing');
-        this.props.changeState(100,'lightgreen');
-        this.props.closeModal();   
+    // downloadFile(response){
+    // //opening downloading progress bar
+    // this.props.openModal();
+    // //response.FileName    and response.FileType from response.remove hard coded value    
+    // const fileStream = streamSaver.createWriteStream('filename.docx')
+	// const writer = fileStream.getWriter()
+	// // Later you will be able to just simply do
+	// // res.body.pipeTo(fileStream)
+    // //response.DataBytes.getReader() will be replaced    
+	// const reader = response.body.getReader()
+	// const pump = () => reader.read()
+	// 	.then(({ value, done }) => done
+	// 		// close the stream so we stop writing
+	// 		? writer.close()
+	// 		// Write one chunk, then get the next one
+	// 		: writer.write(value).then(pump)
+	// 	)
+
+	// // Start the reader
+	// pump().then(() =>{
+    //     console.log('Closed the stream, Done writing');
+    //     this.props.changeState(100,'lightgreen');
+    //     this.props.closeModal();   
+    // }
+    // )
+    // //this.props.changeState(50,'#FF6600');
+    // }
+
+
+   // console.log(concatenate(Uint8Array,Uint8Array.of(1, 2), Uint8Array.of(3, 4)));
+
+    concatenate(arr,dataLength) {
+    let chunk = new Int8Array( arr );    
+    this.state.totalBytes.set(chunk, this.state.offset);
+    this.setState({offset:this.state.offset+ dataLength });
     }
-    )
-    //this.props.changeState(50,'#FF6600');
-    }
+    
 
     //setting the values for checkboxs
     handleCheckBoxChange(event) {
