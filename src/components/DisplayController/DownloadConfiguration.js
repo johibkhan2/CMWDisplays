@@ -19,7 +19,7 @@ class DownloadConfiguration extends React.Component {
              totalFileSize:0,
              totalBytesSaved:0,
              totalBytes: new new Int8Array(),
-             offset=0
+             offset:0
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
@@ -63,15 +63,20 @@ class DownloadConfiguration extends React.Component {
         this.setState({totalBytes: new Int8Array(response.TotalFileSize)}); 
         while(this.state.totalBytesSaved >= response.TotalFileSize)
         {
+            if(this.props.isCancelledDownload==true){
+                this.setState({totalBytes: new Int8Array()}); 
+                break;
+            }else{
             displayControllerService.downloadFileFromSystem().then(response => 
             {
                 if(response.DataLength < 1 || this.state.totalBytesSaved >= response.TotalFileSize){
                     saveByteArray(this.state.totalBytes,response.fileName);
-                    break;
+                    //break;
                 }else{        
                 this.concatenate(response.DataBytes,response.DataLength);
                 }
             });
+            }
         }
     }
 

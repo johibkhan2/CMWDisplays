@@ -78,7 +78,8 @@ class FileDownloadComponent extends Component {
             percent:10,
             color:'#D3D3D3',
             isDBCall:false,
-            rowID:0
+            rowID:0,
+            isCancelledDownload:false
         };
      this.downLoadConfirm = this.downLoadConfirm.bind(this);
      this.changeGroupTypes=this.changeGroupTypes.bind(this); 
@@ -343,14 +344,10 @@ class FileDownloadComponent extends Component {
 
 //cancelling the downloading progress bar 
     closeModal() {
-        console.log("closeModal");
+        console.log("closeModal-download");
         this.setState({modalIsOpen: false});
+        this.setState({isCancelledDownload: true});
         //cancelling download
-        if (window.stop !== undefined) {
-            window.stop();
-        } else if (document.execCommand !== undefined) {
-            document.execCommand("Stop", false);
-        }
     }
 
     //changing % and color of loader
@@ -365,11 +362,20 @@ class FileDownloadComponent extends Component {
             return <button  className=".btn-default" onClick={this.downLoadConfirm.bind(this,cell, row['SupportFileType'])}>Download</button> ;
         }
 
-        // const fileTypes = {
-        //     0: 'good',
-        //     1: 'bad',
-        //     2: 'unknown'
-        // };
+        const fileTypes = {
+            '': 'All',
+            'BC': 'Boot Code',
+            'BL': 'Boot Loader',
+            'FC':'Flash Code',
+            'SF':'Source File',
+            'IN':'Instructions',
+            'TO':'Tool'	
+        };
+        
+        // function enumFormatter(cell, row, enumObject) {
+        // return enumObject[cell];
+        // }
+        
 
         //react-boostrap grid configuration
         const options = {
@@ -532,7 +538,8 @@ return (
                         dataField='ID'
                         isKey={true}
                         dataFormat={downloadFormatter.bind(this, 'ID')}>Action</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='SupportFileType' filter={ { type: 'RegexFilter'} } >Type</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='SupportFileType' 
+                    filter={ { type: 'SelectFilter', options: fileTypes } } >Type</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='Version'>Version</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='FileName'>File Name</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='Notes'>Notes</TableHeaderColumn>
@@ -555,7 +562,8 @@ return (
                         dataField='ID'
                         isKey={true}
                         dataFormat={downloadFormatter.bind(this, 'ID')}>Action</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='SupportFileType' filter={ { type: 'RegexFilter'} } >Type</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='SupportFileType'  
+                    filter={ { type: 'SelectFilter', options: fileTypes } } >Type</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='SFVersion'>Version</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='SFileName'>File Name</TableHeaderColumn>
                     <TableHeaderColumn width='100' dataField='Notes'>Notes</TableHeaderColumn>
@@ -579,7 +587,7 @@ return (
                     closeDownloadConfirmModal={this.closeDownloadConfirmModal}
                     openModal={this.openModal} changeState={this.changeState} 
                     closeModal={this.closeModal} isDBCall={this.state.isDBCall}
-                    supportFileType={this.state.supportFileType} cgtName={this.state.cgtName} rowID={this.state.rowID}/>
+                    supportFileType={this.state.supportFileType} cgtName={this.state.cgtName} rowID={this.state.rowID} isCancelledDownload={this.state.isCancelledDownload}/>
                 </Modal>
                                 {/** progress bar
                 https://github.com/reactjs/react-modal
