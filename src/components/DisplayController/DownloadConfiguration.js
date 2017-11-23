@@ -18,8 +18,7 @@ class DownloadConfiguration extends React.Component {
              isPrepared:false,
              totalFileSize:0,
              totalBytesSaved:0,
-             totalBytes: new new Int8Array(),
-             offset:0
+             totalBytes: new Int8Array()
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
@@ -41,6 +40,10 @@ class DownloadConfiguration extends React.Component {
             displayControllerService.downloadFileFromSystem().then(response => 
             {           this.props.closeDownloadConfirmModal();
                         this.readSystemfileInChunks(response);
+                        saveByteArray(this.state.totalBytes,response.fileName);
+                        this.props.changeState(100,'lightgreen');
+                        //we need to check whether we can put this condition here this.props.isCancelledDownload==false
+                        this.setState({totalBytes: new Int8Array()}); 
                         
             });
         }else{
@@ -59,24 +62,19 @@ class DownloadConfiguration extends React.Component {
     }
 
     readSystemfileInChunks(response){
-        //this.setState({totalFileSize:response.TotalFileSize});
         this.setState({totalBytes: new Int8Array(response.TotalFileSize)}); 
-        while(this.state.totalBytesSaved >= response.TotalFileSize)
+        while((response.DataLength < 1 ||this.state.totalBytesSaved >= response.TotalFileSize) && this.props.isCancelledDownload==false)
         {
-            if(this.props.isCancelledDownload==true){
-                this.setState({totalBytes: new Int8Array()}); 
-                break;
-            }else{
             displayControllerService.downloadFileFromSystem().then(response => 
             {
-                if(response.DataLength < 1 || this.state.totalBytesSaved >= response.TotalFileSize){
-                    saveByteArray(this.state.totalBytes,response.fileName);
-                    //break;
-                }else{        
+                // if(response.DataLength < 1 || this.state.totalBytesSaved >= response.TotalFileSize){
+                //     saveByteArray(this.state.totalBytes,response.fileName);
+                //     this.props.changeState(100,'lightgreen');
+                //     break;
+                // }else{        
                 this.concatenate(response.DataBytes,response.DataLength);
-                }
+                //}
             });
-            }
         }
     }
 
@@ -111,10 +109,17 @@ class DownloadConfiguration extends React.Component {
 
    // console.log(concatenate(Uint8Array,Uint8Array.of(1, 2), Uint8Array.of(3, 4)));
 
-    concatenate(arr,dataLength) {
+   //append chunks 
+   concatenate(arr,dataLength) {
     let chunk = new Int8Array( arr );    
     this.state.totalBytes.set(chunk, this.state.offset);
-    this.setState({offset:this.state.offset+ dataLength });
+    this.setState({totalBytesSaved:this.state.totalBytesSaved+ dataLength });
+    this.props.changeState(this.downloadedPercentage(this.state.totalBytesSaved,this.state.totalFileSize),'#FF6600');
+    }
+
+    //returns how much % file got downloaded
+    downloadedPercentage(totalBytesSaved,totalFileSize){
+        return totalBytesSaved*100/totalFileSize;
     }
     
 
